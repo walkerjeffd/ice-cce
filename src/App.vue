@@ -1,41 +1,76 @@
 <template>
   <div id="app">
-    <button @click="selectVariableById(1)">Select Variable</button>
-    <pre>
-variable: {{ variable }}
-    </pre>
-    <pre>
-variables: {{ variables }}
-    </pre>
+    <b-container>
+      <b-form-select
+        :value="selected.themeId"
+        :options="themes"
+        @input="selectThemeById"
+        value-field="id"
+        text-field="label"
+        class="mb-3"
+        size="sm" />
+      <b-form-select
+        :value="selected.variableId"
+        :options="variables"
+        @input="selectVariableById"
+        value-field="id"
+        text-field="label"
+        class="mb-3"
+        size="sm" />
+      <pre>
+selected: {{ selected }}
+      </pre>
+      <ice-map :options="map.options" :layer="layer"></ice-map>
+    </b-container>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
+
+import config from '../api/config';
+import IceMap from './components/IceMap';
 
 export default {
   name: 'App',
+  components: {
+    IceMap,
+  },
   data() {
     return {
-      message: 'Hello world',
+      selected: {
+        themeId: null,
+        variableId: null,
+      },
+      map: {
+        options: {
+          center: [48.7996273507997, -114.13696289062501],
+          zoom: 7,
+          maxZoom: 18,
+          minZoom: 5,
+        },
+      },
     };
   },
   computed: {
-    variables() {
-      return this.$store.state.variables;
+    ...mapGetters(['themes', 'theme', 'layer', 'variables', 'variable']),
+  },
+  watch: {
+    theme(theme) {
+      this.selected.themeId = theme.id;
     },
-    variable() {
-      return this.$store.state.variable;
+    variable(variable) {
+      this.selected.variableId = variable.id;
     },
   },
   created() {
-    this.$store.dispatch('setVariables', [
-      { id: 1, name: 'one' },
-      { id: 2, name: 'two' },
-    ]);
+    this.$store.dispatch('setConfig', config)
+      .then(() => {
+        this.$store.dispatch('selectDefaults');
+      });
   },
   methods: {
-    ...mapActions(['selectVariableById']),
+    ...mapActions(['selectThemeById', 'selectVariableById']),
   },
 };
 </script>

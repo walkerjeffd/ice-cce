@@ -4,6 +4,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import * as d3 from 'd3';
 import leaflet from 'leaflet/dist/leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -11,7 +12,7 @@ import 'leaflet/dist/leaflet.css';
 const L = leaflet;
 
 export default {
-  props: ['options', 'layer'],
+  props: ['options'],
   data() {
     return {
       svg: null,
@@ -67,10 +68,11 @@ export default {
       const path = d3.geoPath().projection(transform);
       return path;
     },
+    ...mapGetters(['layer', 'variable']),
   },
   watch: {
     layer(layer) {
-      console.log('watch:layer', layer); // eslint-disable-line
+      // console.log('ice-map:watch:layer', layer); // eslint-disable-line
 
       if (!layer) return;
 
@@ -82,6 +84,10 @@ export default {
         .remove();
 
       this.render();
+    },
+    variable() {
+      // console.log('ice-map:watch:variable', variable); // eslint-disable-line
+      this.renderFill();
     },
   },
   methods: {
@@ -127,6 +133,22 @@ export default {
         });
 
       fillPaths.exit().remove();
+
+      this.renderFill();
+    },
+    renderFill() {
+      const color = d3.scaleLinear()
+        .domain([0, 1])
+        .range(['brown', 'steelblue']);
+      this.svg.select('g.fill')
+        .selectAll('path.fill')
+        .style('fill', (d) => {
+          const values = this.$store.getters.valuesById(d.properties.id);
+          if (!values) return;
+
+          const value = values[this.variable.id];
+          return value === null ? '#eee' : color(value); // eslint-disable-line consistent-return
+        });
     },
   },
 };

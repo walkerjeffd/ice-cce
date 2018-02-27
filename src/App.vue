@@ -17,18 +17,15 @@
         text-field="label"
         class="mb-3"
         size="sm" />
-      <pre>
-selected: {{ selected }}
-      </pre>
-      <ice-map :options="map.options" :layer="layer"></ice-map>
+      <ice-map :options="map.options"></ice-map>
     </b-container>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import axios from 'axios';
 
-import config from '../api/config';
 import IceMap from './components/IceMap';
 
 export default {
@@ -64,9 +61,13 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('setConfig', config)
-      .then(() => {
-        this.$store.dispatch('selectDefaults');
+    axios.get('config.json')
+      .then(response => response.data)
+      .then((config) => {
+        this.$store.dispatch('setConfig', config)
+          .then(() => {
+            this.$store.dispatch('selectDefaults');
+          });
       });
   },
   methods: {

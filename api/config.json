@@ -1,0 +1,58 @@
+{
+  "themes": [
+    {
+      "id": "BLT",
+      "label": "Bull Trout",
+      "layer": "patch-blt.json",
+      "dataset": {
+        "url": "data-blt.csv",
+        "columns": {
+          "id": "patch_id",
+          "area": "area_km2"
+        }
+      },
+      "variables": [
+        {
+          "id": "stream_sr_km",
+          "label": "stream length (sr habitat)"
+        }, {
+          "id": "road_density",
+          "label": "road density"
+        }, {
+          "id": "stream_density",
+          "label": "stream density"
+        }, {
+          "id": "stream_sr_valley_km",
+          "label": "stream length (sr habitat, valley)"
+        }
+      ]
+    }, {
+      "id": "WCT",
+      "label": "Western Cutthroat Trout",
+      "layer": "patch-wct.json",
+      "dataset": {
+        "url": "data-wct.csv",
+        "columns": {
+          "id": "patch_id",
+          "area": "area_km2"
+        }
+      },
+      "variables": [
+        {
+          "id": "precip_base_5",
+          "label": "May precip (baseline)"
+        }, {
+          "id": "road_density",
+          "label": "road density"
+        }, {
+          "id": "st_avg_8_base",
+          "label": "average Aug stream temp (baseline)"
+        }
+      ]
+    }
+  ],
+  "defaults": {
+    "theme": "BLT",
+    "variable": "stream_sr_km"
+  }
+}

@@ -27,8 +27,6 @@ export default {
     },
   },
   mounted() {
-    console.log('legend:mounted');
-
     const svg = d3.select(this.$el).append('svg')
       .attr('width', this.width + this.margins.left + this.margins.right)
       .attr('height', 40);
@@ -76,8 +74,7 @@ export default {
   // },
   methods: {
     render() {
-      console.log('legend:render()');
-      //     var vm = this;
+      if (!this.variable) return;
 
       const svg = d3.select(this.$el).select('svg');
       const linearGradient = svg.select('linearGradient');
@@ -88,17 +85,12 @@ export default {
       gTicks.selectAll('rect').remove();
       gTickLabels.selectAll('text').remove();
 
-      //     if (!this.colorScale || !this.colorScale.domain || !this.variable) {
-      //       return;
-      //     }
-
       const domain = this.colorScale.domain();
       const minValue = this.variable.scale.min;
       const maxValue = this.variable.scale.max;
       const interval = (maxValue - minValue) / 4;
 
       const tickValues = d3.range(minValue, maxValue + interval, interval);
-      // const tickScale = d3.scaleLinear().domain([minValue, maxValue]).range([0, this.width]);
       const xScale = d3.scaleLinear().domain(domain).range([0, this.width]);
 
       const offsets = d3.range(0, 1.1, 0.1);

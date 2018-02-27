@@ -1,24 +1,47 @@
 <template>
   <div id="app">
     <b-container>
-      <b-form-select
-        :value="selected.themeId"
-        :options="themes"
-        @input="selectThemeById"
-        value-field="id"
-        text-field="label"
-        class="mb-3"
-        size="sm" />
-      <b-form-select
-        :value="selected.variableId"
-        :options="variables"
-        @input="selectVariableById"
-        value-field="id"
-        text-field="label"
-        class="mb-3"
-        size="sm" />
-      <ice-legend></ice-legend>
-      <ice-map :options="map.options"></ice-map>
+      <b-row>
+        <b-col>
+          <b-form-select
+            :value="selected.themeId"
+            :options="themes"
+            @input="selectThemeById"
+            value-field="id"
+            text-field="label"
+            class="mb-3"
+            size="sm" />
+          <b-form-select
+            :value="selected.variableId"
+            :options="variables"
+            @input="selectVariableById"
+            value-field="id"
+            text-field="label"
+            class="mb-3"
+            size="sm" />
+          <ice-legend></ice-legend>
+        </b-col>
+        <b-col cols="8">
+          <b-form-select
+            multiple
+            :value="selected.filterVariableIds"
+            :options="variables | filterVariable"
+            @input="updateFilters"
+            value-field="id"
+            text-field="label"
+            class="mb-3"
+            size="sm" />
+          <br><br>
+          <div v-for="filter in filters" :key="filter.variable.id">
+            <ice-filter :filter="filter"></ice-filter>
+          </div>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <ice-map :options="map.options"></ice-map>
+        </b-col>
+      </b-row>
     </b-container>
   </div>
 </template>
@@ -29,18 +52,21 @@ import axios from 'axios';
 
 import IceMap from './components/IceMap';
 import IceLegend from './components/IceLegend';
+import IceFilter from './components/IceFilter';
 
 export default {
   name: 'App',
   components: {
     IceMap,
     IceLegend,
+    IceFilter,
   },
   data() {
     return {
       selected: {
         themeId: null,
         variableId: null,
+        filterVariableIds: [],
       },
       map: {
         options: {
@@ -50,10 +76,14 @@ export default {
           minZoom: 5,
         },
       },
+      value: 25,
     };
   },
   computed: {
-    ...mapGetters(['themes', 'theme', 'layer', 'variables', 'variable']),
+    ...mapGetters(['themes', 'theme', 'layer', 'variables', 'variable', 'filters']),
+  },
+  filters: {
+    filterVariable: variables => variables.filter(v => v.filter),
   },
   watch: {
     theme(theme) {
@@ -74,7 +104,7 @@ export default {
       });
   },
   methods: {
-    ...mapActions(['selectThemeById', 'selectVariableById']),
+    ...mapActions(['selectThemeById', 'selectVariableById', 'updateFilters']),
   },
 };
 </script>

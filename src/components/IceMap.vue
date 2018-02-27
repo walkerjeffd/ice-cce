@@ -9,9 +9,12 @@ import * as d3 from 'd3';
 import leaflet from 'leaflet/dist/leaflet';
 import 'leaflet/dist/leaflet.css';
 
+import colorScaleMixin from '../mixins/colorScale';
+
 const L = leaflet;
 
 export default {
+  mixins: [colorScaleMixin],
   props: ['options'],
   data() {
     return {
@@ -137,9 +140,6 @@ export default {
       this.renderFill();
     },
     renderFill() {
-      const color = d3.scaleLinear()
-        .domain([0, 1])
-        .range(['brown', 'steelblue']);
       this.svg.select('g.fill')
         .selectAll('path.fill')
         .style('fill', (d) => {
@@ -147,7 +147,7 @@ export default {
           if (!values) return;
 
           const value = values[this.variable.id];
-          return value === null ? '#eee' : color(value); // eslint-disable-line consistent-return
+          return value === null ? '#eee' : this.colorScale(value); // eslint-disable-line consistent-return
         });
     },
   },

@@ -17,6 +17,7 @@
         text-field="label"
         class="mb-3"
         size="sm" />
+      <ice-legend></ice-legend>
       <ice-map :options="map.options"></ice-map>
     </b-container>
   </div>
@@ -27,11 +28,13 @@ import { mapActions, mapGetters } from 'vuex';
 import axios from 'axios';
 
 import IceMap from './components/IceMap';
+import IceLegend from './components/IceLegend';
 
 export default {
   name: 'App',
   components: {
     IceMap,
+    IceLegend,
   },
   data() {
     return {

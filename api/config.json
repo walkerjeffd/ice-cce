@@ -16,6 +16,9 @@
           "id": "stream_sr_km",
           "label": "stream length (sr habitat)",
           "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
           "scale": {
             "min": 0,
             "max": 130
@@ -24,6 +27,9 @@
           "id": "road_density",
           "label": "road density",
           "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
           "scale": {
             "min": 0,
             "max": 4
@@ -32,6 +38,9 @@
           "id": "stream_density",
           "label": "stream density",
           "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
           "scale": {
             "min": 0,
             "max": 4
@@ -40,6 +49,9 @@
           "id": "stream_sr_valley_km",
           "label": "stream length (sr habitat, valley)",
           "filter": false,
+          "formats": {
+            "text": ",.1f"
+          },
           "scale": {
             "min": 0,
             "max": 60
@@ -62,6 +74,9 @@
           "id": "precip_base_5",
           "label": "May precip (baseline)",
           "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
           "scale": {
             "min": 0,
             "max": 6
@@ -70,6 +85,9 @@
           "id": "road_density",
           "label": "road density",
           "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
           "scale": {
             "min": 0,
             "max": 8
@@ -78,6 +96,9 @@
           "id": "st_avg_8_base",
           "label": "average Aug stream temp (baseline)",
           "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
           "scale": {
             "min": 3,
             "max": 15

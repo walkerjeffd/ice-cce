@@ -1,15 +1,24 @@
 <template>
   <div>
-    <div class="title">{{ filter.variable.id }}</div>
+    <div class="title">Variable: {{ filter.variable.label }}</div>
     <div class="info">
-      <p>Filter: <span v-if="filterRange">{{ filterRange }}</span><span v-else>None</span></p>
+      <p>
+        Filter:
+          <span v-if="filterRange">
+            {{ filterRange[0] | textFormat }} -
+            {{ filterRange[1] | textFormat }}
+            <a href="#" @click.prevent="resetFilter">reset</a>
+          </span>
+          <span v-else>None</span>
+        <br>
+        Mean: <span v-if="meanValue">{{ meanValue | textFormat }}</span><span v-else>N/A</span>
+      </p>
     </div>
     <div class="chart"></div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import * as d3 from 'd3';
 
 import EventBus from '../event-bus';
@@ -19,7 +28,7 @@ function barChart() {
 
   const id = barChart.id++; // eslint-disable-line no-plusplus
   const axis = d3.svg.axis().orient('bottom');
-  let brush = d3.svg.brush();
+  const brush = d3.svg.brush();
   let margin = { top: 10, right: 10, bottom: 20, left: 10 };
   let y = d3.scale.linear().range([100, 0]);
   let x;
@@ -27,6 +36,7 @@ function barChart() {
   let dimension;
   let group;
   let round;
+  let meanValue = null;
   let onBrush = () => {};
 
   function chart(div) {
@@ -127,6 +137,22 @@ function barChart() {
       }
 
       g.selectAll('.bar').attr('d', barPath);
+
+      if (meanValue != null) {
+        const meanLine = g.selectAll('.mean')
+          .data([meanValue]);
+        meanLine.enter()
+          .append('line')
+          .attr('class', 'mean')
+          .attr('y1', y.range()[0])
+          .attr('y2', y.range()[1]);
+        meanLine
+          .style('display', null)
+          .attr('x1', d => x(d))
+          .attr('x2', d => x(d));
+      } else {
+        g.selectAll('.mean').style('display', 'none');
+      }
     });
   }
 
@@ -212,6 +238,12 @@ function barChart() {
     return chart;
   };
 
+  chart.meanValue = function (_) {
+    if (!arguments.length) return meanValue;
+    meanValue = _;
+    return chart;
+  };
+
   chart.getExtent = () => brush.extent();
 
   chart.onBrush = function (_) {
@@ -224,23 +256,26 @@ function barChart() {
 }
 
 export default {
-  props: ['filter'],
+  props: ['filter', 'xf'],
   data() {
     return {
       chart: null,
       dim: null,
       group: null,
       filterRange: null,
+      meanValue: null,
     };
   },
   computed: {
-    ...mapGetters(['xf']),
     variable() {
       if (!this.filter) {
         return null;
       }
       return this.filter.variable;
     },
+  },
+  filters: {
+    textFormat: value => d3.format(this.variable ? this.variable.formats.text : ',.1f')(value),
   },
   mounted() {
     const interval = (this.variable.scale.max - this.variable.scale.min) / 40;
@@ -266,18 +301,24 @@ export default {
 
     this.render();
 
-    EventBus.$on('refresh', () => {
-      this.render();
-    });
+    EventBus.$on('filter', this.render);
   },
   methods: {
     render() {
-      d3.select(this.$el).select('.chart').call(this.chart);
+      this.meanValue = this.$store.getters.getFilteredVariableMeanValue(this.variable.id);
+      d3.select(this.$el).select('.chart').call(this.chart.meanValue(this.meanValue));
+    },
+    resetFilter() {
+      this.chart.filter();
+      this.filterRange = null;
+      this.$emit('brush');
     },
   },
   destroyed() {
+    EventBus.$off('filter', this.render);
     this.group.dispose();
-    this.dim.dispose();
+    this.dim.filterAll().dispose();
+    this.$emit('brush');
   },
 };
 </script>
@@ -325,5 +366,10 @@ export default {
 .brush .resize path {
   fill: #eee;
   stroke: #666;
+}
+
+line.mean {
+  stroke: rgb(76, 174, 255);
+  stroke-width: 2px;
 }
 </style>

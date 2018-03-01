@@ -33,13 +33,14 @@
             size="sm" />
           <br><br>
           <div v-for="filter in filters" :key="filter.variable.id">
-            <ice-filter :filter="filter" @brush="brushed"></ice-filter>
+            <ice-filter :filter="filter" :xf="xf" @brush="brushed"></ice-filter>
           </div>
           <br><br>
         </b-col>
       </b-row>
       <b-row>
         <b-col>
+          <p># Patches Selected: {{ activeCount }} of {{ totalCount }}</p>
           <ice-map :options="map.options"></ice-map>
         </b-col>
       </b-row>
@@ -79,11 +80,10 @@ export default {
           minZoom: 5,
         },
       },
-      value: 25,
     };
   },
   computed: {
-    ...mapGetters(['themes', 'theme', 'layer', 'variables', 'variable', 'filters', 'xf']),
+    ...mapGetters(['themes', 'theme', 'layer', 'variables', 'variable', 'filters', 'xf', 'activeCount', 'totalCount']),
   },
   filters: {
     filterVariable: variables => variables.filter(v => v.filter),
@@ -105,11 +105,15 @@ export default {
             this.$store.dispatch('selectDefaults');
           });
       });
+
+    EventBus.$on('filter', () => {
+      this.$store.dispatch('updateActiveCount');
+    });
   },
   methods: {
     ...mapActions(['selectThemeById', 'selectVariableById', 'updateFilters']),
     brushed() {
-      EventBus.$emit('refresh');
+      EventBus.$emit('filter');
     },
   },
 };

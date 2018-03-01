@@ -19,7 +19,10 @@ const store = new Vuex.Store({
     data: [],
     map: new Map(),
     xf: null,
+    featureSet: new Set(),
     filters: [],
+    totalCount: 0,
+    activeCount: 0,
   },
   getters: {
     config: state => state.config,
@@ -30,10 +33,16 @@ const store = new Vuex.Store({
     // eslint-disable-next-line arrow-body-style
     variables: (state) => { return state.theme ? state.theme.variables : []; },
     variable: state => state.variable,
-    xf: state => state.xf,
     filters: state => state.filters,
+    data: state => state.data,
+    xf: state => state.xf,
+    featureSet: state => state.featureSet,
+    isFeatureFiltered: state => id => state.featureSet.has(id),
     valuesById: state => id => state.map.get(id),
-    crossfilter: state => state.xf,
+    totalCount: state => state.totalCount,
+    activeCount: state => state.activeCount,
+    getFilteredVariableMeanValue: state =>
+      variableId => d3.mean(state.xf.allFiltered(), d => d[variableId]),
   },
   mutations: {
     SET_CONFIG(state, config) {
@@ -53,10 +62,15 @@ const store = new Vuex.Store({
     },
     SET_DATA(state, data) {
       state.data = data;
-      state.xf = crossfilter(data);
     },
     SET_DATAMAP(state, map) {
       state.map = map;
+    },
+    SET_CROSSFILTER(state, xf) {
+      state.xf = xf;
+    },
+    SET_FEATURE_SET(state, featureSet) {
+      state.featureSet = featureSet;
     },
     ADD_FILTER(state, filter) {
       state.filters.push(filter);
@@ -65,13 +79,19 @@ const store = new Vuex.Store({
       const index = state.filters.indexOf(filter);
       state.filters.splice(index, 1);
     },
+    SET_TOTAL_COUNT(state, count) {
+      state.totalCount = count;
+    },
+    SET_ACTIVE_COUNT(state, count) {
+      state.activeCount = count;
+    },
   },
   actions: {
     setConfig({ commit }, config) {
       commit('SET_CONFIG', config);
     },
     selectDefaults({ dispatch, state }) {
-      dispatch('selectThemeById', state.config.defaults.theme)
+      return dispatch('selectThemeById', state.config.defaults.theme)
         .then(() => dispatch('selectVariableById', state.config.defaults.variable));
     },
     selectThemeById({ commit, getters }, themeId) {
@@ -101,11 +121,31 @@ const store = new Vuex.Store({
 
               const dataMap = new Map(data.map(d => [d.id, d]));
 
+              const xf = crossfilter(data);
+
+              const featureSet = new Set();
+              xf.groupAll().reduce(
+                (p, v) => {
+                  featureSet.add(v.id);
+                  return p++;
+                },
+                (p, v) => {
+                  featureSet.delete(v.id);
+                  return p--;
+                },
+                () => 0,
+              ).value();
+
+
               commit('SET_THEME', theme);
               commit('SET_VARIABLE', theme.variables[0]);
               commit('SET_LAYER', layer);
               commit('SET_DATA', data);
               commit('SET_DATAMAP', dataMap);
+              commit('SET_CROSSFILTER', xf);
+              commit('SET_FEATURE_SET', featureSet);
+              commit('SET_TOTAL_COUNT', data.length);
+              commit('SET_ACTIVE_COUNT', data.length);
             });
         });
     },
@@ -139,6 +179,19 @@ const store = new Vuex.Store({
         addFilters.forEach((id) => {
           dispatch('addFilterByVariableId', id);
         });
+      }
+    },
+    setTotalCount({ commit }, count) {
+      commit('SET_TOTAL_COUNT', count);
+    },
+    setActiveCount({ commit }, count) {
+      commit('SET_ACTIVE_COUNT', count);
+    },
+    updateActiveCount({ commit, state }) {
+      if (state.xf) {
+        commit('SET_ACTIVE_COUNT', state.xf.groupAll().value());
+      } else {
+        commit('SET_ACTIVE_COUNT', 0);
       }
     },
   },

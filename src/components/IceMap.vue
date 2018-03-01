@@ -9,6 +9,7 @@ import * as d3 from 'd3';
 import leaflet from 'leaflet/dist/leaflet';
 import 'leaflet/dist/leaflet.css';
 
+import EventBus from '../event-bus';
 import colorScaleMixin from '../mixins/colorScale';
 
 const L = leaflet;
@@ -58,6 +59,8 @@ export default {
       this.resizeSvg();
       this.render();
     });
+
+    EventBus.$on('filter', this.renderFiltered);
   },
   computed: {
     path() {
@@ -70,7 +73,7 @@ export default {
       const path = d3.geo.path().projection(transform);
       return path;
     },
-    ...mapGetters(['layer', 'variable']),
+    ...mapGetters(['layer', 'variable', 'isFeatureFiltered']),
   },
   watch: {
     layer(layer) {
@@ -135,7 +138,15 @@ export default {
 
       fillPaths.exit().remove();
 
+      this.renderFiltered();
       this.renderFill();
+    },
+    renderFiltered() {
+      const svg = d3.select(this.map.getPanes().overlayPane).select('svg');
+      const fillPaths = svg.select('g.fill')
+        .selectAll('path.fill');
+      fillPaths
+        .style('opacity', d => (this.isFeatureFiltered(d.properties.id) ? 1 : 0));
     },
     renderFill() {
       const svg = d3.select(this.map.getPanes().overlayPane).select('svg');

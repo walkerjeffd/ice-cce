@@ -86,7 +86,7 @@ const store = new Vuex.Store({
             .then(response => response.data)
             .then((string) => {
               // parse CSV
-              const data = d3.csvParse(string, (d) => {
+              const data = d3.csv.parse(string, (d) => {
                 const o = {
                   id: d[theme.dataset.columns.id],
                   area: +d[theme.dataset.columns.area],
@@ -133,7 +133,7 @@ const store = new Vuex.Store({
           dispatch('removeFilter', filter);
         });
 
-        // add new filters now selected
+        // add new filters that are now selected
         const addFilters = variableIds
           .filter(id => (state.filters.map(f => f.variable.id).indexOf(id) <= -1));
         addFilters.forEach((id) => {

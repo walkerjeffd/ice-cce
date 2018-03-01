@@ -18,7 +18,6 @@ export default {
   props: ['options'],
   data() {
     return {
-      svg: null,
       map: null,
     };
   },
@@ -33,6 +32,15 @@ export default {
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
     });
     basemap.addTo(this.map);
+
+    const svg = d3.select(this.map.getPanes().overlayPane).append('svg');
+    const g = svg.append('g').attr('class', 'leaflet-zoom-hide');
+
+    g.append('g').classed('fill', true);
+    g.append('g').classed('aggregation-mouse', true);
+
+    // // tooltip
+    // this.tooltip = d3.select(this.$el).append('div').attr('class', 'ice-map-tooltip hidden');
 
     // let moveTimeout;
     // map.on('movestart', () => {
@@ -50,15 +58,6 @@ export default {
       this.resizeSvg();
       this.render();
     });
-
-    this.svg = d3.select(this.map.getPanes().overlayPane).append('svg');
-    const g = this.svg.append('g').attr('class', 'leaflet-zoom-hide');
-
-    g.append('g').classed('fill', true);
-    g.append('g').classed('aggregation-mouse', true);
-
-    // // tooltip
-    // this.tooltip = d3.select(this.$el).append('div').attr('class', 'ice-map-tooltip hidden');
   },
   computed: {
     path() {
@@ -67,29 +66,27 @@ export default {
         const point = vm.map.latLngToLayerPoint(new L.LatLng(y, x));
         this.stream.point(point.x, point.y);
       }
-      const transform = d3.geoTransform({ point: projectPoint });
-      const path = d3.geoPath().projection(transform);
+      const transform = d3.geo.transform({ point: projectPoint });
+      const path = d3.geo.path().projection(transform);
       return path;
     },
     ...mapGetters(['layer', 'variable']),
   },
   watch: {
     layer(layer) {
-      // console.log('ice-map:watch:layer', layer); // eslint-disable-line
-
       if (!layer) return;
 
       this.resizeSvg();
+      const svg = d3.select(this.map.getPanes().overlayPane).select('svg');
 
       // clear existing features
-      this.svg.select('g.fill')
+      svg.select('g.fill')
         .selectAll('path.fill')
         .remove();
 
       this.render();
     },
     variable() {
-      // console.log('ice-map:watch:variable', variable); // eslint-disable-line
       this.renderFill();
     },
   },
@@ -97,24 +94,26 @@ export default {
     resizeSvg() {
       if (!this.layer) return;
 
+      const svg = d3.select(this.map.getPanes().overlayPane).select('svg');
       const bounds = this.path.bounds(this.layer);
       const topLeft = bounds[0];
       const bottomRight = bounds[1];
 
-      this.svg.attr('width', bottomRight[0] - topLeft[0])
+      svg.attr('width', bottomRight[0] - topLeft[0])
         .attr('height', bottomRight[1] - topLeft[1])
         .style('left', `${topLeft[0]}px`)
         .style('top', `${topLeft[1]}px`);
 
-      this.svg.select('g').attr('transform', `translate(${-topLeft[0]},${-topLeft[1]})`);
+      svg.select('g').attr('transform', `translate(${-topLeft[0]},${-topLeft[1]})`);
     },
     render() {
       if (!this.layer) return;
 
+      const svg = d3.select(this.map.getPanes().overlayPane).select('svg');
       const features = this.layer.features;
 
       // bottom layer that only shows the color of each feature
-      const fillPaths = this.svg.select('g.fill')
+      const fillPaths = svg.select('g.fill')
         .selectAll('path.fill')
         .data(features, d => d.properties.id);
 
@@ -122,11 +121,10 @@ export default {
         .append('path')
         .classed('fill', true)
         .style('cursor', 'pointer')
-        .style('pointer-events', 'visible')
-        .merge(fillPaths)
-        .attr('d', this.path)
+        .style('pointer-events', 'visible');
+
+      fillPaths.attr('d', this.path)
         .on('mousemove', function mousemove() {
-          // console.log('mousemove', d.properties.id); // eslint-disable-line
           d3.select(this)
             .style('stroke', 'red');
         })
@@ -140,7 +138,8 @@ export default {
       this.renderFill();
     },
     renderFill() {
-      this.svg.select('g.fill')
+      const svg = d3.select(this.map.getPanes().overlayPane).select('svg');
+      svg.select('g.fill')
         .selectAll('path.fill')
         .style('fill', (d) => {
           const values = this.$store.getters.valuesById(d.properties.id);

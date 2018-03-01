@@ -91,7 +91,7 @@ export default {
       const interval = (maxValue - minValue) / 4;
 
       const tickValues = d3.range(minValue, maxValue + interval, interval);
-      const xScale = d3.scaleLinear().domain(domain).range([0, this.width]);
+      const xScale = d3.scale.linear().domain(domain).range([0, this.width]);
 
       const offsets = d3.range(0, 1.1, 0.1);
 
@@ -110,8 +110,9 @@ export default {
         .attr('width', 1)
         .attr('height', 5)
         .attr('y', 20)
-        .style('fill', 'gray')
-        .merge(ticks)
+        .style('fill', 'gray');
+
+      ticks
         .attr('x', d => this.margins.left + (xScale(d) - 1));
 
       gTickLabels.selectAll('text')

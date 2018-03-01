@@ -7,7 +7,7 @@ export default {
       if (this.variable) {
         domain = [this.variable.scale.min, this.variable.scale.max];
       }
-      return d3.scaleLinear()
+      return d3.scale.linear()
         .domain(domain)
         .range(['brown', 'steelblue']);
     },

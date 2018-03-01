@@ -35,6 +35,7 @@
           <div v-for="filter in filters" :key="filter.variable.id">
             <ice-filter :filter="filter"></ice-filter>
           </div>
+          <br><br>
         </b-col>
       </b-row>
       <b-row>
@@ -80,7 +81,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['themes', 'theme', 'layer', 'variables', 'variable', 'filters']),
+    ...mapGetters(['themes', 'theme', 'layer', 'variables', 'variable', 'filters', 'xf']),
   },
   filters: {
     filterVariable: variables => variables.filter(v => v.filter),

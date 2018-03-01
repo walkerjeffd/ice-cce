@@ -33,7 +33,7 @@
             size="sm" />
           <br><br>
           <div v-for="filter in filters" :key="filter.variable.id">
-            <ice-filter :filter="filter"></ice-filter>
+            <ice-filter :filter="filter" @brush="brushed"></ice-filter>
           </div>
           <br><br>
         </b-col>
@@ -50,6 +50,8 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import axios from 'axios';
+
+import EventBus from './event-bus';
 
 import IceMap from './components/IceMap';
 import IceLegend from './components/IceLegend';
@@ -106,6 +108,9 @@ export default {
   },
   methods: {
     ...mapActions(['selectThemeById', 'selectVariableById', 'updateFilters']),
+    brushed() {
+      EventBus.$emit('refresh');
+    },
   },
 };
 </script>

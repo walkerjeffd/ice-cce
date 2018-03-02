@@ -5,7 +5,6 @@
     <div class="ice-container">
       <div class="ice-left-sidebar">
         <div class="ice-box">
-          <div class="ice-box-title">Menu</div>
           <button class="btn btn-default" @click="modals.about = true">
               <i class="fa fa-question-circle"></i> About
             </button>
@@ -70,17 +69,27 @@
           </div>
         </div>
       </div>
-      <ice-map :options="map.options"></ice-map>
+      <ice-select-info
+        :selected="selectedFeature"
+        @zoomTo="zoomToFeature"
+        @unselect="selectFeature"
+        v-if="selectedFeature">
+      </ice-select-info>
+      <ice-map
+        :options="map.options"
+        :selectedFeature="selectedFeature"
+        @selectFeature="selectFeature">
+      </ice-map>
       <div class="ice-loading" v-show="loading">
         <h1>Loading</h1>
         <div><i class="fa fa-spinner fa-spin fa-5x fa-fw"></i></div>
       </div>
     </div>
-    <modal :show="modals.about" @close="modals.about = false" size="lg">
+    <modal :show="modals.about" @close="modals.about = false">
       <span slot="title">About the Interactive Catchment Explorer</span>
       <div slot="body">Description and brief how-to on the Interactive Catchment Explorer</div>
     </modal>
-    <modal :show="modals.dataset" @close="modals.dataset = false" size="lg">
+    <modal :show="modals.dataset" @close="modals.dataset = false">
       <span slot="title">About the Crown of the Continent Ecosystem Dataset</span>
       <div slot="body">Information about the dataset, link to download?</div>
     </modal>
@@ -97,6 +106,7 @@ import IceHeader from './components/IceHeader';
 import IceMap from './components/IceMap';
 import IceLegend from './components/IceLegend';
 import IceFilter from './components/IceFilter';
+import IceSelectInfo from './components/IceSelectInfo';
 import Modal from './components/Modal';
 import SelectPicker from './components/SelectPicker';
 
@@ -107,6 +117,7 @@ export default {
     IceMap,
     IceLegend,
     IceFilter,
+    IceSelectInfo,
     Modal,
     SelectPicker,
   },
@@ -134,7 +145,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['themes', 'theme', 'layer', 'variables', 'variable', 'filters', 'xf', 'activeCount', 'totalCount']),
+    ...mapGetters(['themes', 'theme', 'layer', 'variables', 'variable', 'filters', 'xf', 'activeCount', 'totalCount', 'selectedFeature']),
   },
   filters: {
     filterVariable: variables => variables.filter(v => v.filter),
@@ -168,15 +179,19 @@ export default {
     this.handleResize();
   },
   methods: {
-    ...mapActions(['selectVariableById']),
+    ...mapActions(['selectVariableById', 'selectFeature']),
     handleResize() {
       this.maxHeight = window.innerHeight - 220;
     },
+    zoomToFeature(feature) {
+      EventBus.$emit('zoomToFeature', feature);
+    },
     selectThemeById(id) {
       this.loading = true;
+      this.selectFeature();
+      this.updateFilters([]);
       this.$store.dispatch('selectThemeById', id)
         .then(() => {
-          this.updateFilters([]);
           this.loading = false;
         });
     },
@@ -257,36 +272,6 @@ a {
   margin-top: 10px;
   margin-bottom: 20px;
 }
-
-/*
-.ice-select-box {
-  position: absolute;
-  right: 435px;
-  padding: 5px 5px;
-  background: #fff;
-  font-size: 12px;
-  border-radius: 5px;
-  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
-  z-index: 1000;
-}
-
-.ice-select-box.aggregation {
-  top: 70px;
-}
-
-.ice-select-box.catchment {
-  top: 140px;
-}
-
-.ice-select-box-title {
-  font-size: 1.2em;
-}
-
-.ice-select-box-body {
-  width: 100%;
-  margin-top: 5px;
-}
-*/
 
 .ice-loading {
   width: 100%;

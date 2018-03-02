@@ -23,6 +23,7 @@ const store = new Vuex.Store({
     filters: [],
     totalCount: 0,
     activeCount: 0,
+    selectedFeature: null,
   },
   getters: {
     config: state => state.config,
@@ -38,6 +39,7 @@ const store = new Vuex.Store({
     xf: state => state.xf,
     featureSet: state => state.featureSet,
     isFeatureFiltered: state => id => state.featureSet.has(id),
+    selectedFeature: state => state.selectedFeature,
     valuesById: state => id => state.map.get(id),
     totalCount: state => state.totalCount,
     activeCount: state => state.activeCount,
@@ -84,6 +86,12 @@ const store = new Vuex.Store({
     },
     SET_ACTIVE_COUNT(state, count) {
       state.activeCount = count;
+    },
+    SELECT_FEATURE(state, feature) {
+      state.selectedFeature = feature;
+    },
+    UNSELECT_FEATURE(state) {
+      state.selectedFeature = null;
     },
   },
   actions: {
@@ -192,6 +200,13 @@ const store = new Vuex.Store({
         commit('SET_ACTIVE_COUNT', state.xf.groupAll().value());
       } else {
         commit('SET_ACTIVE_COUNT', 0);
+      }
+    },
+    selectFeature({ commit }, feature) {
+      if (feature) {
+        commit('SELECT_FEATURE', feature);
+      } else {
+        commit('UNSELECT_FEATURE');
       }
     },
   },

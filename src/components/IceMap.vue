@@ -16,7 +16,7 @@ require('leaflet-bing-layer');
 
 export default {
   mixins: [colorScaleMixin],
-  props: ['options'],
+  props: ['options', 'selectedFeature'],
   data() {
     return {
       map: null,
@@ -37,7 +37,7 @@ export default {
       'Open Street Map': L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       }),
-      None: L.tileLayer(''),
+      'No Basemap': L.tileLayer(''),
     };
 
     L.control.layers(basemaps, [], {
@@ -71,6 +71,7 @@ export default {
     });
 
     EventBus.$on('filter', this.renderFiltered);
+    EventBus.$on('zoomToFeature', this.zoomToFeature);
   },
   computed: {
     path() {
@@ -83,6 +84,9 @@ export default {
       const path = d3.geo.path().projection(transform);
       return path;
     },
+    svg() {
+      return d3.select(this.map.getPanes().overlayPane).select('svg');
+    },
     ...mapGetters(['layer', 'variable', 'isFeatureFiltered']),
   },
   watch: {
@@ -90,10 +94,10 @@ export default {
       if (!layer) return;
 
       this.resizeSvg();
-      const svg = d3.select(this.map.getPanes().overlayPane).select('svg');
 
       // clear existing features
-      svg.select('g.fill')
+      this.svg
+        .select('g.fill')
         .selectAll('path.fill')
         .remove();
 
@@ -102,8 +106,17 @@ export default {
     variable() {
       this.renderFill();
     },
+    selectedFeature() {
+      this.renderSelected();
+    },
   },
   methods: {
+    zoomToFeature(feature) {
+      if (!feature) return;
+
+      const geoJson = L.geoJson(feature);
+      this.map.fitBounds(geoJson.getBounds());
+    },
     tooltipHtml(d) {
       const values = this.$store.getters.valuesById(d.properties.id);
       if (!values) {
@@ -135,11 +148,11 @@ export default {
       if (!this.layer) return;
 
       const vm = this;
-      const svg = d3.select(this.map.getPanes().overlayPane).select('svg');
       const features = this.layer.features;
 
       // bottom layer that only shows the color of each feature
-      const paths = svg.select('g.fill')
+      const paths = this.svg
+        .select('g.fill')
         .selectAll('path.fill')
         .data(features, d => d.properties.id);
 
@@ -171,23 +184,29 @@ export default {
         })
         .on('click', (d) => {
           if (this.disableClick) return;
-          console.log('clicked', d.properties.id);
+
+          if (this.selectedFeature === d) {
+            this.$emit('selectFeature');
+          } else {
+            this.$emit('selectFeature', d);
+          }
         });
 
       paths.exit().remove();
 
       this.renderFiltered();
       this.renderFill();
+      this.renderSelected();
     },
     renderFiltered() {
-      const svg = d3.select(this.map.getPanes().overlayPane).select('svg');
-      svg.select('g.fill')
+      this.svg
+        .select('g.fill')
         .selectAll('path.fill')
         .style('display', d => (this.isFeatureFiltered(d.properties.id) ? 'inline' : 'none'));
     },
     renderFill() {
-      const svg = d3.select(this.map.getPanes().overlayPane).select('svg');
-      svg.select('g.fill')
+      this.svg
+        .select('g.fill')
         .selectAll('path.fill')
         .style('fill', (d) => {
           const values = this.$store.getters.valuesById(d.properties.id);
@@ -196,6 +215,12 @@ export default {
           const value = values[this.variable.id];
           return value === null ? '#eee' : this.colorScale(value); // eslint-disable-line consistent-return
         });
+    },
+    renderSelected() {
+      this.svg
+        .select('g.fill')
+        .selectAll('path.fill')
+        .classed('selected', d => this.selectedFeature && this.selectedFeature === d);
     },
   },
 };
@@ -211,6 +236,10 @@ path.fill {
   fill: rgb(200,200,200);
   stroke: rgb(0, 0, 0);
   stroke-width: 0.5;
+}
+
+path.fill.selected {
+  stroke: red;
 }
 
 div.leaflet-top.leaflet-left {
@@ -253,5 +282,4 @@ div.leaflet-top.leaflet-left {
   opacity: 0.9;
   z-index: 3000;
 }
-
 </style>

@@ -9,7 +9,7 @@ export default {
       }
       return d3.scale.linear()
         .domain(domain)
-        .range(['brown', 'steelblue']);
+        .range(['steelblue', 'orangered']);
     },
   },
 };

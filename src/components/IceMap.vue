@@ -11,8 +11,8 @@ import 'leaflet/dist/leaflet.css';
 import EventBus from '../event-bus';
 import colorScaleMixin from '../mixins/colorScale';
 
+require('../leaflet/controlTransparency');
 require('leaflet-bing-layer');
-
 
 export default {
   mixins: [colorScaleMixin],
@@ -20,6 +20,8 @@ export default {
   data() {
     return {
       map: null,
+      tooltip: null,
+      disableClick: false,
     };
   },
   mounted() {
@@ -27,13 +29,21 @@ export default {
       ...this.options,
     });
 
+    L.control.transparency({ position: 'topleft' }).addTo(this.map);
     L.control.scale({ position: 'bottomleft' }).addTo(this.map);
 
-    // const basemap = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    //   attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-    // });
-    const basemap = L.tileLayer.bing('AvSDmEuhbTKvL0ui4AlHwQNBVuDI2QBBoeODy1vwOz5sW_kDnBx3UMtUxbjsZ3bN');
-    basemap.addTo(this.map);
+    const basemaps = {
+      'Bing Satellite': L.tileLayer.bing('AvSDmEuhbTKvL0ui4AlHwQNBVuDI2QBBoeODy1vwOz5sW_kDnBx3UMtUxbjsZ3bN').addTo(this.map),
+      'Open Street Map': L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+      }),
+      None: L.tileLayer(),
+    };
+
+    L.control.layers(basemaps, [], {
+      position: 'topleft',
+      collapsed: true,
+    }).addTo(this.map);
 
     const svg = d3.select(this.map.getPanes().overlayPane).append('svg');
     const g = svg.append('g').attr('class', 'leaflet-zoom-hide');
@@ -41,20 +51,19 @@ export default {
     g.append('g').classed('fill', true);
     g.append('g').classed('aggregation-mouse', true);
 
-    // // tooltip
-    // this.tooltip = d3.select(this.$el).append('div').attr('class', 'ice-map-tooltip hidden');
+    this.tooltip = d3.select(this.$el).append('div').attr('class', 'ice-map-tooltip hidden');
 
-    // let moveTimeout;
-    // map.on('movestart', () => {
-    //   window.clearTimeout(moveTimeout);
-    //   this.disableClick = true;
-    // });
-    // map.on('moveend', () => {
-    //   // this.setView([map.getCenter().lat, map.getCenter().lng], map.getZoom());
-    //   moveTimeout = setTimeout(() => {
-    //     this.disableClick = false;
-    //   }, 100);
-    // });
+    let moveTimeout;
+    this.map.on('movestart', () => {
+      window.clearTimeout(moveTimeout);
+      this.disableClick = true;
+    });
+    this.map.on('moveend', () => {
+      // this.setView([map.getCenter().lat, map.getCenter().lng], map.getZoom());
+      moveTimeout = setTimeout(() => {
+        this.disableClick = false;
+      }, 100);
+    });
     this.map.on('zoomend', () => {
       // this.setView([map.getCenter().lat, map.getCenter().lng], map.getZoom());
       this.resizeSvg();
@@ -95,6 +104,18 @@ export default {
     },
   },
   methods: {
+    tooltipHtml(d) {
+      const values = this.$store.getters.valuesById(d.properties.id);
+      if (!values) {
+        return 'N/A';
+      }
+
+      const value = values[this.variable.id];
+      const format = d3.format(this.variable.formats.text);
+      const formattedValue = value === null ? 'N/A' : format(value);
+
+      return `<span>Patch: ${d.properties.id} | LABEL</span><br><span>${this.variable.label} = ${formattedValue}</span>`;
+    },
     resizeSvg() {
       if (!this.layer) return;
 
@@ -113,41 +134,56 @@ export default {
     render() {
       if (!this.layer) return;
 
+      const vm = this;
       const svg = d3.select(this.map.getPanes().overlayPane).select('svg');
       const features = this.layer.features;
 
       // bottom layer that only shows the color of each feature
-      const fillPaths = svg.select('g.fill')
+      const paths = svg.select('g.fill')
         .selectAll('path.fill')
         .data(features, d => d.properties.id);
 
-      fillPaths.enter()
+      paths.enter()
         .append('path')
         .classed('fill', true)
         .style('cursor', 'pointer')
         .style('pointer-events', 'visible');
 
-      fillPaths.attr('d', this.path)
-        .on('mousemove', function mousemove() {
+      paths.attr('d', this.path)
+        .on('mousemove', function mousemove(d) {
+          const mouse = d3.mouse(vm.$el).map(p => parseInt(p, 10));
+
           d3.select(this)
             .style('stroke', 'red');
+
+          d3.select(vm.$el)
+            .select('.ice-map-tooltip')
+            .classed('hidden', false)
+            .attr('style', `left:${(mouse[0] + 25)}px;top:${(mouse[1] - 25)}px`)
+            .html(() => vm.tooltipHtml(d));
         })
         .on('mouseout', function mouseout() {
           d3.select(this)
             .style('stroke', null);
+          d3.select(vm.$el)
+            .select('.ice-map-tooltip')
+            .classed('hidden', true);
+        })
+        .on('click', (d) => {
+          if (this.disableClick) return;
+          console.log('clicked', d.properties.id);
         });
 
-      fillPaths.exit().remove();
+      paths.exit().remove();
 
       this.renderFiltered();
       this.renderFill();
     },
     renderFiltered() {
       const svg = d3.select(this.map.getPanes().overlayPane).select('svg');
-      const fillPaths = svg.select('g.fill')
-        .selectAll('path.fill');
-      fillPaths
-        .style('opacity', d => (this.isFeatureFiltered(d.properties.id) ? 1 : 0));
+      svg.select('g.fill')
+        .selectAll('path.fill')
+        .style('display', d => (this.isFeatureFiltered(d.properties.id) ? 'inline' : 'none'));
     },
     renderFill() {
       const svg = d3.select(this.map.getPanes().overlayPane).select('svg');
@@ -180,6 +216,42 @@ path.fill {
 div.leaflet-top.leaflet-left {
   margin-left: 360px;
   margin-top: 60px;
+}
+
+.leaflet-touch .leaflet-control-layers-toggle {
+  width: 30px;
+  height: 30px;
+}
+
+.ice-map.leaflet-container {
+  background-color: white;
+}
+
+.ice-map-control-transparency {
+  width: 34px;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+}
+
+.ice-map-control-transparency-slider {
+  height: 100px;
+  display: inline-block;
+}
+
+.ice-map-tooltip {
+  position: absolute;
+  padding: .5em;
+  color: #222;
+  background: #fff;
+  text-shadow: #f5f5f5 0 1px 0;
+  border-radius: 2px;
+  box-shadow: 0px 0px 2px 2px #a6a6a6;
+  opacity: 0.9;
+  z-index: 3000;
 }
 
 </style>

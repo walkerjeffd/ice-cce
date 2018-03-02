@@ -2,16 +2,17 @@
   <div class="ice-filter">
     <div class="title">
       {{ filter.variable.label }}
-      <b-button class="float-right" size="sm" @click="destroy">×</b-button>
+      <button class="btn btn-xs pull-right" @click="destroy">×</button>
     </div>
     <div class="stats">
       <div style="display:inline;">
+        Filter:
         <span v-if="filterRange">
           {{ filterRange[0] | textFormat }} -
           {{ filterRange[1] | textFormat }}
-          <a href="#" @click.prevent="resetFilter">reset</a>
+          <a href="#" @click.prevent="resetFilter">(reset)</a>
         </span>
-        <span v-else>No Filter</span>
+        <span v-else>None</span>
       </div>
       <div style="display:inline;float:right;">
         Mean: <span v-if="meanValue">{{ meanValue | textFormat }}</span><span v-else>N/A</span>
@@ -337,13 +338,6 @@ export default {
   padding-right:5px
 }
 
-.ice-filter-container {
-  max-height: 460px;
-  margin-top: 5px;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
 .ice-filter {
   width: 400px;
   margin-bottom: 5px;
@@ -356,8 +350,7 @@ export default {
 
 .ice-filter .title {
   font-weight: bold;
-  cursor: pointer;
-  height: 35px;
+  height: 25px;
 }
 
 .ice-filter .stats {

@@ -92,7 +92,10 @@ module.exports = {
   },
   plugins: [
     new webpack.ProvidePlugin({
-      L: 'leaflet'
+      L: 'leaflet',
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery'
     })
   ]
 }

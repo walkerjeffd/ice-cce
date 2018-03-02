@@ -4,53 +4,60 @@
 
     <div class="ice-container">
       <div class="ice-left-sidebar">
-        <div class="ice-box">
+        <!-- <div class="ice-box">
           <div class="ice-box-title">Menu</div>
-          <b-button-group size="sm">
-            <b-button><i class="fa fa-question-circle"></i> About</b-button>
-            <b-button><i class="fa fa-table"></i> Dataset</b-button>
-            <b-button><i class="fa fa-share"></i> Share</b-button>
-            <b-button><i class="fa fa-download"></i> Download</b-button>
-          </b-button-group>
-        </div>
+          <div class="btn-group btn-group-sm" role="group">
+            <button class="btn btn-default"><i class="fa fa-question-circle"></i> About</button>
+            <button class="btn btn-default"><i class="fa fa-table"></i> Dataset</button>
+            <button class="btn btn-default"><i class="fa fa-share"></i> Share</button>
+            <button class="btn btn-default"><i class="fa fa-download"></i> Download</button>
+          </div>
+        </div> -->
         <div class="ice-box">
           <div class="ice-box-title">Species</div>
-          <b-form-select
-            :value="selected.themeId"
+          <select-picker
+            :config="{}"
             :options="themes"
+            :value="selected.themeId"
+            :multiple="false"
             @input="selectThemeById"
             value-field="id"
             text-field="label"
-            class="mb-3"
-            size="sm" />
+            title="Select layer...">
+          </select-picker>
         </div>
         <div class="ice-box">
           <div class="ice-box-title">Map Variable</div>
-          <b-form-select
-            :value="selected.variableId"
+          <select-picker
+            :config="{}"
             :options="variables"
+            :value="selected.variableId"
+            :multiple="false"
             @input="selectVariableById"
             value-field="id"
             text-field="label"
-            class="mb-3"
-            size="sm" />
+            title="Select variable...">
+          </select-picker>
           <ice-legend></ice-legend>
         </div>
       </div>
       <div class="ice-right-sidebar">
         <div class="ice-box">
           <div class="ice-box-title">Filters and Histograms</div>
-          <b-form-select
-            multiple
-            :value="selected.filterVariableIds"
+          <select-picker
+            :config="{}"
             :options="variables | filterVariable"
+            :value="selected.filters"
+            :multiple="true"
             @input="updateFilters"
             value-field="id"
             text-field="label"
-            class="mb-3"
-            size="sm" />
-          <p># Patches Selected: {{ activeCount }} of {{ totalCount }}</p>
-          <div class="ice-filter-container">
+            title="Select variable(s)...">
+          </select-picker>
+          <div class="ice-filter-selected">
+            # Patches Selected: {{ activeCount }} of {{ totalCount }}
+          </div>
+          <div class="ice-filter-container" :style="{'max-height': maxHeight + 'px'}">
             <ice-filter
               v-for="filter in filters"
               :key="filter.variable.id"
@@ -61,40 +68,13 @@
               @destroy="destroyFilter">
             </ice-filter>
           </div>
-
-          <!-- <select-picker
-            :config="config.filters.charts.config"
-            :options="config.filters.charts.options"
-            :selected="state.filters.charts"
-            v-on:input="selectFiltersCharts"
-            label="label"
-            value="id"
-            title="Select filter variables..."
-            multiple="true">
-          </select-picker>
-          <div class="ice-filter-container">
-            <div
-              is="ice-filter"
-              v-for="filter in state.xf.filters"
-              :key="filter.id"
-              :id="filter.id"
-              :range="filter.range"
-              :variable="filter.variable"
-              :selected="state.selected"
-              :get-dim="filter.getDim"
-              :get-selected-dim="filter.getSelectedDim"
-              v-on:brush="setFilter"
-              v-on:destroy="removeFilter">
-            </div>
-          </div> -->
         </div>
       </div>
-      <!-- <ice-status :message="state.message" v-show="state.message"></ice-status> -->
       <ice-map :options="map.options"></ice-map>
-      <!-- <div class="ice-loading" v-show="show.loading">
+      <div class="ice-loading" v-show="loading">
         <h1>Loading</h1>
         <div><i class="fa fa-spinner fa-spin fa-5x fa-fw"></i></div>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
@@ -109,6 +89,7 @@ import IceHeader from './components/IceHeader';
 import IceMap from './components/IceMap';
 import IceLegend from './components/IceLegend';
 import IceFilter from './components/IceFilter';
+import SelectPicker from './components/SelectPicker';
 
 export default {
   name: 'App',
@@ -117,13 +98,14 @@ export default {
     IceMap,
     IceLegend,
     IceFilter,
+    SelectPicker,
   },
   data() {
     return {
       selected: {
         themeId: null,
         variableId: null,
-        filterVariableIds: [],
+        filters: [],
       },
       map: {
         options: {
@@ -133,6 +115,8 @@ export default {
           minZoom: 5,
         },
       },
+      loading: true,
+      maxHeight: 200,
     };
   },
   computed: {
@@ -155,22 +139,44 @@ export default {
       .then((config) => {
         this.$store.dispatch('setConfig', config)
           .then(() => {
-            this.$store.dispatch('selectDefaults');
+            this.$store.dispatch('selectDefaults')
+              .then(() => {
+                this.loading = false;
+              });
           });
       });
 
     EventBus.$on('filter', () => {
       this.$store.dispatch('updateActiveCount');
     });
+
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
   },
   methods: {
-    ...mapActions(['selectThemeById', 'selectVariableById', 'updateFilters']),
+    ...mapActions(['selectVariableById']),
+    handleResize() {
+      this.maxHeight = window.innerHeight - 220;
+    },
+    selectThemeById(id) {
+      this.loading = true;
+      this.$store.dispatch('selectThemeById', id)
+        .then(() => {
+          this.updateFilters([]);
+          this.loading = false;
+        });
+    },
+    updateFilters(ids) {
+      this.$store.dispatch('updateFilters', ids);
+      this.selected.filters = ids;
+    },
     brushed() {
       EventBus.$emit('filter');
     },
-    destroyFilter(event) {
-      const index = this.selected.filterVariableIds.indexOf(event);
-      this.selected.filterVariableIds.splice(index, 1);
+    destroyFilter(id) {
+      const index = this.selected.filters.indexOf(id);
+      this.selected.filters.splice(index, 1);
+      this.$store.dispatch('updateFilters', this.selected.filters);
     },
   },
 };
@@ -225,6 +231,19 @@ a {
   font-variant: small-caps;
   margin-bottom: 5px;
 }
+
+.ice-filter-container {
+  margin-top: 5px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.ice-filter-selected {
+  font-size: 0.9em;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
 /*
 .ice-select-box {
   position: absolute;
@@ -255,7 +274,7 @@ a {
 }
 */
 
-/*.ice-loading {
+.ice-loading {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -267,6 +286,6 @@ a {
   text-align: center;
   color: #f5f5f5;
 }
-*/
+
 
 </style>

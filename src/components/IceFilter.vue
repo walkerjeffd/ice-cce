@@ -1,18 +1,21 @@
 <template>
-  <div>
-    <div class="title">Variable: {{ filter.variable.label }}</div>
-    <div class="info">
-      <p>
-        Filter:
-          <span v-if="filterRange">
-            {{ filterRange[0] | textFormat }} -
-            {{ filterRange[1] | textFormat }}
-            <a href="#" @click.prevent="resetFilter">reset</a>
-          </span>
-          <span v-else>None</span>
-        <br>
+  <div class="ice-filter">
+    <div class="title">
+      {{ filter.variable.label }}
+      <b-button class="float-right" size="sm" @click="destroy">×</b-button>
+    </div>
+    <div class="stats">
+      <div style="display:inline;">
+        <span v-if="filterRange">
+          {{ filterRange[0] | textFormat }} -
+          {{ filterRange[1] | textFormat }}
+          <a href="#" @click.prevent="resetFilter">reset</a>
+        </span>
+        <span v-else>No Filter</span>
+      </div>
+      <div style="display:inline;float:right;">
         Mean: <span v-if="meanValue">{{ meanValue | textFormat }}</span><span v-else>N/A</span>
-      </p>
+      </div>
     </div>
     <div class="chart"></div>
   </div>
@@ -256,7 +259,7 @@ function barChart() {
 }
 
 export default {
-  props: ['filter', 'xf'],
+  props: ['filter', 'xf', 'width'],
   data() {
     return {
       chart: null,
@@ -288,7 +291,7 @@ export default {
 
     const xScale = d3.scale.linear()
       .domain([this.filter.variable.scale.min, this.filter.variable.scale.max])
-      .rangeRound([0, 360]);
+      .rangeRound([0, +this.width]);
 
     this.chart = barChart(this)
       .dimension(this.dim)
@@ -313,6 +316,9 @@ export default {
       this.filterRange = null;
       this.$emit('brush');
     },
+    destroy() {
+      this.$emit('destroy', this.variable.id);
+    },
   },
   destroyed() {
     EventBus.$off('filter', this.render);
@@ -324,14 +330,44 @@ export default {
 </script>
 
 <style>
-#charts {
-  padding: 10px 0;
+.ice-filter-legend {
+  margin-top:10px;
+  margin-bottom:10px;
+  padding-left:5px;
+  padding-right:5px
+}
+
+.ice-filter-container {
+  max-height: 460px;
+  margin-top: 5px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.ice-filter {
+  width: 400px;
+  margin-bottom: 5px;
+}
+
+.ice-filter hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.ice-filter .title {
+  font-weight: bold;
+  cursor: pointer;
+  height: 35px;
+}
+
+.ice-filter .stats {
+  font-size: 0.9em;
 }
 
 .chart {
   display: inline-block;
   height: 151px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .reset {
@@ -372,4 +408,6 @@ line.mean {
   stroke: rgb(76, 174, 255);
   stroke-width: 2px;
 }
+
+
 </style>

@@ -6,13 +6,13 @@
 <script>
 import { mapGetters } from 'vuex';
 import * as d3 from 'd3';
-import leaflet from 'leaflet/dist/leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import EventBus from '../event-bus';
 import colorScaleMixin from '../mixins/colorScale';
 
-const L = leaflet;
+require('leaflet-bing-layer');
+
 
 export default {
   mixins: [colorScaleMixin],
@@ -29,9 +29,10 @@ export default {
 
     L.control.scale({ position: 'bottomleft' }).addTo(this.map);
 
-    const basemap = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-    });
+    // const basemap = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    //   attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    // });
+    const basemap = L.tileLayer.bing('AvSDmEuhbTKvL0ui4AlHwQNBVuDI2QBBoeODy1vwOz5sW_kDnBx3UMtUxbjsZ3bN');
     basemap.addTo(this.map);
 
     const svg = d3.select(this.map.getPanes().overlayPane).append('svg');
@@ -165,15 +166,20 @@ export default {
 </script>
 
 <style>
-  .ice-map {
-    width: 100%;
-    height: 600px;
-  }
+.ice-map {
+  width: 100%;
+  height: 100vh;
+}
 
-  path.fill {
-    fill: rgb(200,200,200);
-    stroke: rgb(0, 0, 0);
-    stroke-width: 0.5;
-  }
+path.fill {
+  fill: rgb(200,200,200);
+  stroke: rgb(0, 0, 0);
+  stroke-width: 0.5;
+}
+
+div.leaflet-top.leaflet-left {
+  margin-left: 360px;
+  margin-top: 60px;
+}
 
 </style>

@@ -4,17 +4,17 @@
 
     <div class="ice-container">
       <div class="ice-left-sidebar">
-        <!-- <div class="ice-box">
-          <div class="ice-box-title">Menu</div>
-          <div class="btn-group btn-group-sm" role="group">
-            <button class="btn btn-default"><i class="fa fa-question-circle"></i> About</button>
-            <button class="btn btn-default"><i class="fa fa-table"></i> Dataset</button>
-            <button class="btn btn-default"><i class="fa fa-share"></i> Share</button>
-            <button class="btn btn-default"><i class="fa fa-download"></i> Download</button>
-          </div>
-        </div> -->
         <div class="ice-box">
-          <div class="ice-box-title">Species</div>
+          <div class="ice-box-title">Menu</div>
+          <button class="btn btn-default" @click="modals.about = true">
+              <i class="fa fa-question-circle"></i> About
+            </button>
+            <button class="btn btn-default" @click="modals.dataset = true">
+              <i class="fa fa-table"></i> Dataset
+            </button>
+        </div>
+        <div class="ice-box">
+          <div class="ice-box-title">Select Species</div>
           <select-picker
             :config="{}"
             :options="themes"
@@ -27,7 +27,7 @@
           </select-picker>
         </div>
         <div class="ice-box">
-          <div class="ice-box-title">Map Variable</div>
+          <div class="ice-box-title">Select Variable</div>
           <select-picker
             :config="{}"
             :options="variables"
@@ -76,6 +76,14 @@
         <div><i class="fa fa-spinner fa-spin fa-5x fa-fw"></i></div>
       </div>
     </div>
+    <modal :show="modals.about" @close="modals.about = false" size="lg">
+      <span slot="title">About the Interactive Catchment Explorer</span>
+      <div slot="body">Description and brief how-to on the Interactive Catchment Explorer</div>
+    </modal>
+    <modal :show="modals.dataset" @close="modals.dataset = false" size="lg">
+      <span slot="title">About the Crown of the Continent Ecosystem Dataset</span>
+      <div slot="body">Information about the dataset, link to download?</div>
+    </modal>
   </div>
 </template>
 
@@ -89,6 +97,7 @@ import IceHeader from './components/IceHeader';
 import IceMap from './components/IceMap';
 import IceLegend from './components/IceLegend';
 import IceFilter from './components/IceFilter';
+import Modal from './components/Modal';
 import SelectPicker from './components/SelectPicker';
 
 export default {
@@ -98,6 +107,7 @@ export default {
     IceMap,
     IceLegend,
     IceFilter,
+    Modal,
     SelectPicker,
   },
   data() {
@@ -117,6 +127,10 @@ export default {
       },
       loading: true,
       maxHeight: 200,
+      modals: {
+        about: false,
+        dataset: false,
+      },
     };
   },
   computed: {

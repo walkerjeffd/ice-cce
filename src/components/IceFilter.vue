@@ -359,7 +359,7 @@ export default {
 
 .chart {
   display: inline-block;
-  height: 151px;
+  height: 130px;
   margin-bottom: 10px;
 }
 

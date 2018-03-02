@@ -37,7 +37,7 @@ export default {
       'Open Street Map': L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       }),
-      None: L.tileLayer(),
+      None: L.tileLayer(''),
     };
 
     L.control.layers(basemaps, [], {

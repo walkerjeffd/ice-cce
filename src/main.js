@@ -7,10 +7,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import App from './App';
 import store from './store';
+import config from './config';
 
 Vue.config.productionTip = false;
 
-axios.defaults.baseURL = 'http://127.0.0.1:8081/api';
+axios.defaults.baseURL = config[process.env.NODE_ENV].api.url;
 
 /* eslint-disable no-new */
 new Vue({

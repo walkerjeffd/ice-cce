@@ -17,7 +17,7 @@ export default {
         left: 20,
         right: 20,
       },
-      width: 260,
+      width: 350,
     };
   },
   computed: {

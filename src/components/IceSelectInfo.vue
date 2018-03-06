@@ -2,7 +2,7 @@
   <div>
     <div class="ice-select-box text-right">
       <div class="ice-select-box-title">
-        <strong>Selected Patch:</strong> LABEL ({{ selected.properties.id }})
+        <strong>Selected Patch:</strong> {{ label }} ({{ selected.properties.id }})
       </div>
       <div class="ice-select-box-body">
         <button class="btn btn-default btn-xs" @click="showData = true">
@@ -19,7 +19,7 @@
     <modal :show="showData" @close="showData = false">
       <span slot="title">Selected Patch Data</span>
       <div slot="body">
-        <p><strong>Selected Patch: LABEL ({{ selected.properties.id }})</strong></p>
+        <p><strong>Selected Patch: {{ label }} ({{ selected.properties.id }})</strong></p>
         <table class="table table-condensed table-striped" style="width:100%">
           <thead>
             <th>Variable</th>
@@ -53,11 +53,16 @@ export default {
   },
   computed: {
     ...mapGetters(['variables', 'valuesById']),
+    values() {
+      return this.valuesById(this.selected.properties.id);
+    },
+    label() {
+      return this.values.label;
+    },
     table() {
-      const values = this.valuesById(this.selected.properties.id);
       const table = this.variables.map(variable => ({
         variable,
-        value: d3.format(variable.formats.text)(values[variable.id]),
+        value: d3.format(variable.formats.text)(this.values[variable.id]),
       }));
       return table;
     },

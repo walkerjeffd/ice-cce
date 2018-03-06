@@ -27,13 +27,15 @@ const store = new Vuex.Store({
   },
   getters: {
     config: state => state.config,
-    // eslint-disable-next-line arrow-body-style
-    themes: (state) => { return state.config ? state.config.themes : []; },
+    themes: state => (state.config ? state.config.themes : []),
     theme: state => state.theme,
     layer: state => state.layer,
-    // eslint-disable-next-line arrow-body-style
-    variables: (state) => { return state.theme ? state.theme.variables : []; },
+    variables: state => (state.theme ? state.theme.variables : []),
     variable: state => state.variable,
+    variableById: state => id => (
+      state.theme ? state.theme.variables.find(v => v.id === id) : undefined
+    ),
+    variableGroups: state => (state.theme ? state.theme.variableGroups : []),
     filters: state => state.filters,
     data: state => state.data,
     xf: state => state.xf,
@@ -117,6 +119,7 @@ const store = new Vuex.Store({
               const data = d3.csv.parse(string, (d) => {
                 const o = {
                   id: d[theme.dataset.columns.id],
+                  label: d[theme.dataset.columns.label],
                   area: +d[theme.dataset.columns.area],
                 };
 

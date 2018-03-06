@@ -171,10 +171,11 @@ export default {
       }
 
       const value = values[this.variable.id];
+      const label = values.label;
       const format = d3.format(this.variable.formats.text);
       const formattedValue = value === null ? 'N/A' : format(value);
 
-      return `<span>Patch: ${d.properties.id} | LABEL</span><br><span>${this.variable.label} = ${formattedValue}</span>`;
+      return `<span>Patch: ${label} (${d.properties.id})</span><br><span>${this.variable.label} = ${formattedValue}</span>`;
     },
     resizeSvg() {
       if (!this.layer) return;
@@ -290,7 +291,7 @@ path.fill.selected {
 }
 
 div.leaflet-top.leaflet-left {
-  margin-left: 360px;
+  margin-left: 430px;
   margin-top: 60px;
 }
 

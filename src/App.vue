@@ -32,6 +32,7 @@
             :options="variables"
             :value="selected.variableId"
             :multiple="false"
+            :groups="variableGroups"
             @input="selectVariableById"
             value-field="id"
             text-field="label"
@@ -48,6 +49,7 @@
             :options="variables | filterVariable"
             :value="selected.filters"
             :multiple="true"
+            :groups="variableGroups"
             @input="updateFilters"
             value-field="id"
             text-field="label"
@@ -145,7 +147,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['themes', 'theme', 'layer', 'variables', 'variable', 'filters', 'xf', 'activeCount', 'totalCount', 'selectedFeature']),
+    ...mapGetters(['themes', 'theme', 'layer', 'variables', 'variable', 'variableGroups', 'filters', 'xf', 'activeCount', 'totalCount', 'selectedFeature']),
   },
   filters: {
     filterVariable: variables => variables.filter(v => v.filter),
@@ -233,8 +235,8 @@ a {
   position: absolute;
   top: 60px;
   left: 0px;
-  width: 345px;
-  z-index: 1000;
+  width: 420px;
+  z-index: 5000;
 }
 
 .ice-right-sidebar {
@@ -242,7 +244,7 @@ a {
   position: absolute;
   top: 60px;
   right: 0px;
-  width: 420px;
+  width: 425px;
   z-index: 1000;
 }
 

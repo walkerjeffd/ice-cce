@@ -1,8 +1,8 @@
 <template>
   <div class="ice-filter">
     <div class="title">
-      {{ filter.variable.label }}
-      <button class="btn btn-xs pull-right" @click="destroy">×</button>
+      <div class="pull-right"><button class="btn btn-xs" @click="destroy">×</button></div>
+      <div>{{ filter.variable.label }}</div>
     </div>
     <div class="stats">
       <div style="display:inline;">
@@ -350,7 +350,8 @@ export default {
 
 .ice-filter .title {
   font-weight: bold;
-  height: 25px;
+  font-size: 0.9em;
+  min-height: 23px;
 }
 
 .ice-filter .stats {

@@ -1,15 +1,29 @@
 <template>
   <select :title="title" data-width="100%">
     <option
+      v-if="!groups"
       v-for="option in options"
       :key="option[valueField]"
       :value="option[valueField]">
       {{option[textField]}}
     </option>
+    <optgroup
+      v-if="groups"
+      v-for="(optGroup, groupIndex) in optGroups"
+      :key="groupIndex"
+      :label="optGroup.label">
+      <option
+        v-for="option in optGroup.options"
+        :key="option[valueField]"
+        :value="option[valueField]">
+        {{option[textField]}}
+      </option>
+    </optgroup>
   </select>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import 'bootstrap-select/dist/css/bootstrap-select.min.css';
 
 const $ = require('jquery');
@@ -17,10 +31,23 @@ require('bootstrap');
 require('bootstrap-select');
 
 export default {
-  props: ['config', 'options', 'value', 'textField', 'valueField', 'title', 'multiple'],
+  props: ['config', 'options', 'value', 'textField', 'valueField', 'title', 'multiple', 'groups'],
   watch: {
     value(value) {
       $(this.$el).selectpicker('val', value).selectpicker('refresh');
+    },
+  },
+  computed: {
+    ...mapGetters(['variableById']),
+    optGroups() {
+      let result = null;
+      if (this.groups) {
+        result = this.groups.map(group => ({
+          label: group.label,
+          options: group.variables.map(id => this.variableById(id)),
+        }));
+      }
+      return result;
     },
   },
   mounted() {
@@ -44,4 +71,10 @@ export default {
 </script>
 
 <style>
+.dropdown-toggle {
+  font-size: 12px;
+}
+.dropdown-menu {
+  font-size: 12px;
+}
 </style>

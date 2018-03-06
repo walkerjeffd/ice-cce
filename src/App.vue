@@ -159,7 +159,7 @@ export default {
     },
   },
   created() {
-    axios.get('config.json')
+    axios.get('api/config.json')
       .then(response => response.data)
       .then((config) => {
         this.$store.dispatch('setConfig', config)

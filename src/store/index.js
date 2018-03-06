@@ -107,10 +107,10 @@ const store = new Vuex.Store({
 
       const theme = getters.themes.find(d => d.id === themeId);
 
-      return axios.get(theme.layer) // eslint-disable-line consistent-return
+      return axios.get(`api/${theme.layer}`) // eslint-disable-line consistent-return
         .then(response => response.data)
         .then((layer) => {
-          axios.get(theme.dataset.url)
+          axios.get(`api/${theme.dataset.url}`)
             .then(response => response.data)
             .then((string) => {
               // parse CSV

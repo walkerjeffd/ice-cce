@@ -1,1 +1,498 @@
-{"themes":[{"id":"BLT","label":"Bull Trout","layer":"patch-blt.json","dataset":{"url":"data-blt.csv","columns":{"id":"patch_id","area":"area_km2"}},"variables":[{"id":"st_sr_avg_8_base","label":"historical mean Aug stream temp in spawning/rearing habitat (1985-2005)","filter":true,"formats":{"text":",.1f"},"scale":{"min":5,"max":15}},{"id":"st_sr_max_8_base","label":"historical max Aug stream temp in spawning/rearing habitat (1985-2005)","filter":true,"formats":{"text":",.1f"},"scale":{"min":8,"max":20}},{"id":"st_sr_frac_gt13_8_base","label":"fraction of stream length in spawning and rearing habitat with stream temp (1985-2005) > 13 degC","filter":true,"formats":{"text":",.1f"},"scale":{"min":0,"max":1}},{"id":"precip_base_summer","label":"historical summer (Apr-Sep) precip (1985-2005)","filter":true,"formats":{"text":",.1f"},"scale":{"min":8,"max":26}},{"id":"precip_base_winter","label":"historical winter (Oct-Mar) precip (1985-2005)","filter":true,"formats":{"text":",.1f"},"scale":{"min":10,"max":40}},{"id":"st_sr_avg_8_45_35","label":"predicted mean Aug stream temp in spawning/rearing habitat (RCP45, 2035)","filter":true,"formats":{"text":",.1f"},"scale":{"min":8,"max":18}},{"id":"st_sr_max_8_45_35","label":"predicted max Aug stream temp in spawning/rearing habitat (RCP45, 2035)","filter":true,"formats":{"text":",.1f"},"scale":{"min":10,"max":22}},{"id":"st_sr_avg_8_45_75","label":"predicted mean Aug stream temp in spawning/rearing habitat (RCP45, 2075)","filter":true,"formats":{"text":",.1f"},"scale":{"min":8,"max":18}},{"id":"st_sr_max_8_45_75","label":"predicted max Aug stream temp in spawning/rearing habitat (RCP45, 2075)","filter":true,"formats":{"text":",.1f"},"scale":{"min":10,"max":22}},{"id":"st_sr_frac_gt13_8_45_35","label":"fraction of stream length in spawning and rearing habitat with stream temp (RCP45, 2035) > 13 degC","filter":true,"formats":{"text":",.1f"},"scale":{"min":0,"max":1}},{"id":"st_sr_frac_gt13_8_45_75","label":"fraction of stream length in spawning and rearing habitat with stream temp (RCP45, 2075) > 13 degC","filter":true,"formats":{"text":",.1f"},"scale":{"min":0,"max":1}},{"id":"precip_RCP45_2035_summer","label":"predicted summer (Apr-Sep) precip (RCP 45, 2035)","filter":true,"formats":{"text":",.1f"},"scale":{"min":8,"max":26}},{"id":"precip_RCP45_2035_winter","label":"predicted winter (Oct-Mar) precip (RCP 45, 2035)","filter":true,"formats":{"text":",.1f"},"scale":{"min":10,"max":40}},{"id":"precip_RCP45_2075_summer","label":"predicted summer (Apr-Sep) precip (RCP 45, 2075)","filter":true,"formats":{"text":",.1f"},"scale":{"min":8,"max":26}},{"id":"precip_RCP45_2075_winter","label":"predicted winter (Oct-Mar) precip (RCP 45, 2075)","filter":true,"formats":{"text":",.1f"},"scale":{"min":10,"max":40}},{"id":"stream_sr_valley_km","label":"stream length of spawning/rearing habitat in valley bottom","filter":true,"formats":{"text":",.1f"},"scale":{"min":0,"max":60}},{"id":"stream_sr_km","label":"length of streams with spawning/rearing habitat","filter":true,"formats":{"text":",.1f"},"scale":{"min":0,"max":130}},{"id":"road_density","label":"length of roads per unit area","filter":true,"formats":{"text":",.1f"},"scale":{"min":0,"max":4}},{"id":"stream_density","label":"length of streams per unit area","filter":true,"formats":{"text":",.1f"},"scale":{"min":0,"max":4}}]},{"id":"WCT","label":"Western Cutthroat Trout","layer":"patch-wct.json","dataset":{"url":"data-wct.csv","columns":{"id":"patch_id","area":"area_km2"}},"variables":[{"id":"st_avg_8_base","label":"historical mean Aug stream temp (1985-2005)","filter":true,"formats":{"text":",.1f"},"scale":{"min":2,"max":20}},{"id":"st_max_8_base","label":"historical max Aug stream temp (1985-2005)","filter":true,"formats":{"text":",.1f"},"scale":{"min":6,"max":24}},{"id":"st_frac_gt15_8_base","label":"fraction of stream length with stream temp (1985-2005) > 15 degC","filter":true,"formats":{"text":",.1f"},"scale":{"min":0,"max":1}},{"id":"precip_base_summer","label":"historical summer (Apr-Sep) precip (1985-2005)","filter":true,"formats":{"text":",.1f"},"scale":{"min":8,"max":32}},{"id":"st_avg_8_45_35","label":"predicted mean Aug stream temp (RCP45, 2035)","filter":true,"formats":{"text":",.1f"},"scale":{"min":2,"max":20}},{"id":"st_max_8_45_35","label":"predicted max Aug stream temp (RCP45, 2035)","filter":true,"formats":{"text":",.1f"},"scale":{"min":6,"max":24}},{"id":"st_avg_8_45_75","label":"predicted mean Aug stream temp (RCP45, 2075)","filter":true,"formats":{"text":",.1f"},"scale":{"min":2,"max":20}},{"id":"st_max_8_45_75","label":"predicted max Aug stream temp (RCP45, 2075)","filter":true,"formats":{"text":",.1f"},"scale":{"min":6,"max":24}},{"id":"st_frac_gt15_8_45_35","label":"fraction of stream length with stream temp (RCP45, 2035) > 15 degC","filter":true,"formats":{"text":",.1f"},"scale":{"min":0,"max":1}},{"id":"st_frac_gt15_8_45_75","label":"fraction of stream length with stream temp (RCP45, 2075) > 15 degC","filter":true,"formats":{"text":",.1f"},"scale":{"min":0,"max":1}},{"id":"precip_RCP45_2035_summer","label":"predicted summer (Apr-Sep) precip (RCP 45, 2035)","filter":true,"formats":{"text":",.1f"},"scale":{"min":8,"max":32}},{"id":"precip_RCP45_2075_summer","label":"predicted summer (Apr-Sep) precip (RCP 45, 2075)","filter":true,"formats":{"text":",.1f"},"scale":{"min":8,"max":32}},{"id":"valley_prop","label":"percent of area as valley bottom","filter":true,"formats":{"text":",.1f"},"scale":{"min":0,"max":0.4}},{"id":"stream_km","label":"length of streams","filter":true,"formats":{"text":",.1f"},"scale":{"min":0,"max":100}},{"id":"road_density","label":"length of roads per unit area","filter":true,"formats":{"text":",.1f"},"scale":{"min":0,"max":8}},{"id":"stream_density","label":"length of streams per unit area","filter":true,"formats":{"text":",.1f"},"scale":{"min":0,"max":4}},{"id":"precip_base_5","label":"historical May precip (1985-2005)","filter":true,"formats":{"text":",.1f"},"scale":{"min":0,"max":6}}]}],"defaults":{"theme":"BLT","variable":"stream_sr_km"}}
+{
+  "themes": [
+    {
+      "id": "BLT",
+      "label": "Bull Trout",
+      "layer": "patch-blt.json",
+      "dataset": {
+        "url": "data-blt.csv",
+        "columns": {
+          "id": "patch_id",
+          "label": "local_pop_name",
+          "area": "area_km2"
+        }
+      },
+      "variableGroups": [
+        {
+          "label": "Habitat",
+          "variables": ["stream_density", "stream_sr_km", "stream_sr_valley_km", "road_density"]
+        },
+        {
+          "label": "Stream Temperature",
+          "variables": ["st_sr_avg_8_base", "st_sr_max_8_base", "st_sr_frac_gt13_8_base", "st_sr_avg_8_45_35", "st_sr_max_8_45_35", "st_sr_frac_gt13_8_45_35", "st_sr_avg_8_45_75", "st_sr_max_8_45_75", "st_sr_frac_gt13_8_45_75"]
+        },
+        {
+          "label": "Precipitation",
+          "variables": ["precip_base_summer", "precip_base_winter", "precip_RCP45_2035_summer", "precip_RCP45_2035_winter", "precip_RCP45_2075_summer", "precip_RCP45_2075_winter"]
+        }
+      ],
+      "variables": [
+        {
+          "id": "stream_density",
+          "label": "Stream Length per Unit Patch Area (km/km2)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 4
+          }
+        },
+        {
+          "id": "stream_sr_km",
+          "label": "S/R Habitat Stream Length (km)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 130
+          }
+        },
+        {
+          "id": "stream_sr_valley_km",
+          "label": "S/R Habitat Stream Length in Valley Bottom (km)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 60
+          }
+        },
+        {
+          "id": "road_density",
+          "label": "Road Length per Unit Area (km/km2)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 4
+          }
+        },
+        {
+          "id": "st_sr_avg_8_base",
+          "label": "Historical Mean Aug. Stream Temp in S/R Habitat, degC",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 5,
+            "max": 15
+          }
+        },
+        {
+          "id": "st_sr_max_8_base",
+          "label": "Historical Max Aug. Stream Temp in S/R Habitat, degC",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 8,
+            "max": 20
+          }
+        },
+        {
+          "id": "st_sr_frac_gt13_8_base",
+          "label": "Historical Frac. S/R Habitat with Mean Aug Temp > 13 degC",
+          "filter": true,
+          "formats": {
+            "text": ",.2f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "id": "st_sr_avg_8_45_35",
+          "label": "2035 RCP45 Mean Aug. Stream Temp in S/R Habitat, degC",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 8,
+            "max": 18
+          }
+        },
+        {
+          "id": "st_sr_max_8_45_35",
+          "label": "2035 RCP45 Max Aug. Stream Temp in S/R Habitat, degC",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 10,
+            "max": 22
+          }
+        },
+        {
+          "id": "st_sr_frac_gt13_8_45_35",
+          "label": "2035 RCP45 Frac. S/R Habitat with Mean Aug Temp > 13 degC",
+          "filter": true,
+          "formats": {
+            "text": ",.2f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "id": "st_sr_avg_8_45_75",
+          "label": "2075 RCP45 Mean Aug. Stream Temp in S/R Habitat, degC",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 8,
+            "max": 18
+          }
+        },
+        {
+          "id": "st_sr_max_8_45_75",
+          "label": "2075 RCP45 Max Aug. Stream Temp in S/R Habitat, degC",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 10,
+            "max": 22
+          }
+        },
+        {
+          "id": "st_sr_frac_gt13_8_45_75",
+          "label": "2075 RCP45 Frac. S/R Habitat with Mean Aug Temp > 13 degC",
+          "filter": true,
+          "formats": {
+            "text": ",.2f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "id": "precip_base_summer",
+          "label": "Historical Summer Precip, mm",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 8,
+            "max": 26
+          }
+        },
+        {
+          "id": "precip_base_winter",
+          "label": "Historical Winter Precip, mm",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 10,
+            "max": 40
+          }
+        },
+        {
+          "id": "precip_RCP45_2035_summer",
+          "label": "2035 RCP45 Summer Precip, mm",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 8,
+            "max": 26
+          }
+        },
+        {
+          "id": "precip_RCP45_2035_winter",
+          "label": "2035 RCP45 Winter Precip, mm",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 10,
+            "max": 40
+          }
+        },
+        {
+          "id": "precip_RCP45_2075_summer",
+          "label": "2075 RCP45 Summer Precip, mm",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 8,
+            "max": 26
+          }
+        },
+        {
+          "id": "precip_RCP45_2075_winter",
+          "label": "2075 RCP45 Winter Precip, mm",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 10,
+            "max": 40
+          }
+        }
+      ]
+    },
+    {
+      "id": "WCT",
+      "label": "Western Cutthroat Trout",
+      "layer": "patch-wct.json",
+      "dataset": {
+        "url": "data-wct.csv",
+        "columns": {
+          "id": "patch_id",
+          "label": "local_pop_name",
+          "area": "area_km2"
+        }
+      },
+      "variableGroups": [
+        {
+          "label": "Habitat",
+          "variables": ["stream_km", "stream_density", "road_density", "valley_prop"]
+        },
+        {
+          "label": "Stream Temperature",
+          "variables": ["st_avg_8_base", "st_max_8_base", "st_frac_gt15_8_base", "st_avg_8_45_35", "st_max_8_45_35", "st_frac_gt15_8_45_35", "st_avg_8_45_75", "st_max_8_45_75", "st_frac_gt15_8_45_75"]
+        },
+        {
+          "label": "Precipitation",
+          "variables": ["precip_base_5", "precip_base_summer", "precip_RCP45_2035_summer", "precip_RCP45_2075_summer"]
+        }
+      ],
+      "variables": [
+        {
+          "id": "stream_km",
+          "label": "Stream Length (km)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "stream_density",
+          "label": "Stream Length per Unit Patch Area (km/km2)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 4
+          }
+        },
+        {
+          "id": "road_density",
+          "label": "Road Length per Unit Patch Area (km/km2)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 8
+          }
+        },
+        {
+          "id": "valley_prop",
+          "label": "Frac. Patch Area as Valley Bottom",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 0.4
+          }
+        },
+        {
+          "id": "st_avg_8_base",
+          "label": "Historical Mean Aug. Stream Temp, degC",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 2,
+            "max": 20
+          }
+        },
+        {
+          "id": "st_max_8_base",
+          "label": "Historical Max Aug. Stream Temp, degC",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 6,
+            "max": 24
+          }
+        },
+        {
+          "id": "st_frac_gt15_8_base",
+          "label": "Historical Frac. Streams with Mean Aug Temp > 15 degC",
+          "filter": true,
+          "formats": {
+            "text": ",.2f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "id": "st_avg_8_45_35",
+          "label": "2035 RCP45 Mean Aug. Stream Temp, degC",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 2,
+            "max": 20
+          }
+        },
+        {
+          "id": "st_max_8_45_35",
+          "label": "2035 RCP45 Max Aug. Stream Temp, degC",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 6,
+            "max": 24
+          }
+        },
+        {
+          "id": "st_frac_gt15_8_45_35",
+          "label": "2035 RCP45 Frac. Stream Length with Mean Aug Temp > 15 degC",
+          "filter": true,
+          "formats": {
+            "text": ",.2f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "id": "st_avg_8_45_75",
+          "label": "2075 RCP45 Mean Aug. Stream Temp, degC",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 2,
+            "max": 20
+          }
+        },
+        {
+          "id": "st_max_8_45_75",
+          "label": "2075 RCP45 Max Aug. Stream Temp, degC",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 6,
+            "max": 24
+          }
+        },
+        {
+          "id": "st_frac_gt15_8_45_75",
+          "label": "2075 RCP45 Frac. Stream Length with Mean Aug Temp > 15 degC",
+          "filter": true,
+          "formats": {
+            "text": ",.2f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "id": "precip_base_5",
+          "label": "Historical May Precip, mm",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 6
+          }
+        },
+        {
+          "id": "precip_base_summer",
+          "label": "Historical Summer Precip, mm",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 8,
+            "max": 32
+          }
+        },
+        {
+          "id": "precip_RCP45_2035_summer",
+          "label": "2035 RCP45 Summer (Apr-Sep) Precip, mm",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 8,
+            "max": 32
+          }
+        },
+        {
+          "id": "precip_RCP45_2075_summer",
+          "label": "2075 RCP45 Summer (Apr-Sep) Precip, mm",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 8,
+            "max": 32
+          }
+        }
+      ]
+    }
+  ],
+  "defaults": {
+    "theme": "BLT",
+    "variable": "stream_sr_km"
+  }
+}

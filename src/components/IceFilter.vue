@@ -8,14 +8,18 @@
       <div style="display:inline;">
         Filter:
         <span v-if="filterRange">
-          {{ filterRange[0] | textFormat }} -
-          {{ filterRange[1] | textFormat }}
+          {{ filterRange[0] | textFormat(variable.formats.text) }} -
+          {{ filterRange[1] | textFormat(variable.formats.text) }}
           <a href="#" @click.prevent="resetFilter">(reset)</a>
         </span>
         <span v-else>None</span>
       </div>
       <div style="display:inline;float:right;">
-        Mean: <span v-if="meanValue">{{ meanValue | textFormat }}</span><span v-else>N/A</span>
+        Mean:
+        <span v-if="meanValue">
+          {{ meanValue | textFormat(variable.formats.text) }}
+        </span>
+        <span v-else>N/A</span>
       </div>
     </div>
     <div class="chart"></div>
@@ -54,7 +58,6 @@ function barChart() {
       const n = groups.length;
       let i = -1;
       let d;
-
       while (++i < n) { // eslint-disable-line no-plusplus
         d = groups[i];
         path.push('M', x(d.key), ',', height, 'V', y(d.value), 'h9V', height);
@@ -279,16 +282,21 @@ export default {
     },
   },
   filters: {
-    textFormat: value => d3.format(this.variable ? this.variable.formats.text : ',.1f')(value),
+    textFormat: (value, format) => d3.format(format)(value),
   },
   mounted() {
     const interval = (this.variable.scale.max - this.variable.scale.min) / 40;
 
     this.dim = this.xf.dimension(d => d[this.filter.variable.id]);
     this.group = this.dim
-      .group(d => (d >= this.variable.max ?
-        this.variable.max - interval :
-        Math.floor(d / interval) * interval));
+      .group((d) => {
+        if (d >= this.variable.scale.max) {
+          return this.variable.scale.max - interval;
+        } else if (d < this.variable.scale.min) {
+          return this.variable.scale.min;
+        }
+        return Math.floor(d / interval) * interval;
+      });
 
     const xScale = d3.scale.linear()
       .domain([this.filter.variable.scale.min, this.filter.variable.scale.max])

@@ -62,7 +62,7 @@ export default {
     table() {
       const table = this.variables.map(variable => ({
         variable,
-        value: d3.format(variable.formats.text)(this.values[variable.id]),
+        value: this.values[variable.id] === null ? 'N/A' : d3.format(variable.formats.text)(this.values[variable.id]),
       }));
       return table;
     },

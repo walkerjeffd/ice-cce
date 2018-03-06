@@ -124,7 +124,7 @@ const store = new Vuex.Store({
                 };
 
                 theme.variables.forEach((v) => {
-                  o[v.id] = +d[v.id];
+                  o[v.id] = d[v.id] === '' ? null : +d[v.id];
                 });
 
                 return o;

@@ -23,7 +23,7 @@ export default {
   computed: {
     ...mapGetters(['variable']),
     formatter() {
-      return d3.format(',.1f');
+      return d3.format(this.variable ? this.variable.formats.text : ',.1f');
     },
   },
   mounted() {
@@ -59,19 +59,7 @@ export default {
     variable() {
       this.render();
     },
-    // colorScale () {
-    //   this.render();
-    // }
   },
-  // computed: {
-  //   formatter: function () {
-  //     if (!this.variable) {
-  //       return noop;
-  //     }
-
-  //     return d3.format(this.variable.format.axis);
-  //   }
-  // },
   methods: {
     render() {
       if (!this.variable) return;

@@ -40,7 +40,54 @@ export default {
       'No Basemap': L.tileLayer(''),
     };
 
-    L.control.layers(basemaps, [], {
+    const overlays = [
+      {
+        layer: 'norock:boundary',
+        label: 'CCE Boundary',
+        opacity: 1,
+        visible: true,
+      }, {
+        layer: 'norock:lakes',
+        label: 'Lakes',
+        opacity: 1,
+        visible: false,
+      }, {
+        layer: 'norock:streams',
+        label: 'Streams',
+        opacity: 1,
+        visible: false,
+      }, {
+        layer: 'norock:streams_blt_sr',
+        label: 'Bull Trout S/R Habitat',
+        opacity: 1,
+        visible: false,
+      }, {
+        layer: 'norock:valley',
+        label: 'Valley Bottom',
+        opacity: 1,
+        visible: false,
+      },
+    ];
+    const overlayLayers = {};
+    overlays.forEach((d) => {
+      const key = '<img src="http://ecosheds.org:8080/geoserver/wms?' +
+        'REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png' +
+        `&WIDTH=20&HEIGHT=20&LAYER=${d.layer}` +
+        `&LEGEND_OPTIONS=fontAntiAliasing:true;forceLabels:off"> ${d.label}`;
+
+      overlayLayers[key] = L.tileLayer.wms('http://ecosheds.org:8080/geoserver/wms', {
+        layers: d.layer,
+        format: 'image/png',
+        transparent: true,
+        opacity: d.opacity || 0.5,
+        minZoom: d.minZoom || -Infinity,
+        maxZoom: d.maxZoom || Infinity,
+      });
+
+      if (d.visible) overlayLayers[key].addTo(this.map);
+    });
+
+    L.control.layers(basemaps, overlayLayers, {
       position: 'topleft',
       collapsed: true,
     }).addTo(this.map);

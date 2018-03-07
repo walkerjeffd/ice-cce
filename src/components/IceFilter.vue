@@ -347,7 +347,7 @@ export default {
 }
 
 .ice-filter {
-  width: 400px;
+  width: 450px;
   margin-bottom: 5px;
 }
 

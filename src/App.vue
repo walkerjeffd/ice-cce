@@ -278,7 +278,7 @@ a {
   position: absolute;
   top: 60px;
   right: 0px;
-  width: 425px;
+  width: 475px;
   z-index: 1000;
 }
 

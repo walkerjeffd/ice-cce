@@ -1,265 +1,8 @@
 {
   "themes": [
     {
-      "id": "BLT",
-      "label": "Bull Trout",
-      "layer": "patch-blt.json",
-      "dataset": {
-        "url": "data-blt.csv",
-        "columns": {
-          "id": "patch_id",
-          "label": "local_pop_name",
-          "area": "area_km2"
-        }
-      },
-      "variableGroups": [
-        {
-          "label": "Habitat",
-          "variables": ["stream_density", "stream_sr_km", "stream_sr_valley_km", "road_density"]
-        },
-        {
-          "label": "Stream Temperature",
-          "variables": ["st_sr_avg_8_base", "st_sr_max_8_base", "st_sr_frac_gt13_8_base", "st_sr_avg_8_45_35", "st_sr_max_8_45_35", "st_sr_frac_gt13_8_45_35", "st_sr_avg_8_45_75", "st_sr_max_8_45_75", "st_sr_frac_gt13_8_45_75"]
-        },
-        {
-          "label": "Precipitation",
-          "variables": ["precip_base_summer", "precip_base_winter", "precip_RCP45_2035_summer", "precip_RCP45_2035_winter", "precip_RCP45_2075_summer", "precip_RCP45_2075_winter"]
-        }
-      ],
-      "variables": [
-        {
-          "id": "stream_density",
-          "label": "Stream Length per Unit Patch Area (km/km2)",
-          "filter": true,
-          "formats": {
-            "text": ",.1f"
-          },
-          "scale": {
-            "min": 0,
-            "max": 4
-          }
-        },
-        {
-          "id": "stream_sr_km",
-          "label": "S/R Habitat Stream Length (km)",
-          "filter": true,
-          "formats": {
-            "text": ",.1f"
-          },
-          "scale": {
-            "min": 0,
-            "max": 130
-          }
-        },
-        {
-          "id": "stream_sr_valley_km",
-          "label": "S/R Habitat Stream Length in Valley Bottom (km)",
-          "filter": true,
-          "formats": {
-            "text": ",.1f"
-          },
-          "scale": {
-            "min": 0,
-            "max": 60
-          }
-        },
-        {
-          "id": "road_density",
-          "label": "Road Length per Unit Area (km/km2)",
-          "filter": true,
-          "formats": {
-            "text": ",.1f"
-          },
-          "scale": {
-            "min": 0,
-            "max": 4
-          }
-        },
-        {
-          "id": "st_sr_avg_8_base",
-          "label": "Historical Mean Aug. Stream Temp in S/R Habitat, degC",
-          "filter": true,
-          "formats": {
-            "text": ",.1f"
-          },
-          "scale": {
-            "min": 5,
-            "max": 15
-          }
-        },
-        {
-          "id": "st_sr_max_8_base",
-          "label": "Historical Max Aug. Stream Temp in S/R Habitat, degC",
-          "filter": true,
-          "formats": {
-            "text": ",.1f"
-          },
-          "scale": {
-            "min": 8,
-            "max": 20
-          }
-        },
-        {
-          "id": "st_sr_frac_gt13_8_base",
-          "label": "Historical Frac. S/R Habitat with Mean Aug Temp > 13 degC",
-          "filter": true,
-          "formats": {
-            "text": ",.2f"
-          },
-          "scale": {
-            "min": 0,
-            "max": 1
-          }
-        },
-        {
-          "id": "st_sr_avg_8_45_35",
-          "label": "2035 RCP45 Mean Aug. Stream Temp in S/R Habitat, degC",
-          "filter": true,
-          "formats": {
-            "text": ",.1f"
-          },
-          "scale": {
-            "min": 8,
-            "max": 18
-          }
-        },
-        {
-          "id": "st_sr_max_8_45_35",
-          "label": "2035 RCP45 Max Aug. Stream Temp in S/R Habitat, degC",
-          "filter": true,
-          "formats": {
-            "text": ",.1f"
-          },
-          "scale": {
-            "min": 10,
-            "max": 22
-          }
-        },
-        {
-          "id": "st_sr_frac_gt13_8_45_35",
-          "label": "2035 RCP45 Frac. S/R Habitat with Mean Aug Temp > 13 degC",
-          "filter": true,
-          "formats": {
-            "text": ",.2f"
-          },
-          "scale": {
-            "min": 0,
-            "max": 1
-          }
-        },
-        {
-          "id": "st_sr_avg_8_45_75",
-          "label": "2075 RCP45 Mean Aug. Stream Temp in S/R Habitat, degC",
-          "filter": true,
-          "formats": {
-            "text": ",.1f"
-          },
-          "scale": {
-            "min": 8,
-            "max": 18
-          }
-        },
-        {
-          "id": "st_sr_max_8_45_75",
-          "label": "2075 RCP45 Max Aug. Stream Temp in S/R Habitat, degC",
-          "filter": true,
-          "formats": {
-            "text": ",.1f"
-          },
-          "scale": {
-            "min": 10,
-            "max": 22
-          }
-        },
-        {
-          "id": "st_sr_frac_gt13_8_45_75",
-          "label": "2075 RCP45 Frac. S/R Habitat with Mean Aug Temp > 13 degC",
-          "filter": true,
-          "formats": {
-            "text": ",.2f"
-          },
-          "scale": {
-            "min": 0,
-            "max": 1
-          }
-        },
-        {
-          "id": "precip_base_summer",
-          "label": "Historical Summer Precip, mm",
-          "filter": true,
-          "formats": {
-            "text": ",.1f"
-          },
-          "scale": {
-            "min": 8,
-            "max": 26
-          }
-        },
-        {
-          "id": "precip_base_winter",
-          "label": "Historical Winter Precip, mm",
-          "filter": true,
-          "formats": {
-            "text": ",.1f"
-          },
-          "scale": {
-            "min": 10,
-            "max": 40
-          }
-        },
-        {
-          "id": "precip_RCP45_2035_summer",
-          "label": "2035 RCP45 Summer Precip, mm",
-          "filter": true,
-          "formats": {
-            "text": ",.1f"
-          },
-          "scale": {
-            "min": 8,
-            "max": 26
-          }
-        },
-        {
-          "id": "precip_RCP45_2035_winter",
-          "label": "2035 RCP45 Winter Precip, mm",
-          "filter": true,
-          "formats": {
-            "text": ",.1f"
-          },
-          "scale": {
-            "min": 10,
-            "max": 40
-          }
-        },
-        {
-          "id": "precip_RCP45_2075_summer",
-          "label": "2075 RCP45 Summer Precip, mm",
-          "filter": true,
-          "formats": {
-            "text": ",.1f"
-          },
-          "scale": {
-            "min": 8,
-            "max": 26
-          }
-        },
-        {
-          "id": "precip_RCP45_2075_winter",
-          "label": "2075 RCP45 Winter Precip, mm",
-          "filter": true,
-          "formats": {
-            "text": ",.1f"
-          },
-          "scale": {
-            "min": 10,
-            "max": 40
-          }
-        }
-      ]
-    },
-    {
-      "id": "WCT",
-      "label": "Western Cutthroat Trout",
+      "id": "wct",
+      "label": "Westslope Cutthroat Trout",
       "layer": "patch-wct.json",
       "dataset": {
         "url": "data-wct.csv",
@@ -271,22 +14,38 @@
       },
       "variableGroups": [
         {
+          "label": "Vulnerability Risk Scores (RCP4.5, 2035)",
+          "variables": ["v_climate_45_2035", "v_demographic_45_2035", "v_genetic_45_2035", "v_habitat_45_2035", "v_risk_45_2035"]
+        },
+        {
+          "label": "Vulnerability Risk Scores (RCP8.5, 2035)",
+          "variables": ["v_climate_85_2035", "v_demographic_85_2035", "v_genetic_85_2035", "v_habitat_85_2035", "v_risk_85_2035"]
+        },
+        {
+          "label": "Presence/Absence",
+          "variables": ["wct", "blt", "lkt", "brn", "ebt"]
+        },
+        {
           "label": "Habitat",
-          "variables": ["stream_km", "stream_density", "road_density", "valley_prop"]
+          "variables": ["area_km2", "stream_km", "road_density", "valley_prop"]
         },
         {
-          "label": "Stream Temperature",
-          "variables": ["st_avg_8_base", "st_max_8_base", "st_frac_gt15_8_base", "st_avg_8_45_35", "st_max_8_45_35", "st_frac_gt15_8_45_35", "st_avg_8_45_75", "st_max_8_45_75", "st_frac_gt15_8_45_75"]
+          "label": "Climate Exposure",
+          "variables": ["st_avg_8_base", "st_max_8_base", "st_frac_gt15_8_base", "st_avg_8_45_35", "st_max_8_45_35", "st_frac_gt15_8_45_35", "st_avg_8_45_75", "st_max_8_45_75", "st_frac_gt15_8_45_75", "st_avg_8_85_35", "st_max_8_85_35", "st_frac_gt15_8_85_35", "st_avg_8_85_75", "st_max_8_85_75", "st_frac_gt15_8_85_75", "precip_base_5", "precip_rcp45_2035_5", "precip_rcp45_2075_5", "precip_rcp85_2035_5", "precip_rcp85_2075_5"]
         },
         {
-          "label": "Precipitation",
-          "variables": ["precip_base_5", "precip_base_summer", "precip_RCP45_2035_summer", "precip_RCP45_2075_summer"]
+          "label": "Demographic",
+          "variables": ["inv_dist_score", "isolated", "connected_pops"]
+        },
+        {
+          "label": "Hybridization",
+          "variables": ["hti_1", "max_perrbt"]
         }
       ],
       "variables": [
         {
-          "id": "stream_km",
-          "label": "Stream Length (km)",
+          "id": "v_climate_45_2035",
+          "label": "Climate Risk (RCP 4.5, 2035)",
           "filter": true,
           "formats": {
             "text": ",.1f"
@@ -297,15 +56,195 @@
           }
         },
         {
-          "id": "stream_density",
-          "label": "Stream Length per Unit Patch Area (km/km2)",
+          "id": "v_demographic_45_2035",
+          "label": "Demographic Risk (RCP 4.5, 2035)",
           "filter": true,
           "formats": {
             "text": ",.1f"
           },
           "scale": {
             "min": 0,
-            "max": 4
+            "max": 100
+          }
+        },
+        {
+          "id": "v_genetic_45_2035",
+          "label": "Genetic Risk (RCP 4.5, 2035)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "v_habitat_45_2035",
+          "label": "Habitat Risk (RCP 4.5, 2035)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "v_risk_45_2035",
+          "label": "Overall Risk (RCP 4.5, 2035)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "v_climate_85_2035",
+          "label": "Climate Risk (RCP 8.5, 2035)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "v_demographic_85_2035",
+          "label": "Demographic Risk (RCP 8.5, 2035)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "v_genetic_85_2035",
+          "label": "Genetic Risk (RCP 8.5, 2035)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "v_habitat_85_2035",
+          "label": "Habitat Risk (RCP 8.5, 2035)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "v_risk_85_2035",
+          "label": "Overall Risk (RCP 8.5, 2035)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "wct",
+          "label": "Presence of Westslope Cutthroat Trout",
+          "filter": true,
+          "formats": {
+            "text": "d"
+          },
+          "scale": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "id": "blt",
+          "label": "Presence of Bull Trout",
+          "filter": true,
+          "formats": {
+            "text": "d"
+          },
+          "scale": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "id": "lkt",
+          "label": "Presence of Lake Trout",
+          "filter": true,
+          "formats": {
+            "text": "d"
+          },
+          "scale": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "id": "brn",
+          "label": "Presence of Brown Trout",
+          "filter": true,
+          "formats": {
+            "text": "d"
+          },
+          "scale": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "id": "ebt",
+          "label": "Presence of Brook Trout",
+          "filter": true,
+          "formats": {
+            "text": "d"
+          },
+          "scale": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "id": "area_km2",
+          "label": "Patch Area (km2)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 750
+          }
+        },
+        {
+          "id": "stream_km",
+          "label": "Stream Length (km)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 2000
           }
         },
         {
@@ -341,7 +280,7 @@
           },
           "scale": {
             "min": 2,
-            "max": 20
+            "max": 22
           }
         },
         {
@@ -352,8 +291,8 @@
             "text": ",.1f"
           },
           "scale": {
-            "min": 6,
-            "max": 24
+            "min": 2,
+            "max": 22
           }
         },
         {
@@ -370,31 +309,31 @@
         },
         {
           "id": "st_avg_8_45_35",
-          "label": "2035 RCP45 Mean Aug. Stream Temp, degC",
+          "label": "2035 RCP4.5 Mean Aug. Stream Temp, degC",
           "filter": true,
           "formats": {
             "text": ",.1f"
           },
           "scale": {
             "min": 2,
-            "max": 20
+            "max": 22
           }
         },
         {
           "id": "st_max_8_45_35",
-          "label": "2035 RCP45 Max Aug. Stream Temp, degC",
+          "label": "2035 RCP4.5 Max Aug. Stream Temp, degC",
           "filter": true,
           "formats": {
             "text": ",.1f"
           },
           "scale": {
-            "min": 6,
-            "max": 24
+            "min": 2,
+            "max": 22
           }
         },
         {
           "id": "st_frac_gt15_8_45_35",
-          "label": "2035 RCP45 Frac. Stream Length with Mean Aug Temp > 15 degC",
+          "label": "2035 RCP4.5 Frac. Stream Length with Mean Aug Temp > 15 degC",
           "filter": true,
           "formats": {
             "text": ",.2f"
@@ -406,31 +345,103 @@
         },
         {
           "id": "st_avg_8_45_75",
-          "label": "2075 RCP45 Mean Aug. Stream Temp, degC",
+          "label": "2075 RCP4.5 Mean Aug. Stream Temp, degC",
           "filter": true,
           "formats": {
             "text": ",.1f"
           },
           "scale": {
             "min": 2,
-            "max": 20
+            "max": 22
           }
         },
         {
           "id": "st_max_8_45_75",
-          "label": "2075 RCP45 Max Aug. Stream Temp, degC",
+          "label": "2075 RCP4.5 Max Aug. Stream Temp, degC",
           "filter": true,
           "formats": {
             "text": ",.1f"
           },
           "scale": {
-            "min": 6,
-            "max": 24
+            "min": 2,
+            "max": 22
           }
         },
         {
           "id": "st_frac_gt15_8_45_75",
-          "label": "2075 RCP45 Frac. Stream Length with Mean Aug Temp > 15 degC",
+          "label": "2075 RCP4.5 Frac. Stream Length with Mean Aug Temp > 15 degC",
+          "filter": true,
+          "formats": {
+            "text": ",.2f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "id": "st_avg_8_85_35",
+          "label": "2035 RCP4.5 Mean Aug. Stream Temp, degC",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 2,
+            "max": 22
+          }
+        },
+        {
+          "id": "st_max_8_85_35",
+          "label": "2035 RCP4.5 Max Aug. Stream Temp, degC",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 2,
+            "max": 22
+          }
+        },
+        {
+          "id": "st_frac_gt15_8_85_35",
+          "label": "2035 RCP4.5 Frac. Stream Length with Mean Aug Temp > 15 degC",
+          "filter": true,
+          "formats": {
+            "text": ",.2f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "id": "st_avg_8_85_75",
+          "label": "2075 RCP4.5 Mean Aug. Stream Temp, degC",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 2,
+            "max": 22
+          }
+        },
+        {
+          "id": "st_max_8_85_75",
+          "label": "2075 RCP4.5 Max Aug. Stream Temp, degC",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 2,
+            "max": 22
+          }
+        },
+        {
+          "id": "st_frac_gt15_8_85_75",
+          "label": "2075 RCP4.5 Frac. Stream Length with Mean Aug Temp > 15 degC",
           "filter": true,
           "formats": {
             "text": ",.2f"
@@ -449,50 +460,122 @@
           },
           "scale": {
             "min": 0,
+            "max": 8
+          }
+        },
+        {
+          "id": "precip_rcp45_2035_5",
+          "label": "2035 RCP 4.5 May Precip, mm",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 8
+          }
+        },
+        {
+          "id": "precip_rcp45_2075_5",
+          "label": "2075 RCP 4.5 May Precip, mm",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 8
+          }
+        },
+        {
+          "id": "precip_rcp85_2035_5",
+          "label": "2035 RCP 8.5 May Precip, mm",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 8
+          }
+        },
+        {
+          "id": "precip_rcp85_2075_5",
+          "label": "2075 RCP 8.5 May Precip, mm",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 8
+          }
+        },
+        {
+          "id": "inv_dist_score",
+          "label": "Invasive Species Distance Index",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
             "max": 6
           }
         },
         {
-          "id": "precip_base_summer",
-          "label": "Historical Summer Precip, mm",
+          "id": "isolated",
+          "label": "Isolation Status",
           "filter": true,
           "formats": {
-            "text": ",.1f"
+            "text": "d"
           },
           "scale": {
-            "min": 8,
-            "max": 32
+            "min": 0,
+            "max": 1
           }
         },
         {
-          "id": "precip_RCP45_2035_summer",
-          "label": "2035 RCP45 Summer (Apr-Sep) Precip, mm",
+          "id": "connected_pops",
+          "label": "Number of Connected Populations",
           "filter": true,
           "formats": {
-            "text": ",.1f"
+            "text": "d"
           },
           "scale": {
-            "min": 8,
-            "max": 32
+            "min": 0,
+            "max": 100
           }
         },
         {
-          "id": "precip_RCP45_2075_summer",
-          "label": "2075 RCP45 Summer (Apr-Sep) Precip, mm",
+          "id": "hti_1",
+          "label": "Hybridation Threat Index",
           "filter": true,
           "formats": {
             "text": ",.1f"
           },
           "scale": {
-            "min": 8,
-            "max": 32
+            "min": 0,
+            "max": 400
+          }
+        },
+        {
+          "id": "max_perrbt",
+          "label": "Maximum Rainbow Trout Admixture",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 100
           }
         }
       ]
     }
   ],
   "defaults": {
-    "theme": "BLT",
-    "variable": "stream_sr_km"
+    "theme": "wct",
+    "variable": "v_risk_45_2035"
   }
 }

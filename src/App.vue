@@ -107,7 +107,7 @@
           <li>Change the transparency of the population patches</li>
           <li>Switch the basemap and turn on or off the tiled layers</li>
         </ol>
-        <img src="/static/img/map-controls.png" alt="Map Controls" class="img-rounded">
+        <img src="static/img/map-controls.png" alt="Map Controls" class="img-rounded">
         <hr>
         <h3>Histograms and Filters</h3>
         <p></p>

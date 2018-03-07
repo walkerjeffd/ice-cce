@@ -43,7 +43,7 @@
       </div>
       <div class="ice-right-sidebar">
         <div class="ice-box">
-          <div class="ice-box-title">Filters and Histograms</div>
+          <div class="ice-box-title">Histograms and Filters</div>
           <select-picker
             :config="{}"
             :options="variables | filterVariable"
@@ -87,9 +87,39 @@
         <div><i class="fa fa-spinner fa-spin fa-5x fa-fw"></i></div>
       </div>
     </div>
-    <modal :show="modals.about" @close="modals.about = false">
+    <modal :show="modals.about" @close="modals.about = false" size="lg">
       <span slot="title">About the Interactive Catchment Explorer</span>
-      <div slot="body">Description and brief how-to on the Interactive Catchment Explorer</div>
+      <div slot="body">
+        <p>The <strong>Interactive Catchment Explorer (ICE)</strong> is an interactive data visualization tool for exploring geospatial environmental datasets.</p>
+        <p>Given a set of polygon features (e.g. habitat patches), ICE allows users to:</p>
+        <ol>
+          <li>View spatial patterns of each variable by color-coding the features according to their values</li>
+          <li>View the statistical distribution of each variable through a histogram</li>
+          <li>Filter the dataset by specifying one or more criteria using the interactive histograms in order to select only the features meeting those criteria</li>
+        </ol>
+        <p>The following sections provide a brief set of instructions on how to use ICE.</p>
+        <hr>
+        <h3>Map</h3>
+        <p>The map displays a basemap (satellite or street map), one or more tiled layers (CCE boundary, streams, lakes, etc.), and the local population patches for the selected species, which are colored by the selected variable.</p>
+        <p>Use the map control bar to:</p>
+        <ol>
+          <li>Zoom in/out</li>
+          <li>Change the transparency of the population patches</li>
+          <li>Switch the basemap and turn on or off the tiled layers</li>
+        </ol>
+        <img src="/static/img/map-controls.png" alt="Map Controls" class="img-rounded">
+        <hr>
+        <h3>Histograms and Filters</h3>
+        <p></p>
+        <hr>
+        <h3>Development</h3>
+        <p>ICE was developed as part of the Spatial Hydro-Ecological Decision System (SHEDS) project by:</p>
+        <ul>
+          <li>Dr. Jeffrey D. Walker, <a href="https://walkerenvres.com" target="_blank">Walker Environmental Research LLC</a></li>
+          <li>Dr. Ben Letcher, <a href="http://www.lsc.usgs.gov/?q=cafb-ben-letcher" target="_blank">USGS Conte Anadromous Fish Lab</a> and UMass Amherst</li>
+        </ul>
+        <p>ICE was built using a number of open-source frameworks and libraries including <a href="https://vuejs.org" target="_blank">VueJS</a>, <a href="https://d3js.org" target="_blank">d3.js</a>, <a href="http://leafletjs.com" target="_blank">Leaflet</a>, and <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>.</p>
+      </div>
     </modal>
     <modal :show="modals.dataset" @close="modals.dataset = false">
       <span slot="title">About the Crown of the Continent Ecosystem Dataset</span>

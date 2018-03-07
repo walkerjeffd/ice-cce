@@ -13,7 +13,7 @@
           <button type="button" class="close" aria-label="Close" @click="close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title"><slot name="title"></slot></h4>
+          <h3 class="modal-title"><slot name="title"></slot></h3>
         </div>
         <div class="modal-body">
           <slot name="body"></slot>

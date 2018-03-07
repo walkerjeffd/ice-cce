@@ -53,6 +53,7 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'func-names': 'off',
     'no-plusplus': 'off',
-    'no-param-reassign': 'off'
+    'no-param-reassign': 'off',
+    'no-alert': 'off'
   }
 }

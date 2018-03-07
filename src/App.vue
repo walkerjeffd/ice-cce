@@ -163,14 +163,14 @@ export default {
   created() {
     axios.get('config.json')
       .then(response => response.data)
-      .then((config) => {
-        this.$store.dispatch('setConfig', config)
-          .then(() => {
-            this.$store.dispatch('selectDefaults')
-              .then(() => {
-                this.loading = false;
-              });
-          });
+      .then(config => this.$store.dispatch('setConfig', config))
+      .then(() => this.$store.dispatch('selectDefaults'))
+      .then(() => {
+        this.loading = false;
+      })
+      .catch((error) => {
+        alert('Uh oh! An error occurred. Please refresh and try again. If the problem persists please contact Jeff Walker at jeff@walkerenvres.com');
+        console.log(error);
       });
 
     EventBus.$on('filter', () => {
@@ -195,6 +195,10 @@ export default {
       this.$store.dispatch('selectThemeById', id)
         .then(() => {
           this.loading = false;
+        })
+        .catch((error) => {
+          alert('Uh oh! An error occurred. Please refresh and try again. If the problem persists please contact Jeff Walker at jeff@walkerenvres.com');
+          console.log(error);
         });
     },
     updateFilters(ids) {

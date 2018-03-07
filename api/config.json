@@ -15,11 +15,19 @@
       "variableGroups": [
         {
           "label": "Vulnerability Risk Scores (RCP4.5, 2035)",
-          "variables": ["v_climate_45_2035", "v_demographic_45_2035", "v_genetic_45_2035", "v_habitat_45_2035", "v_risk_45_2035"]
+          "variables": ["v_risk_45_2035", "v_climate_45_2035", "v_demographic_45_2035", "v_genetic_45_2035", "v_habitat_45_2035"]
         },
         {
           "label": "Vulnerability Risk Scores (RCP8.5, 2035)",
-          "variables": ["v_climate_85_2035", "v_demographic_85_2035", "v_genetic_85_2035", "v_habitat_85_2035", "v_risk_85_2035"]
+          "variables": ["v_risk_85_2035", "v_climate_85_2035", "v_demographic_85_2035", "v_genetic_85_2035", "v_habitat_85_2035"]
+        },
+        {
+          "label": "Hybridization",
+          "variables": ["hti_1", "max_perrbt"]
+        },
+        {
+          "label": "Demographic",
+          "variables": ["inv_dist_score", "isolated", "connected_pops"]
         },
         {
           "label": "Presence/Absence",
@@ -32,17 +40,21 @@
         {
           "label": "Climate Exposure",
           "variables": ["st_avg_8_base", "st_max_8_base", "st_frac_gt15_8_base", "st_avg_8_45_35", "st_max_8_45_35", "st_frac_gt15_8_45_35", "st_avg_8_45_75", "st_max_8_45_75", "st_frac_gt15_8_45_75", "st_avg_8_85_35", "st_max_8_85_35", "st_frac_gt15_8_85_35", "st_avg_8_85_75", "st_max_8_85_75", "st_frac_gt15_8_85_75", "precip_base_5", "precip_rcp45_2035_5", "precip_rcp45_2075_5", "precip_rcp85_2035_5", "precip_rcp85_2075_5"]
-        },
-        {
-          "label": "Demographic",
-          "variables": ["inv_dist_score", "isolated", "connected_pops"]
-        },
-        {
-          "label": "Hybridization",
-          "variables": ["hti_1", "max_perrbt"]
         }
       ],
       "variables": [
+        {
+          "id": "v_risk_45_2035",
+          "label": "Overall Risk (RCP 4.5, 2035)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 100
+          }
+        },
         {
           "id": "v_climate_45_2035",
           "label": "Climate Risk (RCP 4.5, 2035)",
@@ -92,8 +104,8 @@
           }
         },
         {
-          "id": "v_risk_45_2035",
-          "label": "Overall Risk (RCP 4.5, 2035)",
+          "id": "v_risk_85_2035",
+          "label": "Overall Risk (RCP 8.5, 2035)",
           "filter": true,
           "formats": {
             "text": ",.1f"
@@ -152,11 +164,59 @@
           }
         },
         {
-          "id": "v_risk_85_2035",
-          "label": "Overall Risk (RCP 8.5, 2035)",
+          "id": "hti_1",
+          "label": "Hybridation Threat Index",
           "filter": true,
           "formats": {
             "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 400
+          }
+        },
+        {
+          "id": "max_perrbt",
+          "label": "Maximum Rainbow Trout Admixture",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "inv_dist_score",
+          "label": "Invasive Species Distance Index",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 6
+          }
+        },
+        {
+          "id": "isolated",
+          "label": "Isolation Status",
+          "filter": true,
+          "formats": {
+            "text": "d"
+          },
+          "scale": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "id": "connected_pops",
+          "label": "Number of Connected Populations",
+          "filter": true,
+          "formats": {
+            "text": "d"
           },
           "scale": {
             "min": 0,
@@ -509,66 +569,6 @@
           "scale": {
             "min": 0,
             "max": 8
-          }
-        },
-        {
-          "id": "inv_dist_score",
-          "label": "Invasive Species Distance Index",
-          "filter": true,
-          "formats": {
-            "text": ",.1f"
-          },
-          "scale": {
-            "min": 0,
-            "max": 6
-          }
-        },
-        {
-          "id": "isolated",
-          "label": "Isolation Status",
-          "filter": true,
-          "formats": {
-            "text": "d"
-          },
-          "scale": {
-            "min": 0,
-            "max": 1
-          }
-        },
-        {
-          "id": "connected_pops",
-          "label": "Number of Connected Populations",
-          "filter": true,
-          "formats": {
-            "text": "d"
-          },
-          "scale": {
-            "min": 0,
-            "max": 100
-          }
-        },
-        {
-          "id": "hti_1",
-          "label": "Hybridation Threat Index",
-          "filter": true,
-          "formats": {
-            "text": ",.1f"
-          },
-          "scale": {
-            "min": 0,
-            "max": 400
-          }
-        },
-        {
-          "id": "max_perrbt",
-          "label": "Maximum Rainbow Trout Admixture",
-          "filter": true,
-          "formats": {
-            "text": ",.1f"
-          },
-          "scale": {
-            "min": 0,
-            "max": 100
           }
         }
       ]

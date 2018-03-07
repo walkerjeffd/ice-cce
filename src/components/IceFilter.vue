@@ -31,10 +31,7 @@ import * as d3 from 'd3';
 
 import EventBus from '../event-bus';
 
-function barChart() {
-  if (!barChart.id) barChart.id = 0;
-
-  const id = barChart.id++; // eslint-disable-line no-plusplus
+function barChart(id) {
   const axis = d3.svg.axis().orient('bottom');
   const brush = d3.svg.brush();
   let margin = { top: 10, right: 10, bottom: 20, left: 10 };
@@ -88,12 +85,6 @@ function barChart() {
 
       // Create the skeletal chart.
       if (g.empty()) {
-        div.select('.title').append('a')
-          .attr('href', `javascript:reset(${id})`)
-          .attr('class', 'reset')
-          .text('reset')
-          .style('display', 'none');
-
         g = div.append('svg')
           .attr('width', width + margin.left + margin.right)
           .attr('height', height + margin.top + margin.bottom)
@@ -302,7 +293,7 @@ export default {
       .domain([this.filter.variable.scale.min, this.filter.variable.scale.max])
       .rangeRound([0, +this.width]);
 
-    this.chart = barChart(this)
+    this.chart = barChart(this.variable.id)
       .dimension(this.dim)
       .group(this.group)
       .x(xScale)

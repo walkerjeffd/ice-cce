@@ -296,8 +296,8 @@ div.leaflet-top.leaflet-left {
 }
 
 .leaflet-touch .leaflet-control-layers-toggle {
-  width: 30px;
-  height: 30px;
+  width: 30px !important;
+  height: 30px !important;
 }
 
 .ice-map.leaflet-container {

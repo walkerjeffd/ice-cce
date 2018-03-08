@@ -39,7 +39,7 @@
         },
         {
           "label": "Climate Exposure",
-          "variables": ["st_avg_8_base", "st_max_8_base", "st_frac_gt15_8_base", "st_avg_8_45_35", "st_max_8_45_35", "st_frac_gt15_8_45_35", "st_avg_8_45_75", "st_max_8_45_75", "st_frac_gt15_8_45_75", "st_avg_8_85_35", "st_max_8_85_35", "st_frac_gt15_8_85_35", "st_avg_8_85_75", "st_max_8_85_75", "st_frac_gt15_8_85_75", "precip_base_5", "precip_rcp45_2035_5", "precip_rcp45_2075_5", "precip_rcp85_2035_5", "precip_rcp85_2075_5"]
+          "variables": ["st_avg_8_base", "st_avg_8_45_35", "st_avg_8_45_75", "st_avg_8_85_35", "st_avg_8_85_75", "st_max_8_base", "st_max_8_45_35", "st_max_8_45_75", "st_max_8_85_35", "st_max_8_85_75", "st_frac_gt15_8_base", "st_frac_gt15_8_45_35", "st_frac_gt15_8_45_75", "st_frac_gt15_8_85_35", "st_frac_gt15_8_85_75", "precip_base_5", "precip_rcp45_2035_5", "precip_rcp45_2075_5", "precip_rcp85_2035_5", "precip_rcp85_2075_5"]
         }
       ],
       "variables": [
@@ -333,7 +333,55 @@
         },
         {
           "id": "st_avg_8_base",
-          "label": "Historical Mean Aug. Stream Temp, degC",
+          "label": "Mean Aug. Stream Temp, degC (Historical, 1985-2005)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 2,
+            "max": 22
+          }
+        },
+        {
+          "id": "st_avg_8_45_35",
+          "label": "Mean Aug. Stream Temp, degC (RCP 4.5, 2035)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 2,
+            "max": 22
+          }
+        },
+        {
+          "id": "st_avg_8_45_75",
+          "label": "Mean Aug. Stream Temp, degC (RCP 4.5, 2075)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 2,
+            "max": 22
+          }
+        },
+        {
+          "id": "st_avg_8_85_35",
+          "label": "Mean Aug. Stream Temp, degC (RCP 8.5, 2035)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 2,
+            "max": 22
+          }
+        },
+        {
+          "id": "st_avg_8_85_75",
+          "label": "Mean Aug. Stream Temp, degC (RCP 8.5, 2075)",
           "filter": true,
           "formats": {
             "text": ",.1f"
@@ -345,31 +393,7 @@
         },
         {
           "id": "st_max_8_base",
-          "label": "Historical Max Aug. Stream Temp, degC",
-          "filter": true,
-          "formats": {
-            "text": ",.1f"
-          },
-          "scale": {
-            "min": 2,
-            "max": 22
-          }
-        },
-        {
-          "id": "st_frac_gt15_8_base",
-          "label": "Historical Frac. Streams with Mean Aug Temp > 15 degC",
-          "filter": true,
-          "formats": {
-            "text": ",.2f"
-          },
-          "scale": {
-            "min": 0,
-            "max": 1
-          }
-        },
-        {
-          "id": "st_avg_8_45_35",
-          "label": "2035 RCP4.5 Mean Aug. Stream Temp, degC",
+          "label": "Max Aug. Stream Temp, degC (Historical, 1985-2005)",
           "filter": true,
           "formats": {
             "text": ",.1f"
@@ -381,31 +405,7 @@
         },
         {
           "id": "st_max_8_45_35",
-          "label": "2035 RCP4.5 Max Aug. Stream Temp, degC",
-          "filter": true,
-          "formats": {
-            "text": ",.1f"
-          },
-          "scale": {
-            "min": 2,
-            "max": 22
-          }
-        },
-        {
-          "id": "st_frac_gt15_8_45_35",
-          "label": "2035 RCP4.5 Frac. Stream Length with Mean Aug Temp > 15 degC",
-          "filter": true,
-          "formats": {
-            "text": ",.2f"
-          },
-          "scale": {
-            "min": 0,
-            "max": 1
-          }
-        },
-        {
-          "id": "st_avg_8_45_75",
-          "label": "2075 RCP4.5 Mean Aug. Stream Temp, degC",
+          "label": "Max Aug. Stream Temp, degC (RCP 4.5, 2035)",
           "filter": true,
           "formats": {
             "text": ",.1f"
@@ -417,31 +417,7 @@
         },
         {
           "id": "st_max_8_45_75",
-          "label": "2075 RCP4.5 Max Aug. Stream Temp, degC",
-          "filter": true,
-          "formats": {
-            "text": ",.1f"
-          },
-          "scale": {
-            "min": 2,
-            "max": 22
-          }
-        },
-        {
-          "id": "st_frac_gt15_8_45_75",
-          "label": "2075 RCP4.5 Frac. Stream Length with Mean Aug Temp > 15 degC",
-          "filter": true,
-          "formats": {
-            "text": ",.2f"
-          },
-          "scale": {
-            "min": 0,
-            "max": 1
-          }
-        },
-        {
-          "id": "st_avg_8_85_35",
-          "label": "2035 RCP4.5 Mean Aug. Stream Temp, degC",
+          "label": "Max Aug. Stream Temp, degC (RCP 4.5, 2075)",
           "filter": true,
           "formats": {
             "text": ",.1f"
@@ -453,31 +429,7 @@
         },
         {
           "id": "st_max_8_85_35",
-          "label": "2035 RCP4.5 Max Aug. Stream Temp, degC",
-          "filter": true,
-          "formats": {
-            "text": ",.1f"
-          },
-          "scale": {
-            "min": 2,
-            "max": 22
-          }
-        },
-        {
-          "id": "st_frac_gt15_8_85_35",
-          "label": "2035 RCP4.5 Frac. Stream Length with Mean Aug Temp > 15 degC",
-          "filter": true,
-          "formats": {
-            "text": ",.2f"
-          },
-          "scale": {
-            "min": 0,
-            "max": 1
-          }
-        },
-        {
-          "id": "st_avg_8_85_75",
-          "label": "2075 RCP4.5 Mean Aug. Stream Temp, degC",
+          "label": "Max Aug. Stream Temp, degC (RCP 8.5, 2035)",
           "filter": true,
           "formats": {
             "text": ",.1f"
@@ -489,7 +441,7 @@
         },
         {
           "id": "st_max_8_85_75",
-          "label": "2075 RCP4.5 Max Aug. Stream Temp, degC",
+          "label": "Max Aug. Stream Temp, degC (RCP 8.5, 2075)",
           "filter": true,
           "formats": {
             "text": ",.1f"
@@ -500,8 +452,56 @@
           }
         },
         {
+          "id": "st_frac_gt15_8_base",
+          "label": "Frac. Streams with Mean Aug Temp > 15 degC (Historical, 1985-2005)",
+          "filter": true,
+          "formats": {
+            "text": ",.2f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "id": "st_frac_gt15_8_45_35",
+          "label": "Frac. Stream Length with Mean Aug Temp > 15 degC (RCP 4.5, 2035)",
+          "filter": true,
+          "formats": {
+            "text": ",.2f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "id": "st_frac_gt15_8_45_75",
+          "label": "Frac. Stream Length with Mean Aug Temp > 15 degC (RCP 4.5, 2075)",
+          "filter": true,
+          "formats": {
+            "text": ",.2f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "id": "st_frac_gt15_8_85_35",
+          "label": "Frac. Stream Length with Mean Aug Temp > 15 degC (RCP 8.5, 2035)",
+          "filter": true,
+          "formats": {
+            "text": ",.2f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
           "id": "st_frac_gt15_8_85_75",
-          "label": "2075 RCP4.5 Frac. Stream Length with Mean Aug Temp > 15 degC",
+          "label": "Frac. Stream Length with Mean Aug Temp > 15 degC (RCP 8.5, 2075)",
           "filter": true,
           "formats": {
             "text": ",.2f"
@@ -513,7 +513,7 @@
         },
         {
           "id": "precip_base_5",
-          "label": "Historical May Precip, mm",
+          "label": "May Precipitation, mm (Historical, 1985-2005)",
           "filter": true,
           "formats": {
             "text": ",.1f"
@@ -525,7 +525,7 @@
         },
         {
           "id": "precip_rcp45_2035_5",
-          "label": "2035 RCP 4.5 May Precip, mm",
+          "label": "May Precipitation, mm (RCP 4.5, 2035)",
           "filter": true,
           "formats": {
             "text": ",.1f"
@@ -537,7 +537,7 @@
         },
         {
           "id": "precip_rcp45_2075_5",
-          "label": "2075 RCP 4.5 May Precip, mm",
+          "label": "May Precipitation, mm (RCP 4.5, 2075)",
           "filter": true,
           "formats": {
             "text": ",.1f"
@@ -549,7 +549,7 @@
         },
         {
           "id": "precip_rcp85_2035_5",
-          "label": "2035 RCP 8.5 May Precip, mm",
+          "label": "May Precipitation, mm (RCP 8.5, 2035)",
           "filter": true,
           "formats": {
             "text": ",.1f"
@@ -561,7 +561,7 @@
         },
         {
           "id": "precip_rcp85_2075_5",
-          "label": "2075 RCP 8.5 May Precip, mm",
+          "label": "May Precipitation, mm (RCP 8.5, 2075)",
           "filter": true,
           "formats": {
             "text": ",.1f"

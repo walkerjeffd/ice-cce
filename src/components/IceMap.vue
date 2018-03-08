@@ -291,7 +291,7 @@ path.fill.selected {
 }
 
 div.leaflet-top.leaflet-left {
-  margin-left: 430px;
+  margin-left: 450px;
   margin-top: 60px;
 }
 

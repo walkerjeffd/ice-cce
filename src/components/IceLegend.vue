@@ -79,7 +79,9 @@ export default {
       const interval = (maxValue - minValue) / 4;
 
       const tickValues = d3.range(minValue, maxValue + interval, interval);
-      const xScale = d3.scale.linear().domain([domain[0], domain[domain.length - 1]]).range([0, this.width]);
+      const xScale = d3.scale.linear()
+        .domain([domain[0], domain[domain.length - 1]])
+        .range([0, this.width]);
 
       const offsets = d3.range(0, 1.1, 0.1);
 

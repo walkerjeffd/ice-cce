@@ -81,7 +81,7 @@ export default {
 <style>
 .ice-select-box {
   position: absolute;
-  right: 435px;
+  right: 490px;
   top: 70px;
   padding: 5px 5px;
   background: #fff;

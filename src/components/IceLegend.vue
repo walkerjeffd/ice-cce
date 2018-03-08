@@ -79,7 +79,7 @@ export default {
       const interval = (maxValue - minValue) / 4;
 
       const tickValues = d3.range(minValue, maxValue + interval, interval);
-      const xScale = d3.scale.linear().domain(domain).range([0, this.width]);
+      const xScale = d3.scale.linear().domain([domain[0], domain[domain.length - 1]]).range([0, this.width]);
 
       const offsets = d3.range(0, 1.1, 0.1);
 
@@ -88,7 +88,7 @@ export default {
         .enter()
         .append('stop')
         .attr('offset', d => d)
-        .attr('stop-color', d => this.colorScale(domain[0] + ((domain[1] - domain[0]) * d)));
+        .attr('stop-color', d => this.colorScale(domain[0] + ((domain[domain.length - 1] - domain[0]) * d)));
 
       const ticks = gTicks.selectAll('rect')
         .data(tickValues);

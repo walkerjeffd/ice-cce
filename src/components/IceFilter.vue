@@ -1,7 +1,9 @@
 <template>
   <div class="ice-filter">
     <div class="title">
-      <div class="pull-right"><button class="btn btn-xs" @click="destroy">×</button></div>
+      <div class="pull-right">
+        <button class="btn btn-xs" @click="destroy">×</button>
+      </div>
       <div>{{ filter.variable.label }}</div>
     </div>
     <div class="stats">
@@ -22,7 +24,7 @@
         <span v-else>N/A</span>
       </div>
     </div>
-    <div class="chart"></div>
+    <div class="chart"/>
   </div>
 </template>
 

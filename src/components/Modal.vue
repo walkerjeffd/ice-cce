@@ -39,6 +39,19 @@ export default {
 
 <style>
 .modal {
-  z-index: 3000;
+  z-index: 4000;
+}
+
+.modal-body {
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+.modal-body h4 {
+  margin-top: 20px;
+}
+
+.modal-dialog {
+  margin-top: 60px;
 }
 </style>

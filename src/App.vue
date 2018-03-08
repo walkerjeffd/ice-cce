@@ -1,16 +1,22 @@
 <template>
-  <div id="app" class="full">
-    <ice-header></ice-header>
+  <div
+    id="app"
+    class="full">
+    <ice-header/>
 
     <div class="ice-container">
       <div class="ice-left-sidebar">
         <div class="ice-box">
-          <button class="btn btn-default" @click="modals.about = true">
-              <i class="fa fa-question-circle"></i> About
-            </button>
-            <button class="btn btn-default" @click="modals.dataset = true">
-              <i class="fa fa-table"></i> Dataset
-            </button>
+          <button
+            class="btn btn-default"
+            @click="modals.about = true">
+            <i class="fa fa-question-circle"/> About ICE
+          </button>
+          <button
+            class="btn btn-default"
+            @click="modals.dataset = true">
+            <i class="fa fa-table"/> About the Data
+          </button>
         </div>
         <div class="ice-box">
           <div class="ice-box-title">Select Species</div>
@@ -22,8 +28,8 @@
             @input="selectThemeById"
             value-field="id"
             text-field="label"
-            title="Select layer...">
-          </select-picker>
+            title="Select layer..."
+          />
         </div>
         <div class="ice-box">
           <div class="ice-box-title">Select Variable</div>
@@ -36,9 +42,9 @@
             @input="selectVariableById"
             value-field="id"
             text-field="label"
-            title="Select variable...">
-          </select-picker>
-          <ice-legend></ice-legend>
+            title="Select variable..."
+          />
+          <ice-legend/>
         </div>
       </div>
       <div class="ice-right-sidebar">
@@ -53,12 +59,14 @@
             @input="updateFilters"
             value-field="id"
             text-field="label"
-            title="Select variable(s)...">
-          </select-picker>
+            title="Select variable(s)..."
+          />
           <div class="ice-filter-selected">
             # Patches Selected: {{ activeCount }} of {{ totalCount }}
           </div>
-          <div class="ice-filter-container" :style="{'max-height': maxHeight + 'px'}">
+          <div
+            class="ice-filter-container"
+            :style="{'max-height': maxHeight + 'px'}">
             <ice-filter
               v-for="filter in filters"
               :key="filter.variable.id"
@@ -66,8 +74,8 @@
               :xf="xf"
               width="360"
               @brush="brushed"
-              @destroy="destroyFilter">
-            </ice-filter>
+              @destroy="destroyFilter"
+            />
           </div>
         </div>
       </div>
@@ -75,53 +83,306 @@
         :selected="selectedFeature"
         @zoomTo="zoomToFeature"
         @unselect="selectFeature"
-        v-if="selectedFeature">
-      </ice-select-info>
+        v-if="selectedFeature"
+      />
       <ice-map
         :options="map.options"
-        :selectedFeature="selectedFeature"
-        @selectFeature="selectFeature">
-      </ice-map>
-      <div class="ice-loading" v-show="loading">
+        :selected-feature="selectedFeature"
+        @selectFeature="selectFeature"
+      />
+      <div
+        class="ice-loading"
+        v-show="loading">
         <h1>Loading</h1>
-        <div><i class="fa fa-spinner fa-spin fa-5x fa-fw"></i></div>
+        <div><i class="fa fa-spinner fa-spin fa-5x fa-fw" /></div>
       </div>
     </div>
-    <modal :show="modals.about" @close="modals.about = false" size="lg">
+    <modal
+      :show="modals.about"
+      @close="modals.about = false"
+      size="lg">
       <span slot="title">About the Interactive Catchment Explorer</span>
       <div slot="body">
-        <p>The <strong>Interactive Catchment Explorer (ICE)</strong> is an interactive data visualization tool for exploring geospatial environmental datasets.</p>
-        <p>Given a set of polygon features (e.g. habitat patches), ICE allows users to:</p>
-        <ol>
-          <li>View spatial patterns of each variable by color-coding the features according to their values</li>
-          <li>View the statistical distribution of each variable through a histogram</li>
-          <li>Filter the dataset by specifying one or more criteria using the interactive histograms in order to select only the features meeting those criteria</li>
-        </ol>
-        <p>The following sections provide a brief set of instructions on how to use ICE.</p>
+        <div class="row">
+          <div class="col-md-6">
+            <p>
+              The <strong>Interactive Catchment Explorer (ICE)</strong> is a data
+              visualization tool for exploring geospatial environmental datasets.
+            </p>
+            <p>ICE is designed to:</p>
+            <ol>
+              <li>
+                Identify spatial patterns among local population patches of the individual
+                covariates and vulnerability assessment risk scores for each species,
+              </li>
+              <li>
+                View the distribution of values for each variable using histograms,
+              </li>
+              <li>
+                Apply dynamic and interactive filters to identify which patches meet one or more
+                specific criteria and to discover relationships between individual variables.
+              </li>
+            </ol>
+          </div>
+          <div class="col-md-6">
+            <img
+              src="static/img/about/filter-animation-400x263.gif"
+              alt="Filter Animation"
+              class="img-rounded img-center">
+          </div>
+        </div>
         <hr>
         <h3>Map</h3>
-        <p>The map displays a basemap (satellite or street map), one or more tiled layers (CCE boundary, streams, lakes, etc.), and the local population patches for the selected species, which are colored by the selected variable.</p>
-        <p>Use the map control bar to:</p>
-        <ol>
-          <li>Zoom in/out</li>
-          <li>Change the transparency of the population patches</li>
-          <li>Switch the basemap and turn on or off the tiled layers</li>
-        </ol>
-        <img src="static/img/map-controls.png" alt="Map Controls" class="img-rounded">
+        <p>
+          The map shows a basemap (satellite or street map), one or more tiled layers (CCE
+          boundary, streams, lakes, etc.), and the local population patches for the selected
+          species, which are colored according to their values for the selected variable.
+        </p>
+        <h4>Map Controls</h4>
+        <div class="row">
+          <div class="col-md-6">
+            <p>
+              Use the map controls to zoom in and out, adjust the transparency of the patches layer,
+              and to switch basemaps or show/hide individual layers.
+            </p>
+          </div>
+          <div class="col-md-6">
+            <img
+              src="static/img/about/map-controls-286x247.png"
+              alt="Map Controls"
+              class="img-rounded">
+          </div>
+        </div>
+        <h4>Select a Patch</h4>
+        <div class="row">
+          <div class="col-md-6">
+            <p>
+              Click on a population patch to select it. This will open a new box showing the name
+              and ID of the selected patch, and providing additional options to view the data for
+              all variables, to zoom in to, or to unselect this patch.
+            </p>
+          </div>
+          <div class="col-md-6">
+            <img
+              src="static/img/about/select-patch-390x161.png"
+              alt="Selected Patch Options"
+              class="img-rounded">
+          </div>
+        </div>
         <hr>
         <h3>Histograms and Filters</h3>
-        <p></p>
+        <p>
+          Each histogram shows the distribution of values for the population patches of the selected
+          species. The histograms also act as interactive filters to identify which patches
+          have values within a specific range of one or more variables.
+        </p>
+        <h4>View Histogram</h4>
+        <div class="row">
+          <div class="col-md-6">
+            <p>
+              Select one or more variables from the drop down menu to show the corresponding
+              histogram(s). Each histogram shows the distribution of values over all patches (
+              assuming no filters have been set as explained below in the Filtering with Multiple
+              Histograms section). The vertical blue line shows the mean value of the distribution.
+            </p>
+          </div>
+          <div class="col-md-6">
+            <img
+              src="static/img/about/histogram-400x191.png"
+              alt="Histogram of Selected Variable"
+              class="img-rounded">
+          </div>
+        </div>
+        <h4>Set Filter</h4>
+        <div class="row">
+          <div class="col-md-6">
+            <p>
+              Click and drag over a histogram to set a filter for that variable. When a
+              filter is set, the map will only show patches that have values within the range of the
+              filter.
+            </p>
+            <p>
+              For example, this screenshot shows which patches have the highest overall risk by
+              setting a filter from 50 to 100 on the Overall Risk (RCP 4.5, 2035) histogram. The
+              mean value has now changed from 36.6 to 63.5 because it is computed only from patches
+              with values within this filtered range.
+            </p>
+            <p>
+              To reset (or clear) a filter, click the (reset) link or simply click once anywhere
+              outside the current filter range on the histogram itself.
+            </p>
+          </div>
+          <div class="col-md-6">
+            <img
+              src="static/img/about/filter-400x264.png"
+              alt="Histogram of Selected Variable"
+              class="img-rounded">
+          </div>
+        </div>
+        <h4>Filtering with Multiple Histograms</h4>
+        <div class="row">
+          <div class="col-md-6">
+            <p>
+              When more than one histogram are being shown, setting a filter on one variable will
+              affect the histograms of all other variables. The histograms for these other variables
+              will show the distributions based on only patches that have values within the range of
+              the filter.
+            </p>
+            <p>
+              For example, on the left no filters are set and thus both histograms show their
+              distributions based on all 497 patches. But on the right, a filter has been set from
+              50 to 100 for the Overall Risk Score (RCP 4.5, 2035). Because of this filter, the
+              distribution (and mean) of the Historical Mean August Stream Temperature are now
+              based only on the 127 (out of 497) patches that have an Overall Risk greater than 50.
+            </p>
+          </div>
+          <div class="col-md-6">
+            <img
+              src="static/img/about/multiple-histograms-400x229.png"
+              alt="Multiple Histograms"
+              class="img-rounded">
+          </div>
+        </div>
+        <h4>Applying Multiple Filters</h4>
+        <div class="row">
+          <div class="col-md-6">
+            <p>
+              Filters can be set on more than one variable to identify which patches meet
+              multiple criteria simultaneously.
+            </p>
+            <p>
+              In this example, only patches with Overall Risk (RCP 4.5, 2035) greater
+              than 50 <em>AND</em> a Historical Mean August Stream Temperature greater than 10 degC
+              are now being shown on the map.
+            </p>
+          </div>
+          <div class="col-md-6">
+            <img
+              src="static/img/about/multiple-filters-400x267.png"
+              alt="Multiple Filters"
+              class="img-rounded">
+          </div>
+        </div>
         <hr>
-        <h3>Development</h3>
-        <p>ICE was developed as part of the Spatial Hydro-Ecological Decision System (SHEDS) project by:</p>
+        <h3>Dynamic Interaction</h3>
+        <div class="row">
+          <div class="col-md-6">
+            <p>
+              ICE was designed to provide a highly interactive user experience and
+              thus facilitate new and exciting ways of performaing geospatial data exploration.
+            </p>
+            <p>
+              Each filter can be dynamically dragged and resized resulting in real-time updates to
+              the map and histograms of other variables as shown in the example below.
+            </p>
+            <p>
+              By observing how changes in the filter of one variable affects the distributions of
+              other variables as well as which patches appear on the map, the user can discover
+              relationships between variables and apply multivariate criteria to identify specific
+              patches that have certain characteristics.
+            </p>
+            <p>
+              In this example, when the filter for Overall Risk is dragged from left to right
+              to increase the range of values, the histogram for the Historical Mean August Stream
+              Temperature also shifts from left to right. This indicates that patches with higher
+              overall risk scores tend to have higher mean August stream temperatures and vice
+              versa, as expected.
+            </p>
+          </div>
+          <div class="col-md-6">
+            <img
+              src="static/img/about/filter-animation-400x263.gif"
+              alt="Filter Animation"
+              class="img-rounded">
+          </div>
+        </div>
+        <hr>
+        <h3>Development Team</h3>
+        <p>
+          ICE is part of the <a href="http://ecosheds.org" target="_blank">Spatial
+          Hydro-Ecological Decision System (SHEDS)</a> project and is developed by:
+        </p>
         <ul>
-          <li>Dr. Jeffrey D. Walker, <a href="https://walkerenvres.com" target="_blank">Walker Environmental Research LLC</a></li>
-          <li>Dr. Ben Letcher, <a href="http://www.lsc.usgs.gov/?q=cafb-ben-letcher" target="_blank">USGS Conte Anadromous Fish Lab</a> and UMass Amherst</li>
+          <li>
+            Dr. Jeffrey D. Walker,
+            <a href="https://walkerenvres.com" target="_blank">
+              Walker Environmental Research LLC
+            </a>
+          </li>
+          <li>
+            Dr. Benjamin Letcher,
+            <a href="http://www.lsc.usgs.gov/?q=cafb-ben-letcher" target="_blank">
+              USGS Conte Anadromous Fish Lab
+            </a> and
+            <a href="https://eco.umass.edu/people/faculty/letcher-ben/" target="_blank">
+              UMass Amherst
+            </a>
+          </li>
         </ul>
-        <p>ICE was built using a number of open-source frameworks and libraries including <a href="https://vuejs.org" target="_blank">VueJS</a>, <a href="https://d3js.org" target="_blank">d3.js</a>, <a href="http://leafletjs.com" target="_blank">Leaflet</a>, and <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>.</p>
+        <p>
+          This version of ICE was developed with funding from the
+          <a href="https://www.usgs.gov/centers/norock" target="_blank">
+            USGS Northern Rocky Mountain Science Center
+          </a>
+          to support the Vulnerability Assessment of Westslope Cutthroat Trout and Bull Trout in
+          the Crown of the Continent Ecosystem.
+        </p>
+        <p>
+          ICE was built using numerous open-source frameworks and libraries including
+          <a href="https://vuejs.org" target="_blank">VueJS</a>,
+          <a href="https://d3js.org" target="_blank">d3.js</a>,
+          <a href="http://crossfilter.github.io/crossfilter" target="_blank">crossfilter.js</a>,
+          <a href="http://leafletjs.com" target="_blank">LeafletJS</a>, and
+          <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>, among others.
+        </p>
+        <hr>
+        <h3>Contact Us</h3>
+        <p>
+          If you have questions about this application or are interested in using ICE with your
+          own dataset, please feel free to contact us using this form.
+        </p>
+        <form class="form-horizontal contact" action="https://formspree.io/jeff@walkerenvres.com" method="POST">
+          <div class="form-group">
+            <label for="inputName" class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-6">
+              <input type="text" name="name" class="form-control" id="inputName" placeholder="Name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail" class="col-sm-2 control-label">E-mail</label>
+            <div class="col-sm-6">
+              <input
+                type="email"
+                name="email"
+                class="form-control"
+                id="inputEmail"
+                placeholder="E-mail">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputMessage" class="col-sm-2 control-label">Message</label>
+            <div class="col-sm-6">
+              <textarea
+                name="message"
+                class="form-control"
+                id="inputMessage"
+                rows="8"
+                placeholder="Your message"></textarea>
+            </div>
+          </div>
+          <input type="text" name="_gotcha" style="display:none">
+          <input type="hidden" name="_subject" value="ICE CCE Contact Submission">
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-6">
+              <input type="submit" class="btn btn-default" value="Send">
+            </div>
+          </div>
+        </form>
       </div>
     </modal>
-    <modal :show="modals.dataset" @close="modals.dataset = false">
+    <modal
+      :show="modals.dataset"
+      @close="modals.dataset = false">
       <span slot="title">About the Crown of the Continent Ecosystem Dataset</span>
       <div slot="body">Information about the dataset, link to download?</div>
     </modal>
@@ -270,7 +531,7 @@ a {
   top: 60px;
   left: 0px;
   width: 420px;
-  z-index: 5000;
+  z-index: 3000;
 }
 
 .ice-right-sidebar {
@@ -279,7 +540,7 @@ a {
   top: 60px;
   right: 0px;
   width: 475px;
-  z-index: 1000;
+  z-index: 3000;
 }
 
 .ice-box {
@@ -316,11 +577,9 @@ a {
   left: 0;
   top: 0;
   padding-top: 50px;
-  z-index: 1000;
+  z-index: 5000;
   background: rgba(0, 0, 0, 0.7);
   text-align: center;
   color: #f5f5f5;
 }
-
-
 </style>

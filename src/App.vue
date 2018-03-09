@@ -164,7 +164,7 @@
           </div>
           <div class="col-md-6">
             <img
-              src="static/img/about/filter-animation-400x263.gif"
+              src="static/img/about/filter-animation-400x250.gif"
               alt="Filter Animation"
               class="img-rounded img-center">
           </div>
@@ -186,7 +186,7 @@
           </div>
           <div class="col-md-6">
             <img
-              src="static/img/about/map-controls-286x247.png"
+              src="static/img/about/map-controls-400x275.png"
               alt="Map Controls"
               class="img-rounded">
           </div>
@@ -202,7 +202,7 @@
           </div>
           <div class="col-md-6">
             <img
-              src="static/img/about/select-patch-390x161.png"
+              src="static/img/about/select-patch-400x200.png"
               alt="Selected Patch Options"
               class="img-rounded">
           </div>
@@ -226,7 +226,7 @@
           </div>
           <div class="col-md-6">
             <img
-              src="static/img/about/histogram-400x191.png"
+              src="static/img/about/histogram-400x250.png"
               alt="Histogram of Selected Variable"
               class="img-rounded">
           </div>
@@ -252,7 +252,7 @@
           </div>
           <div class="col-md-6">
             <img
-              src="static/img/about/filter-400x264.png"
+              src="static/img/about/filter-400x248.png"
               alt="Histogram of Selected Variable"
               class="img-rounded">
           </div>
@@ -329,7 +329,7 @@
           </div>
           <div class="col-md-6">
             <img
-              src="static/img/about/filter-animation-400x263.gif"
+              src="static/img/about/filter-animation-400x250.gif"
               alt="Filter Animation"
               class="img-rounded">
           </div>

@@ -44,7 +44,43 @@
             text-field="label"
             title="Select variable..."
           />
-          <ice-legend/>
+          <div v-show="variable">
+            <ice-color-bar
+              :width="340"
+              :height="40"
+              :margins="{left: 10, right: 20}"
+              :colors="selected.scale.colors"
+              :hcl="selected.scale.hcl"
+              :id="'legend'"
+              ticks
+              style="margin-top:10px;"/>
+            <button
+              class="btn btn-xs btn-default pull-right"
+              style="margin-top:10px"
+              :class="{active: showColorScales}"
+              @click="showColorScales = !showColorScales">
+              Colors
+            </button>
+          </div>
+        </div>
+        <div class="ice-box" v-if="showColorScales">
+          <div class="pull-right">
+            <button class="btn btn-xs" @click="showColorScales = false">×</button>
+          </div>
+          <div class="ice-box-title">Select Color Scale</div>
+          <div
+            class="ice-color-bar-select"
+            v-for="scale in colorScales"
+            :key="scale.id"
+            @click="selectScale(scale)">
+            <ice-color-bar
+              :width="340"
+              :height="20"
+              :margins="{left: 10, right: 10}"
+              :id="scale.id"
+              :colors="scale.colors"
+              :hcl="scale.hcl"/>
+          </div>
         </div>
       </div>
       <div class="ice-right-sidebar">
@@ -88,6 +124,8 @@
       <ice-map
         :options="map.options"
         :selected-feature="selectedFeature"
+        :colors="selected.scale.colors"
+        :hcl="selected.scale.hcl"
         @selectFeature="selectFeature"
       />
       <div
@@ -397,7 +435,7 @@ import EventBus from './event-bus';
 
 import IceHeader from './components/IceHeader';
 import IceMap from './components/IceMap';
-import IceLegend from './components/IceLegend';
+import IceColorBar from './components/IceColorBar';
 import IceFilter from './components/IceFilter';
 import IceSelectInfo from './components/IceSelectInfo';
 import Modal from './components/Modal';
@@ -408,18 +446,35 @@ export default {
   components: {
     IceHeader,
     IceMap,
-    IceLegend,
+    IceColorBar,
     IceFilter,
     IceSelectInfo,
     Modal,
     SelectPicker,
   },
   data() {
+    const colorScales = [
+      {
+        id: 'GYR',
+        colors: ['#6BB844', '#F7EB48', '#EF4545'],
+        hcl: true,
+      }, {
+        id: 'BY',
+        colors: ['hsl(222,30%,20%)', 'hsl(62,100%,90%)'],
+        hcl: true,
+      }, {
+        id: 'BR',
+        colors: ['steelblue', 'orangered'],
+        hcl: false,
+      },
+    ];
+
     return {
       selected: {
         themeId: null,
         variableId: null,
         filters: [],
+        scale: colorScales[0],
       },
       map: {
         options: {
@@ -435,6 +490,8 @@ export default {
         about: false,
         dataset: false,
       },
+      colorScales,
+      showColorScales: false,
     };
   },
   computed: {
@@ -457,6 +514,7 @@ export default {
       .then(config => this.$store.dispatch('setConfig', config))
       .then(() => this.$store.dispatch('selectDefaults'))
       .then(() => {
+        this.selectScale(this.colorScales[0]);
         this.loading = false;
       })
       .catch((error) => {
@@ -473,6 +531,10 @@ export default {
   },
   methods: {
     ...mapActions(['selectVariableById', 'selectFeature']),
+    selectScale(scale) {
+      this.selected.scale = scale;
+      this.showColorScales = false;
+    },
     handleResize() {
       this.maxHeight = window.innerHeight - 220;
     },
@@ -581,5 +643,18 @@ a {
   background: rgba(0, 0, 0, 0.7);
   text-align: center;
   color: #f5f5f5;
+}
+
+.ice-color-bar-select {
+  box-sizing: border-box;
+  cursor: pointer;
+  border-top: 1px solid transparent;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  width: 360px;
+}
+
+.ice-color-bar-select:hover {
+  border: 1px solid #aaa;
 }
 </style>

@@ -7,9 +7,6 @@ import * as crossfilter from 'crossfilter2';
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  modules: {
-
-  },
   state: {
     config: null,
     layer: null,

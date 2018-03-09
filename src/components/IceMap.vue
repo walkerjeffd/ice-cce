@@ -9,14 +9,31 @@ import * as d3 from 'd3';
 import 'leaflet/dist/leaflet.css';
 
 import EventBus from '../event-bus';
-import colorScaleMixin from '../mixins/colorScale';
 
 require('../leaflet/controlTransparency');
 require('leaflet-bing-layer');
 
 export default {
-  mixins: [colorScaleMixin],
-  props: ['options', 'selectedFeature'],
+  props: {
+    options: {
+      type: Object,
+      required: true,
+    },
+    selectedFeature: {
+      type: Object,
+      required: false,
+    },
+    colors: {
+      type: Array,
+      default: () => ['steelblue', 'orangered'],
+      required: false,
+    },
+    hcl: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
+  },
   data() {
     return {
       map: null,
@@ -134,6 +151,23 @@ export default {
     svg() {
       return d3.select(this.map.getPanes().overlayPane).select('svg');
     },
+    min() {
+      return this.variable ? this.variable.scale.min : 0;
+    },
+    max() {
+      return this.variable ? this.variable.scale.max : 0;
+    },
+    colorScale() {
+      let domain = [this.min, this.max];
+      if (this.colors.length === 3) {
+        domain = [this.min, (this.min + this.max) / 2, this.max];
+      }
+
+      return d3.scale.linear()
+        .domain(domain)
+        .range(this.colors)
+        .interpolate(this.hcl ? d3.interpolateHcl : d3.interpolate);
+    },
     ...mapGetters(['layer', 'variable', 'isFeatureFiltered']),
   },
   watch: {
@@ -151,6 +185,12 @@ export default {
       this.render();
     },
     variable() {
+      this.renderFill();
+    },
+    colors() {
+      this.renderFill();
+    },
+    hcl() {
       this.renderFill();
     },
     selectedFeature() {

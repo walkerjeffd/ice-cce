@@ -15,7 +15,7 @@ yarn-error.log*
 *.sln
 
 # data files
-api/*.csv
+api/
 
 # config
 src/config.js

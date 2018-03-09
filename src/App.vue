@@ -296,7 +296,7 @@
           </div>
           <div class="col-md-6">
             <img
-              src="static/img/about/multiple-filters-400x267.png"
+              src="static/img/about/multiple-filters-400x256.png"
               alt="Multiple Filters"
               class="img-rounded">
           </div>

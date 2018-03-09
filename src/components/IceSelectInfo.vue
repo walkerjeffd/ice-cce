@@ -4,6 +4,7 @@
       <div class="ice-select-box-title">
         <strong>Selected Patch:</strong> {{ label }} ({{ selected.properties.id }})
       </div>
+
       <div class="ice-select-box-body">
         <button class="btn btn-default btn-xs" @click="showData = true">
           <i class="fa fa-table"></i> Data
@@ -19,19 +20,23 @@
     <modal :show="showData" @close="showData = false">
       <span slot="title">Selected Patch Data</span>
       <div slot="body">
-        <p><strong>Selected Patch: {{ label }} ({{ selected.properties.id }})</strong></p>
-        <table class="table table-condensed table-striped" style="width:100%">
-          <thead>
-            <th>Variable</th>
-            <th>Value</th>
-          </thead>
-          <tbody>
-            <tr v-for="(row, index) in table" :key="index">
-              <td>{{row.variable.label}}</td>
-              <td>{{row.value}}</td>
-            </tr>
-          </tbody>
-        </table>
+        <p>
+          <strong>{{ label }} ({{ selected.properties.id }})</strong>
+          <br>
+          Patch Area = {{ area }} sq. km
+        </p>
+        <hr>
+        <div v-for="(table, index) in tables" :key="index">
+          <strong>{{ table.label }}</strong>
+          <table class="table table-condensed table-striped" style="width:100%">
+            <tbody>
+              <tr v-for="(row, index) in table.rows" :key="index">
+                <td class="col-md-10">{{ row.label }}</td>
+                <td class="col-md-2 text-right">{{ row.value }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </modal>
   </div>
@@ -52,19 +57,32 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['variables', 'valuesById']),
+    ...mapGetters(['variables', 'variableGroups', 'valuesById', 'variableById', 'theme']),
     values() {
       return this.valuesById(this.selected.properties.id);
     },
     label() {
       return this.values.label;
     },
-    table() {
-      const table = this.variables.map(variable => ({
-        variable,
-        value: this.values[variable.id] === null ? 'N/A' : d3.format(variable.formats.text)(this.values[variable.id]),
-      }));
-      return table;
+    area() {
+      return d3.format(',.1f')(this.values[this.theme.dataset.columns.area]);
+    },
+    tables() {
+      return this.variableGroups.map((group) => {
+        const rows = [];
+        group.variables.forEach((variableId) => {
+          const variable = this.variableById(variableId);
+          const value = this.values[variable.id] === null ? 'N/A' : d3.format(variable.formats.text)(this.values[variable.id]);
+          rows.push({
+            label: variable.label,
+            value,
+          });
+        });
+        return {
+          label: group.label,
+          rows,
+        };
+      });
     },
   },
   methods: {

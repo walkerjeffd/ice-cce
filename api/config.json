@@ -22,6 +22,14 @@
           "variables": ["v_risk_85_2035", "v_climate_85_2035", "v_demographic_85_2035", "v_genetic_85_2035", "v_habitat_85_2035"]
         },
         {
+          "label": "Vulnerability Risk Scores within Basin (RCP4.5, 2035)",
+          "variables": ["v_risk_45_2035_basin", "v_climate_45_2035_basin", "v_demographic_45_2035_basin", "v_genetic_45_2035_basin", "v_habitat_45_2035_basin"]
+        },
+        {
+          "label": "Vulnerability Risk Scores within Basin (RCP8.5, 2035)",
+          "variables": ["v_risk_85_2035_basin", "v_climate_85_2035_basin", "v_demographic_85_2035_basin", "v_genetic_85_2035_basin", "v_habitat_85_2035_basin"]
+        },
+        {
           "label": "Hybridization",
           "variables": ["hti_1", "max_perrbt"]
         },
@@ -154,6 +162,126 @@
         {
           "id": "v_habitat_85_2035",
           "label": "Habitat Risk (RCP 8.5, 2035)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "v_risk_45_2035_basin",
+          "label": "Overall Risk within Basin (RCP 4.5, 2035)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "v_climate_45_2035_basin",
+          "label": "Climate Risk within Basin (RCP 4.5, 2035)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "v_demographic_45_2035_basin",
+          "label": "Demographic Risk within Basin (RCP 4.5, 2035)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "v_genetic_45_2035_basin",
+          "label": "Genetic Risk within Basin  (RCP 4.5, 2035)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "v_habitat_45_2035_basin",
+          "label": "Habitat Risk within Basin (RCP 4.5, 2035)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "v_risk_85_2035_basin",
+          "label": "Overall Risk within Basin (RCP 8.5, 2035)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "v_climate_85_2035_basin",
+          "label": "Climate Risk within Basin (RCP 8.5, 2035)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "v_demographic_85_2035_basin",
+          "label": "Demographic Risk within Basin (RCP 8.5, 2035)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "v_genetic_85_2035_basin",
+          "label": "Genetic Risk within Basin (RCP 8.5, 2035)",
+          "filter": true,
+          "formats": {
+            "text": ",.1f"
+          },
+          "scale": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "v_habitat_85_2035_basin",
+          "label": "Habitat Risk within Basin (RCP 8.5, 2035)",
           "filter": true,
           "formats": {
             "text": ",.1f"

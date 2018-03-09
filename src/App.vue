@@ -629,7 +629,7 @@ a {
 .ice-filter-selected {
   font-size: 0.9em;
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 0;
 }
 
 .ice-loading {

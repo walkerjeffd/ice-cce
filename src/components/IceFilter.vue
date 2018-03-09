@@ -332,16 +332,10 @@ export default {
 </script>
 
 <style>
-.ice-filter-legend {
-  margin-top:10px;
-  margin-bottom:10px;
-  padding-left:5px;
-  padding-right:5px
-}
-
 .ice-filter {
   width: 450px;
-  margin-bottom: 5px;
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 
 .ice-filter hr {

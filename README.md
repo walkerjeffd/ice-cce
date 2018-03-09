@@ -25,3 +25,14 @@ npm test
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+## Deployment
+
+Run the `build` command, package up the contents of the `/dist` folder, and then copy to server using `scp`.
+
+```
+npm run build
+cd dist
+tar -czvf ice-cee.tar.gz *
+scp ice-cee.tar.gz jeff@ecosheds.org:/home/jeff
+```

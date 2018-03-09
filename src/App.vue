@@ -649,8 +649,8 @@ a {
   box-sizing: border-box;
   cursor: pointer;
   border-top: 1px solid transparent;
-  padding-top: 15px;
-  padding-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 0px;
   width: 360px;
 }
 

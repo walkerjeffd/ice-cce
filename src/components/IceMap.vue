@@ -65,7 +65,7 @@ export default {
         visible: true,
       }, {
         layer: 'norock:basins_wct',
-        label: 'Westslope Cutthroat Trout Basins',
+        label: 'Basins',
         opacity: 1,
         visible: false,
       }, {

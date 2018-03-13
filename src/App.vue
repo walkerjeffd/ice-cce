@@ -519,6 +519,7 @@ export default {
       })
       .catch((error) => {
         alert('Uh oh! An error occurred. Please refresh and try again. If the problem persists please contact Jeff Walker at jeff@walkerenvres.com');
+        // eslint-disable-next-line
         console.log(error);
       });
 
@@ -551,6 +552,7 @@ export default {
         })
         .catch((error) => {
           alert('Uh oh! An error occurred. Please refresh and try again. If the problem persists please contact Jeff Walker at jeff@walkerenvres.com');
+          // eslint-disable-next-line
           console.log(error);
         });
     },

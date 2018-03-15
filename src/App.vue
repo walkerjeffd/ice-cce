@@ -17,6 +17,11 @@
             @click="modals.dataset = true">
             <i class="fa fa-table"/> About the Data
           </button>
+          <button
+            class="btn btn-default"
+            @click="modals.contact = true">
+            <i class="fa fa-envelope"/> Contact Us
+          </button>
         </div>
         <div class="ice-box">
           <div class="ice-box-title">Select Species</div>
@@ -373,22 +378,309 @@
           <a href="http://leafletjs.com" target="_blank">LeafletJS</a>, and
           <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>, among others.
         </p>
-        <hr>
-        <h3>Contact Us</h3>
+      </div>
+    </modal>
+    <modal
+      :show="modals.dataset"
+      @close="modals.dataset = false"
+      size="lg">
+      <span slot="title">About the Dataset</span>
+      <div slot="body">
+        <h3>Overview</h3>
         <p>
-          If you have questions about this application or are interested in using ICE with your
-          own dataset, please feel free to contact us using this form.
+          This application presents data from the Westslope Cutthroat Trout and Bull Trout Vulnerability Assessment of the Crown of the Continent Ecosystem (CCE). This assessment was performed by the <a href="https://www.usgs.gov/centers/norock" target="_blank">USGS Northern Rocky Mountain Science Center</a> with support from <a href="https://walkerenvres.com">Walker Environmental Research LLC</a>.
         </p>
+        <p>
+          The dataset includes two sets of variables
+        </p>
+        <ol>
+          <li><strong>Vulnerability Risk Scores</strong>: results of the vulnerability assessment scaled from 0 to 100 across the CCE and within each major basin.</li>
+          <li><strong>Covariates (Input Variables)</strong>: include species hybridization, demographics, presence/absence, habitat characteristics and climate exposure.</li>
+        </ol>
+        <p>
+          The following tables provide more details about each set of variables.
+        </p>
+        <hr>
+        <h3>Vulnerability Risk Scores</h3>
+        <p>
+          For each species, a set of vulnerability risk scores were computed for each local population path under four potential future scenarios (RCP 4.5 and 8.5, 2035 and 2075). The scores are scaled from 0 to 100 (higher values = greater risk) across 1) all patches within the CCE region, and 2) across all patches within each major basin.
+        </p>
+        <p>
+          <em>References: ...</em>
+        </p>
+        <table class="table table-condensed table-striped" style="width:100%">
+          <thead>
+            <tr>
+              <th class="col-md-4">Variable</th>
+              <th class="col-md-6">Description</th>
+              <th class="col-md-1 text-center">Westslope Cutthroat Trout</th>
+              <th class="col-md-1 text-center">Bull Trout</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-md-4">Overall Risk</td>
+              <td class="col-md-6"></td>
+              <td class="col-md-1 text-center">X</td>
+              <td class="col-md-1 text-center">X</td>
+            </tr>
+            <tr>
+              <td class="col-md-4">Climate Risk</td>
+              <td class="col-md-6"></td>
+              <td class="col-md-1 text-center">X</td>
+              <td class="col-md-1 text-center">X</td>
+            </tr>
+            <tr>
+              <td class="col-md-4">Demographic Risk</td>
+              <td class="col-md-6"></td>
+              <td class="col-md-1 text-center">X</td>
+              <td class="col-md-1 text-center"></td>
+            </tr>
+            <tr>
+              <td class="col-md-4">Genetic Risk</td>
+              <td class="col-md-6"></td>
+              <td class="col-md-1 text-center">X</td>
+              <td class="col-md-1 text-center"></td>
+            </tr>
+            <tr>
+              <td class="col-md-4">Demographic/Genetic Risk</td>
+              <td class="col-md-6"></td>
+              <td class="col-md-1 text-center"></td>
+              <td class="col-md-1 text-center">X</td>
+            </tr>
+            <tr>
+              <td class="col-md-4">Habitat Risk</td>
+              <td class="col-md-6"></td>
+              <td class="col-md-1 text-center">X</td>
+              <td class="col-md-1 text-center">X</td>
+            </tr>
+          </tbody>
+        </table>
+        <hr>
+        <h3>Hybridization Covariates</h3>
+        <table class="table table-condensed table-striped" style="width:100%">
+          <thead>
+            <tr>
+              <th class="col-md-4">Variable</th>
+              <th class="col-md-6">Description</th>
+              <th class="col-md-1 text-center">Westslope Cutthroat Trout</th>
+              <th class="col-md-1 text-center">Bull Trout</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-md-4">Hybridization Threat Index (HTI)</td>
+              <td class="col-md-6">
+                Hybrid Threat Index based on equation for CCVA Scenario 2 and reflecting the number of genetic sampling sites with rainbow trout admixture of 1% or greater that are connected to each patch population. Value of "0" means there are no sites, higher values reflect increasing numbers of sites.
+              </td>
+              <td class="col-md-1 text-center">X</td>
+              <td class="col-md-1 text-center"></td>
+            </tr>
+            <tr>
+              <td class="col-md-4">Maximum Rainbow Trout Admixture</td>
+              <td class="col-md-6">
+                Maximum rainbow trout admixture (0 to 100) observed within a patch. Used as component of the HTI variable.
+              </td>
+              <td class="col-md-1 text-center">X</td>
+              <td class="col-md-1 text-center"></td>
+            </tr>
+          </tbody>
+        </table>
+        <hr>
+        <h3>Demographic Covariates</h3>
+        <p>
+          <em>Data Sources:</em>
+        </p>
+        <table class="table table-condensed table-striped" style="width:100%">
+          <thead>
+            <tr>
+              <th class="col-md-4">Variable</th>
+              <th class="col-md-6">Description</th>
+              <th class="col-md-1 text-center">Westslope Cutthroat Trout</th>
+              <th class="col-md-1 text-center">Bull Trout</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-md-4">Invasive Species Distance Index</td>
+              <td class="col-md-6">
+                Composite statistic (from 0 to 6)that includes distance data for invasive brook trout, brown trout, and lake trout. "0" means no invasive species connected to population, "6" means all three are in the population.
+              </td>
+              <td class="col-md-1 text-center">X</td>
+              <td class="col-md-1 text-center"></td>
+            </tr>
+            <tr>
+              <td class="col-md-4">Isolation Status</td>
+              <td class="col-md-6">
+                Isolation status (1 = isolated, 0 = not isolated) of each patch based on 1) the presence of upstream barriers or 2) by distance and poor habitat when verified by biologists.
+              </td>
+              <td class="col-md-1 text-center">X</td>
+              <td class="col-md-1 text-center"></td>
+            </tr>
+            <tr>
+              <td class="col-md-4">Number of Connected Populations</td>
+              <td class="col-md-6">
+                Number of other populations connected to each patch.
+              </td>
+              <td class="col-md-1 text-center">X</td>
+              <td class="col-md-1 text-center"></td>
+            </tr>
+          </tbody>
+        </table>
+        <hr>
+        <h3>Presence/Absence Covariates</h3>
+        <table class="table table-condensed table-striped" style="width:100%">
+          <thead>
+            <tr>
+              <th class="col-md-4">Variable</th>
+              <th class="col-md-6">Description</th>
+              <th class="col-md-1 text-center">Westslope Cutthroat Trout</th>
+              <th class="col-md-1 text-center">Bull Trout</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-md-4">Presence of Westslope Cutthroat Trout</td>
+              <td class="col-md-6">Presence (1) or absence (0) of Westslope Cutthroat Trout within each patch.</td>
+              <td class="col-md-1 text-center">X</td>
+              <td class="col-md-1 text-center"></td>
+            </tr>
+            <tr>
+              <td class="col-md-4">Presence of Bull Trout</td>
+              <td class="col-md-6">Presence (1) or absence (0) of Bull Trout within each patch.</td>
+              <td class="col-md-1 text-center">X</td>
+              <td class="col-md-1 text-center"></td>
+            </tr>
+            <tr>
+              <td class="col-md-4">Presence of Lake Trout</td>
+              <td class="col-md-6">Presence (1) or absence (0) of Lake Trout within each patch.</td>
+              <td class="col-md-1 text-center">X</td>
+              <td class="col-md-1 text-center"></td>
+            </tr>
+            <tr>
+              <td class="col-md-4">Presence of Brown Trout</td>
+              <td class="col-md-6">Presence (1) or absence (0) of Brown Trout within each patch.</td>
+              <td class="col-md-1 text-center">X</td>
+              <td class="col-md-1 text-center"></td>
+            </tr>
+            <tr>
+              <td class="col-md-4">Presence of Brook Trout</td>
+              <td class="col-md-6">Presence (1) or absence (0) of Brook Trout within each patch.</td>
+              <td class="col-md-1 text-center">X</td>
+              <td class="col-md-1 text-center"></td>
+            </tr>
+          </tbody>
+        </table>
+        <hr>
+        <h3>Habitat Covariates</h3>
+        <table class="table table-condensed table-striped" style="width:100%">
+          <thead>
+            <tr>
+              <th class="col-md-4">Variable</th>
+              <th class="col-md-6">Description</th>
+              <th class="col-md-1 text-center">Westslope Cutthroat Trout</th>
+              <th class="col-md-1 text-center">Bull Trout</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-md-4">Patch Area (km2)</td>
+              <td class="col-md-6">Total area (sq km) of each patch.</td>
+              <td class="col-md-1 text-center">X</td>
+              <td class="col-md-1 text-center"></td>
+            </tr>
+            <tr>
+              <td class="col-md-4">Stream Length (km)</td>
+              <td class="col-md-6">Total length (km) of stream segments within each patch.</td>
+              <td class="col-md-1 text-center">X</td>
+              <td class="col-md-1 text-center"></td>
+            </tr>
+            <tr>
+              <td class="col-md-4">Road Length per Unit Patch Area (km/km2)</td>
+              <td class="col-md-6">Total length of roads (km) within the total drainage area of each patch divided by total patch area (km2). Note that the drainage areas of some patches are larger than the patches themselves when upstream barriers are present.</td>
+              <td class="col-md-1 text-center">X</td>
+              <td class="col-md-1 text-center"></td>
+            </tr>
+            <tr>
+              <td class="col-md-4">Frac. Patch Area as Valley Bottom</td>
+              <td class="col-md-6">Fraction (0 to 1) of patch area characteristic of valley bottoms.</td>
+              <td class="col-md-1 text-center">X</td>
+              <td class="col-md-1 text-center"></td>
+            </tr>
+          </tbody>
+        </table>
+        <hr>
+        <h3>Climate Exposure Covariates</h3>
+        <p>
+          For each of the following variables, values are provided under historical (1985-2005) and four potential future scenarios (RCP 4.5 and 8.5, 2035 and 2075).
+        </p>
+        <table class="table table-condensed table-striped" style="width:100%">
+          <thead>
+            <tr>
+              <th class="col-md-4">Variable</th>
+              <th class="col-md-6">Description</th>
+              <th class="col-md-1 text-center">Westslope Cutthroat Trout</th>
+              <th class="col-md-1 text-center">Bull Trout</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-md-4">Mean Aug. Stream Temp, degC</td>
+              <td class="col-md-6">
+                Average of the mean August stream temperature (degC) across all streams within each patch. Average is computed by weighting the mean August temperature of each stream segment by its length (i.e. this is a length-weighted average across all streams).
+              </td>
+              <td class="col-md-1 text-center">X</td>
+              <td class="col-md-1 text-center"></td>
+            </tr>
+            <tr>
+              <td class="col-md-4">Max Aug. Stream Temp, degC</td>
+              <td class="col-md-6">
+                Maximum of the mean August stream temperature (degC) among all streams within each patch.
+              </td>
+              <td class="col-md-1 text-center">X</td>
+              <td class="col-md-1 text-center"></td>
+            </tr>
+            <tr>
+              <td class="col-md-4">Frac. Stream Length with Mean Aug Temp > 15 degC</td>
+              <td class="col-md-6">
+                Fraction (0 to 1) of the total stream length with mean August temperatures exceeding 15 degC within each patch.
+              </td>
+              <td class="col-md-1 text-center">X</td>
+              <td class="col-md-1 text-center"></td>
+            </tr>
+            <tr>
+              <td class="col-md-4">May Precipitation, mm</td>
+              <td class="col-md-6">
+                Average total precipitation (mm) in the month of May. Computed from continuous grids (i.e. rasters) using spatial averaging across each patch.
+              </td>
+              <td class="col-md-1 text-center">X</td>
+              <td class="col-md-1 text-center"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </modal>
+    <modal
+      :show="modals.contact"
+      @close="modals.contact = false"
+      size="md">
+      <span slot="title">Contact Us</span>
+      <div slot="body">
+        <p>
+          If you have questions about this application, discovered any bugs, or are interested in
+          using ICE with your own dataset, please feel free to contact us using this form.
+        </p>
+        <hr>
         <form class="form-horizontal contact" action="https://formspree.io/jeff@walkerenvres.com" method="POST">
           <div class="form-group">
             <label for="inputName" class="col-sm-2 control-label">Name</label>
-            <div class="col-sm-6">
+            <div class="col-sm-10">
               <input type="text" name="name" class="form-control" id="inputName" placeholder="Name">
             </div>
           </div>
           <div class="form-group">
             <label for="inputEmail" class="col-sm-2 control-label">E-mail</label>
-            <div class="col-sm-6">
+            <div class="col-sm-10">
               <input
                 type="email"
                 name="email"
@@ -399,7 +691,7 @@
           </div>
           <div class="form-group">
             <label for="inputMessage" class="col-sm-2 control-label">Message</label>
-            <div class="col-sm-6">
+            <div class="col-sm-10">
               <textarea
                 name="message"
                 class="form-control"
@@ -417,12 +709,6 @@
           </div>
         </form>
       </div>
-    </modal>
-    <modal
-      :show="modals.dataset"
-      @close="modals.dataset = false">
-      <span slot="title">About the Crown of the Continent Ecosystem Dataset</span>
-      <div slot="body">Information about the dataset, link to download?</div>
     </modal>
   </div>
 </template>
@@ -489,6 +775,7 @@ export default {
       modals: {
         about: false,
         dataset: false,
+        contact: false,
       },
       colorScales,
       showColorScales: false,

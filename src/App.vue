@@ -452,7 +452,7 @@
             <tr>
               <td class="col-md-4">Overall Risk</td>
               <td class="col-md-6">
-                Overall risk based on the average across the individual risk components.
+                Overall risk based on the average across the individual components below.
               </td>
               <td class="col-md-1 text-center">X</td>
               <td class="col-md-1 text-center">X</td>
@@ -495,7 +495,7 @@
             <tr>
               <td class="col-md-4">Habitat Risk</td>
               <td class="col-md-6">
-                Risk associated with habitat quantity and quality available to each population.
+                Risk associated with habitat quantity and quality for each population.
               </td>
               <td class="col-md-1 text-center">X</td>
               <td class="col-md-1 text-center">X</td>

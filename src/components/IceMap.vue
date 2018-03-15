@@ -118,7 +118,6 @@ export default {
     const g = svg.append('g').attr('class', 'leaflet-zoom-hide');
 
     g.append('g').classed('fill', true);
-    g.append('g').classed('aggregation-mouse', true);
 
     this.tooltip = d3.select(this.$el).append('div').attr('class', 'ice-map-tooltip hidden');
 

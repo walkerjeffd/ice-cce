@@ -174,7 +174,7 @@ function barChart(id) {
     g.select(`#clip-${id} rect`)
       .attr('x', x(extent[0]))
       .attr('width', x(extent[1]) - x(extent[0]));
-    dimension.filterRange(extent);
+    dimension.filterRange([extent[0], extent[1] * 1.0000001]);
     onBrush(extent);
   });
 
@@ -217,7 +217,7 @@ function barChart(id) {
   chart.filter = function (_) {
     if (_) {
       brush.extent(_);
-      dimension.filterRange(_);
+      dimension.filterRange([_[0], _[1] * 1.0000001]);
     } else {
       brush.clear();
       dimension.filterAll();

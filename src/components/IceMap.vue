@@ -69,6 +69,11 @@ export default {
         opacity: 1,
         visible: false,
       }, {
+        layer: 'norock:huc8',
+        label: 'HUC8',
+        opacity: 1,
+        visible: false,
+      }, {
         layer: 'norock:lakes',
         label: 'Lakes',
         opacity: 1,

@@ -178,7 +178,7 @@
         <h3>Map</h3>
         <p>
           The map shows a basemap (satellite or street map), one or more tiled layers (CCE
-          boundary, streams, lakes, etc.), and the local population patches for the selected
+          boundary, basins, streams, lakes, etc.), and the local population patches for the selected
           species, which are colored according to their values for the selected variable.
         </p>
         <h4>Map Controls</h4>

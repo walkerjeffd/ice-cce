@@ -333,7 +333,7 @@ export default {
 
 <style>
 .ice-filter {
-  width: 450px;
+  width: 430px;
   margin-top: 10px;
   margin-bottom: 0;
 }

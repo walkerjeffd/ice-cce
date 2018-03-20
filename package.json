@@ -11,7 +11,8 @@
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit",
     "build": "node build/build.js",
-    "serve": "http-server -p 8081 --cors ./"
+    "serve": "http-server -p 8081 --cors ./",
+    "deploy": "npm run build && scp -r -C dist/* jeff@ecosheds.org:/conte/www/static/ice/cce/"
   },
   "dependencies": {
     "axios": "^0.18.0",

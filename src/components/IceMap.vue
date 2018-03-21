@@ -93,6 +93,21 @@ export default {
         label: 'Valley Bottom',
         opacity: 1,
         visible: false,
+      }, {
+        layer: 'norock:barriers_complete',
+        label: 'Barriers (Complete)',
+        opacity: 1,
+        visible: false,
+      }, {
+        layer: 'norock:barriers_partial',
+        label: 'Barriers (Partial)',
+        opacity: 1,
+        visible: false,
+      }, {
+        layer: 'norock:barriers_unknown',
+        label: 'Barriers (Unknown)',
+        opacity: 1,
+        visible: false,
       },
     ];
     const overlayLayers = {};

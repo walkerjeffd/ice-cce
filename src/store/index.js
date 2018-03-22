@@ -97,10 +97,6 @@ const store = new Vuex.Store({
     setConfig({ commit }, config) {
       commit('SET_CONFIG', config);
     },
-    selectDefaults({ dispatch, state }) {
-      return dispatch('selectThemeById', state.config.defaults.theme)
-        .then(() => dispatch('selectVariableById', state.config.defaults.variable));
-    },
     selectThemeById({ commit, getters }, themeId) {
       if (!getters.themes || getters.themes.length === 0) return;
 

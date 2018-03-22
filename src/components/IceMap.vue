@@ -23,6 +23,10 @@ export default {
       type: Object,
       required: false,
     },
+    legendType: {
+      type: String,
+      required: true,
+    },
     colors: {
       type: Array,
       default: () => ['steelblue', 'orangered'],
@@ -31,6 +35,11 @@ export default {
     hcl: {
       type: Boolean,
       default: false,
+      required: false,
+    },
+    nBins: {
+      type: Number,
+      default: 5,
       required: false,
     },
   },
@@ -176,12 +185,37 @@ export default {
       return d3.select(this.map.getPanes().overlayPane).select('svg');
     },
     min() {
-      return this.variable ? this.variable.scale.min : 0;
+      // return this.variable ? this.variable.scale.min : 0;
+      return d3.min(this.data.map(d => d[this.variable.id]));
     },
     max() {
-      return this.variable ? this.variable.scale.max : 0;
+      // return this.variable ? this.variable.scale.max : 0;
+      return d3.max(this.data.map(d => d[this.variable.id]));
+    },
+    interpColors() {
+      const domain = [...d3.range(0, 1, 1 / (this.colors.length - 1)), 1];
+      return d3.scale.linear()
+        .domain(domain)
+        .range(this.colors)
+        .interpolate(this.hcl ? d3.interpolateHcl : d3.interpolate);
+    },
+    colorBins() {
+      const values = [...d3.range(0, 1, 1 / (this.nBins - 1)), 1];
+      return values.map(this.interpColors);
     },
     colorScale() {
+      if (this.legendType === 'quantile') {
+        const scale = d3.scale.quantile()
+          .domain(this.data.map(d => d[this.variable.id]))
+          .range(this.colorBins);
+        return scale;
+      } else if (this.legendType === 'quantize') {
+        const scale = d3.scale.quantize()
+          .domain([this.min, this.max])
+          .range(this.colorBins);
+        return scale;
+      }
+      // continuous
       let domain = [this.min, this.max];
       if (this.colors.length === 3) {
         domain = [this.min, (this.min + this.max) / 2, this.max];
@@ -192,7 +226,7 @@ export default {
         .range(this.colors)
         .interpolate(this.hcl ? d3.interpolateHcl : d3.interpolate);
     },
-    ...mapGetters(['layer', 'variable', 'isFeatureFiltered']),
+    ...mapGetters(['layer', 'variable', 'data', 'isFeatureFiltered']),
   },
   watch: {
     layer(layer) {
@@ -209,6 +243,9 @@ export default {
       this.render();
     },
     variable() {
+      this.renderFill();
+    },
+    legendType() {
       this.renderFill();
     },
     colors() {

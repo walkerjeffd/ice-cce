@@ -44,47 +44,75 @@
             :value="selected.variableId"
             :multiple="false"
             :groups="variableGroups"
-            @input="selectVariableById"
+            @input="selectVariable"
             value-field="id"
             text-field="label"
             title="Select variable..."
           />
           <div v-show="variable">
-            <ice-color-bar
-              :width="340"
-              :height="40"
-              :margins="{left: 10, right: 20}"
-              :colors="selected.scale.colors"
-              :hcl="selected.scale.hcl"
-              :id="'legend'"
-              ticks
-              style="margin-top:10px;"/>
             <button
               class="btn btn-xs btn-default pull-right"
               style="margin-top:10px"
-              :class="{active: showColorScales}"
-              @click="showColorScales = !showColorScales">
+              :class="{active: showLegendOptions}"
+              @click="showLegendOptions = !showLegendOptions">
               Colors
             </button>
           </div>
+          <div v-show="variable">
+            <ice-legend
+              id="legend"
+              :width="340"
+              :height="40"
+              :margins="{left: 10, right: 20}"
+              :n-bins="5"
+              :type="legend.type"
+              :colors="legend.scale.colors"
+              :hcl="legend.scale.hcl"
+              ticks
+              style="margin-top:10px;"/>
+          </div>
         </div>
-        <div class="ice-box" v-if="showColorScales">
+        <div class="ice-box" v-if="showLegendOptions">
           <div class="pull-right">
-            <button class="btn btn-xs" @click="showColorScales = false">×</button>
+            <button class="btn btn-xs" @click="showLegendOptions = false">×</button>
           </div>
           <div class="ice-box-title">Select Color Scale</div>
-          <div
-            class="ice-color-bar-select"
-            v-for="scale in colorScales"
-            :key="scale.id"
-            @click="selectScale(scale)">
-            <ice-color-bar
-              :width="340"
-              :height="20"
-              :margins="{left: 10, right: 10}"
-              :id="scale.id"
-              :colors="scale.colors"
-              :hcl="scale.hcl"/>
+          <div>
+            <div class="row">
+              <div class="col-xs-3" style="margin-top:5px;">Scale Type:</div>
+              <div class="col-xs-6">
+                <select-picker
+                  :config="{}"
+                  :options="legendTypes"
+                  :value="legend.type"
+                  @input="selectLegendType"
+                  value-field="id"
+                  text-field="label"
+                  title="Select legend type..."
+                  />
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin-top:5px">
+            <div class="col-xs-12">
+              <p>Color Palettes:</p>
+              <div
+                class="ice-color-bar-select"
+                v-for="scale in colorScales"
+                :key="scale.id"
+                @click="selectScale(scale)">
+                <ice-legend
+                  :width="340"
+                  :height="40"
+                  :margins="{left: 10, right: 20}"
+                  :n-bins="5"
+                  :type="legend.type"
+                  :id="scale.id"
+                  :colors="scale.colors"
+                  :hcl="scale.hcl"
+                  ticks/>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -129,8 +157,9 @@
       <ice-map
         :options="map.options"
         :selected-feature="selectedFeature"
-        :colors="selected.scale.colors"
-        :hcl="selected.scale.hcl"
+        :legend-type="legend.type"
+        :colors="legend.scale.colors"
+        :hcl="legend.scale.hcl"
         @selectFeature="selectFeature"
       />
       <div
@@ -962,7 +991,7 @@ import EventBus from './event-bus';
 
 import IceHeader from './components/IceHeader';
 import IceMap from './components/IceMap';
-import IceColorBar from './components/IceColorBar';
+import IceLegend from './components/IceLegend';
 import IceFilter from './components/IceFilter';
 import IceSelectInfo from './components/IceSelectInfo';
 import Modal from './components/Modal';
@@ -973,7 +1002,7 @@ export default {
   components: {
     IceHeader,
     IceMap,
-    IceColorBar,
+    IceLegend,
     IceFilter,
     IceSelectInfo,
     Modal,
@@ -996,12 +1025,24 @@ export default {
       },
     ];
 
+    const legendTypes = [
+      {
+        id: 'continuous',
+        label: 'Continuous',
+      }, {
+        id: 'quantile',
+        label: 'Quantile Bins',
+      }, {
+        id: 'quantize',
+        label: 'Equal Width Bins',
+      },
+    ];
+
     return {
       selected: {
         themeId: null,
         variableId: null,
         filters: [],
-        scale: colorScales[0],
       },
       map: {
         options: {
@@ -1011,6 +1052,10 @@ export default {
           minZoom: 5,
         },
       },
+      legend: {
+        type: legendTypes[0].id,
+        scale: colorScales[0],
+      },
       loading: true,
       maxHeight: 200,
       modals: {
@@ -1019,11 +1064,12 @@ export default {
         contact: false,
       },
       colorScales,
-      showColorScales: false,
+      legendTypes,
+      showLegendOptions: false,
     };
   },
   computed: {
-    ...mapGetters(['themes', 'theme', 'layer', 'variables', 'variable', 'variableGroups', 'filters', 'xf', 'activeCount', 'totalCount', 'selectedFeature']),
+    ...mapGetters(['config', 'themes', 'theme', 'layer', 'variables', 'variable', 'variableGroups', 'filters', 'xf', 'activeCount', 'totalCount', 'selectedFeature']),
   },
   filters: {
     filterVariable: variables => variables.filter(v => v.filter),
@@ -1034,15 +1080,16 @@ export default {
     },
     variable(variable) {
       this.selected.variableId = variable.id;
+      this.selectLegendType(this.variable.scale.type);
     },
   },
   created() {
     axios.get('config.json')
       .then(response => response.data)
       .then(config => this.$store.dispatch('setConfig', config))
-      .then(() => this.$store.dispatch('selectDefaults'))
+      .then(() => this.selectThemeById(this.config.defaults.theme))
       .then(() => {
-        this.selectScale(this.colorScales[0]);
+      //   this.selectScale(this.colorScales[0]);
         this.loading = false;
       })
       .catch((error) => {
@@ -1061,14 +1108,19 @@ export default {
   methods: {
     ...mapActions(['selectVariableById', 'selectFeature']),
     selectScale(scale) {
-      this.selected.scale = scale;
-      this.showColorScales = false;
+      this.legend.scale = scale;
     },
     handleResize() {
       this.maxHeight = window.innerHeight - 220;
     },
     zoomToFeature(feature) {
       EventBus.$emit('zoomToFeature', feature);
+    },
+    selectLegendType(type) {
+      this.legend.type = type;
+    },
+    selectVariable(id) {
+      return this.selectVariableById(id);
     },
     selectThemeById(id) {
       this.loading = true;
@@ -1077,6 +1129,7 @@ export default {
       this.$store.dispatch('selectThemeById', id)
         .then(() => {
           this.loading = false;
+          return this.selectVariable(this.config.defaults.variable);
         })
         .catch((error) => {
           alert('Uh oh! An error occurred. Please refresh and try again. If the problem persists please contact Jeff Walker at jeff@walkerenvres.com');

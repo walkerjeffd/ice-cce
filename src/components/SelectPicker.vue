@@ -61,6 +61,9 @@ export default {
       .on('changed.bs.select', function onChange() {
         vm.$emit('input', $(this).selectpicker('val'));
       });
+    if (this.value) {
+      $(this.$el).selectpicker('val', this.value).selectpicker('refresh');
+    }
   },
   updated() {
     $(this.$el).selectpicker('val', this.value).selectpicker('refresh');

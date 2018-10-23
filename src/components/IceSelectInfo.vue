@@ -46,7 +46,7 @@
 import { mapGetters } from 'vuex';
 import * as d3 from 'd3';
 
-import Modal from './Modal';
+import Modal from './Modal.vue';
 
 export default {
   components: { Modal },

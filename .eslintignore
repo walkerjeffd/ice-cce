@@ -1,6 +1,1 @@
-/build/
-/config/
-/dist/
-/*.js
-/test/unit/coverage/
-/src/lib/jquery-ui-slider/
+lib/

@@ -130,6 +130,7 @@ export default {
   },
   methods: {
     render() {
+      if (!this.type || !this.variable) return;
       this.clear();
 
       switch (this.type) {

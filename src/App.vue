@@ -175,238 +175,7 @@
       size="lg">
       <span slot="title">About the Interactive Catchment Explorer</span>
       <div slot="body">
-        <div class="row">
-          <div class="col-md-6">
-            <p>
-              The <strong>Interactive Catchment Explorer (ICE)</strong> is a data
-              visualization tool for exploring geospatial environmental datasets.
-            </p>
-            <p>ICE is designed to:</p>
-            <ol>
-              <li>
-                Identify spatial patterns among local population patches of the individual
-                covariates and vulnerability assessment risk scores for each species,
-              </li>
-              <li>
-                View the distribution of values for each variable using histograms,
-              </li>
-              <li>
-                Apply dynamic and interactive filters to identify which patches meet one or more
-                specific criteria and to discover relationships between individual variables.
-              </li>
-            </ol>
-          </div>
-          <div class="col-md-6">
-            <img
-              src="static/img/about/filter-animation-400x250.gif"
-              alt="Filter Animation"
-              class="img-rounded img-center">
-          </div>
-        </div>
-        <hr>
-        <h3>Map</h3>
-        <p>
-          The map shows a basemap (satellite or street map), one or more tiled layers (CCE
-          boundary, basins, streams, lakes, etc.), and the local population patches for the selected
-          species, which are colored according to their values for the selected variable.
-        </p>
-        <h4>Map Controls</h4>
-        <div class="row">
-          <div class="col-md-6">
-            <p>
-              Use the map controls to zoom in and out, adjust the transparency of the patches layer,
-              and to switch basemaps or show/hide individual layers.
-            </p>
-          </div>
-          <div class="col-md-6">
-            <img
-              src="static/img/about/map-controls-400x275.png"
-              alt="Map Controls"
-              class="img-rounded">
-          </div>
-        </div>
-        <h4>Select a Patch</h4>
-        <div class="row">
-          <div class="col-md-6">
-            <p>
-              Click on a population patch to select it. This will open a new box showing the name
-              and ID of the selected patch, and providing additional options to view the data for
-              all variables, to zoom in to, or to unselect this patch.
-            </p>
-          </div>
-          <div class="col-md-6">
-            <img
-              src="static/img/about/select-patch-400x200.png"
-              alt="Selected Patch Options"
-              class="img-rounded">
-          </div>
-        </div>
-        <hr>
-        <h3>Histograms and Filters</h3>
-        <p>
-          Each histogram shows the distribution of values for the population patches of the selected
-          species. The histograms also act as interactive filters to identify which patches
-          have values within a specific range of one or more variables.
-        </p>
-        <h4>View Histogram</h4>
-        <div class="row">
-          <div class="col-md-6">
-            <p>
-              Select one or more variables from the drop down menu to show the corresponding
-              histogram(s). Each histogram shows the distribution of values over all patches (
-              assuming no filters have been set as explained below in the Filtering with Multiple
-              Histograms section). The vertical blue line shows the mean value of the distribution.
-            </p>
-          </div>
-          <div class="col-md-6">
-            <img
-              src="static/img/about/histogram-400x250.png"
-              alt="Histogram of Selected Variable"
-              class="img-rounded">
-          </div>
-        </div>
-        <h4>Set Filter</h4>
-        <div class="row">
-          <div class="col-md-6">
-            <p>
-              Click and drag over a histogram to set a filter for that variable. When a
-              filter is set, the map will only show patches that have values within the range of the
-              filter.
-            </p>
-            <p>
-              For example, this screenshot shows which patches have the highest overall risk by
-              setting a filter from 50 to 100 on the Overall Risk (RCP 4.5, 2035) histogram. The
-              mean value has now changed from 36.6 to 63.5 because it is computed only from patches
-              with values within this filtered range.
-            </p>
-            <p>
-              To reset (or clear) a filter, click the (reset) link or simply click once anywhere
-              outside the current filter range on the histogram itself.
-            </p>
-          </div>
-          <div class="col-md-6">
-            <img
-              src="static/img/about/filter-400x248.png"
-              alt="Histogram of Selected Variable"
-              class="img-rounded">
-          </div>
-        </div>
-        <h4>Filtering with Multiple Histograms</h4>
-        <div class="row">
-          <div class="col-md-6">
-            <p>
-              When more than one histogram are being shown, setting a filter on one variable will
-              affect the histograms of all other variables. The histograms for these other variables
-              will show the distributions based on only patches that have values within the range of
-              the filter.
-            </p>
-            <p>
-              For example, on the left no filters are set and thus both histograms show their
-              distributions based on all 497 patches. But on the right, a filter has been set from
-              50 to 100 for the Overall Risk Score (RCP 4.5, 2035). Because of this filter, the
-              distribution (and mean) of the Historical Mean August Stream Temperature are now
-              based only on the 127 (out of 497) patches that have an Overall Risk greater than 50.
-            </p>
-          </div>
-          <div class="col-md-6">
-            <img
-              src="static/img/about/multiple-histograms-400x229.png"
-              alt="Multiple Histograms"
-              class="img-rounded">
-          </div>
-        </div>
-        <h4>Applying Multiple Filters</h4>
-        <div class="row">
-          <div class="col-md-6">
-            <p>
-              Filters can be set on more than one variable to identify which patches meet
-              multiple criteria simultaneously.
-            </p>
-            <p>
-              In this example, only patches with Overall Risk (RCP 4.5, 2035) greater
-              than 50 <em>AND</em> a Historical Mean August Stream Temperature greater than 10 degC
-              are now being shown on the map.
-            </p>
-          </div>
-          <div class="col-md-6">
-            <img
-              src="static/img/about/multiple-filters-400x256.png"
-              alt="Multiple Filters"
-              class="img-rounded">
-          </div>
-        </div>
-        <hr>
-        <h3>Dynamic Interaction</h3>
-        <div class="row">
-          <div class="col-md-6">
-            <p>
-              ICE was designed to provide a highly interactive user experience and
-              thus facilitate new and exciting ways of performaing geospatial data exploration.
-            </p>
-            <p>
-              Each filter can be dynamically dragged and resized resulting in real-time updates to
-              the map and histograms of other variables as shown in the example below.
-            </p>
-            <p>
-              By observing how changes in the filter of one variable affects the distributions of
-              other variables as well as which patches appear on the map, the user can discover
-              relationships between variables and apply multivariate criteria to identify specific
-              patches that have certain characteristics.
-            </p>
-            <p>
-              In this example, when the filter for Overall Risk is dragged from left to right
-              to increase the range of values, the histogram for the Historical Mean August Stream
-              Temperature also shifts from left to right. This indicates that patches with higher
-              overall risk scores tend to have higher mean August stream temperatures and vice
-              versa, as expected.
-            </p>
-          </div>
-          <div class="col-md-6">
-            <img
-              src="static/img/about/filter-animation-400x250.gif"
-              alt="Filter Animation"
-              class="img-rounded">
-          </div>
-        </div>
-        <hr>
-        <h3>Development Team</h3>
-        <p>
-          ICE is part of the <a href="http://ecosheds.org" target="_blank">Spatial
-          Hydro-Ecological Decision System (SHEDS)</a> project and is developed by:
-        </p>
-        <ul>
-          <li>
-            Dr. Jeffrey D. Walker,
-            <a href="https://walkerenvres.com" target="_blank">
-              Walker Environmental Research LLC
-            </a>
-          </li>
-          <li>
-            Dr. Benjamin Letcher,
-            <a href="http://www.lsc.usgs.gov/?q=cafb-ben-letcher" target="_blank">
-              USGS Conte Anadromous Fish Lab
-            </a> and
-            <a href="https://eco.umass.edu/people/faculty/letcher-ben/" target="_blank">
-              UMass Amherst
-            </a>
-          </li>
-        </ul>
-        <p>
-          This version of ICE was developed with funding from the
-          <a href="https://www.usgs.gov/centers/norock" target="_blank">
-            USGS Northern Rocky Mountain Science Center
-          </a>
-          to support the Vulnerability Assessment of Westslope Cutthroat Trout and Bull Trout in
-          the Crown of the Continent Ecosystem.
-        </p>
-        <p>
-          ICE was built using numerous open-source frameworks and libraries including
-          <a href="https://vuejs.org" target="_blank">VueJS</a>,
-          <a href="https://d3js.org" target="_blank">d3.js</a>,
-          <a href="http://crossfilter.github.io/crossfilter" target="_blank">crossfilter.js</a>,
-          <a href="http://leafletjs.com" target="_blank">LeafletJS</a>, and
-          <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>, among others.
-        </p>
+        <about-modal></about-modal>
       </div>
     </modal>
     <modal
@@ -415,519 +184,7 @@
       size="lg">
       <span slot="title">About the Dataset</span>
       <div slot="body">
-        <h3>Overview</h3>
-        <p>
-          This application presents a Vulnerability Assessment for Westslope Cutthroat Trout and
-          Bull Trout in the Crown of the Continent Ecosystem (CCE). This assessment
-          was performed by the <a href="https://www.usgs.gov/centers/norock" target="_blank">USGS
-          Northern Rocky Mountain Science Center</a> with support from
-          <a href="https://walkerenvres.com">Walker Environmental Research LLC</a>.
-        </p>
-        <p>
-          The dataset shown in this application includes two sets of variables
-        </p>
-        <ol>
-          <li>
-            <strong>Vulnerability Risk Scores</strong>: results of the vulnerability assessment
-            scaled from 0 to 100 across the CCE and within each major basin.
-          </li>
-          <li>
-            <strong>Covariates (Input Variables)</strong>: include species hybridization,
-            demographics, presence/absence, habitat characteristics and climate exposure.
-          </li>
-        </ol>
-        <p>
-          The following sections provide more details about each set of variables.
-        </p>
-        <p>
-          The data may be referenced using the following citation:
-        </p>
-        <blockquote>
-          Muhlfeld, C. C., V. S. D'Angelo, and R. P. Kovach. USGS unpublished data, Glacier National
-          Park, West Glacier, Montana 59936; cmuhlfeld@usgs.gov.
-        </blockquote>
-        <hr>
-        <h3>Vulnerability Risk Scores</h3>
-        <p>
-          The vulnerability risk scores were developed using a conceptual climate change
-          vulnerability framework that incorporates the sensitivity, exposure and adaptive capacity
-          of each of the two species (Westslope Cutthroat Trout and Bull Trout). Wade et al. (2017;
-          see citations list below) provide an example of this type of approach, which was further
-          refined for this study using additional data and improved understanding of the underlying
-          relationships.
-        </p>
-        <p>
-          For each species, a set of vulnerability risk scores were computed for each local
-          population path under four potential future scenarios (
-            <a
-              href="https://en.wikipedia.org/wiki/Representative_Concentration_Pathways"
-              target="_blank">RCP 4.5 and 8.5 greenhouse gas concentration trajectories</a>
-          for years 2035 and 2075).
-          The scores are scaled from 0 to 100 (higher values = greater vulnerability) across 1) all
-          patches within the CCE region, and 2) across all patches within each major basin. The
-          overall risk score is based on the average across the individual scores for each component
-          (i.e. Climate, Habitat, Demographic, Genetic).
-        </p>
-        <table class="table table-condensed table-striped" style="width:100%">
-          <thead>
-            <tr>
-              <th class="col-md-4">Variable</th>
-              <th class="col-md-6">Description</th>
-              <th class="col-md-1 text-center">Westslope Cutthroat Trout</th>
-              <th class="col-md-1 text-center">Bull Trout</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="col-md-4">Overall Risk</td>
-              <td class="col-md-6">
-                Overall risk based on the average across the individual components below.
-              </td>
-              <td class="col-md-1 text-center">X</td>
-              <td class="col-md-1 text-center">X</td>
-            </tr>
-            <tr>
-              <td class="col-md-4">Climate Risk</td>
-              <td class="col-md-6">
-                Risk associated with exposure to changes in climate.
-              </td>
-              <td class="col-md-1 text-center">X</td>
-              <td class="col-md-1 text-center">X</td>
-            </tr>
-            <tr>
-              <td class="col-md-4">Demographic Risk</td>
-              <td class="col-md-6">
-                Risk associated with the demographics of each population (Westslope Cutthroat
-                Trout only).
-              </td>
-              <td class="col-md-1 text-center">X</td>
-              <td class="col-md-1 text-center"></td>
-            </tr>
-            <tr>
-              <td class="col-md-4">Genetic Risk</td>
-              <td class="col-md-6">
-                Risk associated with the genetics of each population (Westslope Cutthroat
-                Trout only).
-              </td>
-              <td class="col-md-1 text-center">X</td>
-              <td class="col-md-1 text-center"></td>
-            </tr>
-            <tr>
-              <td class="col-md-4">Demographic/Genetic Risk</td>
-              <td class="col-md-6">
-                Risk associated with both the demographics and genetics of each population (Bull
-                Trout only).
-              </td>
-              <td class="col-md-1 text-center"></td>
-              <td class="col-md-1 text-center">X</td>
-            </tr>
-            <tr>
-              <td class="col-md-4">Habitat Risk</td>
-              <td class="col-md-6">
-                Risk associated with habitat quantity and quality for each population.
-              </td>
-              <td class="col-md-1 text-center">X</td>
-              <td class="col-md-1 text-center">X</td>
-            </tr>
-          </tbody>
-        </table>
-        <hr>
-        <h3>Hybridization Covariates</h3>
-        <table class="table table-condensed table-striped" style="width:100%">
-          <thead>
-            <tr>
-              <th class="col-md-4">Variable</th>
-              <th class="col-md-6">Description</th>
-              <th class="col-md-1 text-center">Westslope Cutthroat Trout</th>
-              <th class="col-md-1 text-center">Bull Trout</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="col-md-4">Hybridization Threat Index (HTI)</td>
-              <td class="col-md-6">
-                Hybrid Threat Index describes risk of admixture via connectivity to other admixed
-                populations. HTI is calculated using a weighted (by fluvial distance) summation of
-                admixture among all interconnected populations.
-              </td>
-              <td class="col-md-1 text-center">X</td>
-              <td class="col-md-1 text-center"></td>
-            </tr>
-            <tr>
-              <td class="col-md-4">Maximum Rainbow Trout Admixture</td>
-              <td class="col-md-6">
-                Maximum rainbow trout admixture (0 to 100) observed within a patch. Used also as
-                component of the HTI variable.
-              </td>
-              <td class="col-md-1 text-center">X</td>
-              <td class="col-md-1 text-center"></td>
-            </tr>
-          </tbody>
-        </table>
-        <hr>
-        <h3>Demographic Covariates</h3>
-        <table class="table table-condensed table-striped" style="width:100%">
-          <thead>
-            <tr>
-              <th class="col-md-4">Variable</th>
-              <th class="col-md-6">Description</th>
-              <th class="col-md-1 text-center">Westslope Cutthroat Trout</th>
-              <th class="col-md-1 text-center">Bull Trout</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="col-md-4">Average Abundance (2000-2017)</td>
-              <td class="col-md-6">
-                Average number of redds over 2000-2017 based on either 1) at least five years of
-                data, or 2) model predictions using the methodology by Kovach et al. (2016).
-              </td>
-              <td class="col-md-1 text-center"></td>
-              <td class="col-md-1 text-center">X</td>
-            </tr>
-            <tr>
-              <td class="col-md-4">Average Abundance Based on Model Predictions</td>
-              <td class="col-md-6">
-                Indicates whether the Average Abundance (2000-2017) was based on model predictions
-                (1) or at least five years of data (0).
-              </td>
-              <td class="col-md-1 text-center"></td>
-              <td class="col-md-1 text-center">X</td>
-            </tr>
-            <tr>
-              <td class="col-md-4">Invasive Species Distance Index</td>
-              <td class="col-md-6">
-                Composite statistic (from 0 to 6) that includes distance data for invasive brook
-                trout, brown trout, and lake trout. "0" means no invasive species connected to
-                population, "6" means all three species are present in the core population patch.
-              </td>
-              <td class="col-md-1 text-center">X</td>
-              <td class="col-md-1 text-center">X</td>
-            </tr>
-            <tr>
-              <td class="col-md-4">Isolation Status</td>
-              <td class="col-md-6">
-                Isolation status (1 = isolated, 0 = not isolated) of each patch based on 1) the
-                presence of upstream barriers or 2) by distance and poor habitat when verified by
-                biologists.
-              </td>
-              <td class="col-md-1 text-center">X</td>
-              <td class="col-md-1 text-center">X</td>
-            </tr>
-            <tr>
-              <td class="col-md-4">Disjunct Population Status</td>
-              <td class="col-md-6">
-                Disjunct population status (1 = disjunt, 0 = not disjunt) indicating whether
-                population does not interact with other populations due to physical barriers, low
-                population, poor migration corridor habitat, or known/assumed reproductive
-                isolation. Similar to Isolation Status but includes these other factors in addition
-                to physical barriers. If a population is disjunct then the Number of Connected
-                Populations will also be zero.
-              </td>
-              <td class="col-md-1 text-center"></td>
-              <td class="col-md-1 text-center">X</td>
-            </tr>
-            <tr>
-              <td class="col-md-4">Number of Connected Populations</td>
-              <td class="col-md-6">
-                Number of other populations connected to each patch.
-              </td>
-              <td class="col-md-1 text-center">X</td>
-              <td class="col-md-1 text-center">X</td>
-            </tr>
-          </tbody>
-        </table>
-        <hr>
-        <h3>Presence/Absence Covariates</h3>
-        <table class="table table-condensed table-striped" style="width:100%">
-          <thead>
-            <tr>
-              <th class="col-md-4">Variable</th>
-              <th class="col-md-6">Description</th>
-              <th class="col-md-1 text-center">Westslope Cutthroat Trout</th>
-              <th class="col-md-1 text-center">Bull Trout</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="col-md-4">Presence of Westslope Cutthroat Trout</td>
-              <td class="col-md-6">
-                Presence (1) or absence (0) of Westslope Cutthroat Trout within each patch.
-              </td>
-              <td class="col-md-1 text-center">X</td>
-              <td class="col-md-1 text-center"></td>
-            </tr>
-            <tr>
-              <td class="col-md-4">Presence of Bull Trout</td>
-              <td class="col-md-6">Presence (1) or absence (0) of Bull Trout within each patch.</td>
-              <td class="col-md-1 text-center">X</td>
-              <td class="col-md-1 text-center"></td>
-            </tr>
-            <tr>
-              <td class="col-md-4">Presence of Lake Trout</td>
-              <td class="col-md-6">Presence (1) or absence (0) of Lake Trout within each patch.</td>
-              <td class="col-md-1 text-center">X</td>
-              <td class="col-md-1 text-center">X</td>
-            </tr>
-            <tr>
-              <td class="col-md-4">Presence of Brown Trout</td>
-              <td class="col-md-6">
-                Presence (1) or absence (0) of Brown Trout within each patch.
-              </td>
-              <td class="col-md-1 text-center">X</td>
-              <td class="col-md-1 text-center">X</td>
-            </tr>
-            <tr>
-              <td class="col-md-4">Presence of Brook Trout</td>
-              <td class="col-md-6">
-                Presence (1) or absence (0) of Brook Trout within each patch.
-              </td>
-              <td class="col-md-1 text-center">X</td>
-              <td class="col-md-1 text-center">X</td>
-            </tr>
-          </tbody>
-        </table>
-        <hr>
-        <h3>Habitat Covariates</h3>
-        <table class="table table-condensed table-striped" style="width:100%">
-          <thead>
-            <tr>
-              <th class="col-md-4">Variable</th>
-              <th class="col-md-6">Description</th>
-              <th class="col-md-1 text-center">Westslope Cutthroat Trout</th>
-              <th class="col-md-1 text-center">Bull Trout</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="col-md-4">Patch Area (km2)</td>
-              <td class="col-md-6">Total area (sq km) of each patch.</td>
-              <td class="col-md-1 text-center">X</td>
-              <td class="col-md-1 text-center">X</td>
-            </tr>
-            <tr>
-              <td class="col-md-4">Stream Length (km)</td>
-              <td class="col-md-6">Total stream length (km) within each patch.</td>
-              <td class="col-md-1 text-center">X</td>
-              <td class="col-md-1 text-center"></td>
-            </tr>
-            <tr>
-              <td class="col-md-4">
-                Stream Length with Critical Spawning &amp; Rearing Habitat (km)
-              </td>
-              <td class="col-md-6">
-                Total stream length (km) providing critical spawning and rearing habitat within each
-                patch.
-              </td>
-              <td class="col-md-1 text-center"></td>
-              <td class="col-md-1 text-center">X</td>
-            </tr>
-            <tr>
-              <td class="col-md-4">Road Length per Unit Patch Area (km/km2)</td>
-              <td class="col-md-6">
-                Total length of roads (km) within the entire drainage area of each patch divided by
-                total patch area (km2). Note that the drainage areas of some patches are larger than
-                the patches themselves due to upstream barriers.
-              </td>
-              <td class="col-md-1 text-center">X</td>
-              <td class="col-md-1 text-center">X</td>
-            </tr>
-            <tr>
-              <td class="col-md-4">Frac. Patch Area as Valley Bottom</td>
-              <td class="col-md-6">Fraction (0 to 1) of patch area representing valley bottom.</td>
-              <td class="col-md-1 text-center">X</td>
-              <td class="col-md-1 text-center">X</td>
-            </tr>
-          </tbody>
-        </table>
-        <hr>
-        <h3>Climate Exposure Covariates</h3>
-        <p>
-          For each of the following variables, values are provided based on historical conditions
-          (1985-2005) and four potential future scenarios
-            (<a
-              href="https://en.wikipedia.org/wiki/Representative_Concentration_Pathways"
-              target="_blank">RCP 4.5 and 8.5 greenhouse gas concentration trajectories</a>
-          for years 2035 and 2075).
-        </p>
-        <table class="table table-condensed table-striped" style="width:100%">
-          <thead>
-            <tr>
-              <th class="col-md-4">Variable</th>
-              <th class="col-md-6">Description</th>
-              <th class="col-md-1 text-center">Westslope Cutthroat Trout</th>
-              <th class="col-md-1 text-center">Bull Trout</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="col-md-4">Mean Aug. Stream Temp, degC</td>
-              <td class="col-md-6">
-                Average of the mean August stream temperature (degC) across all streams within each
-                patch. Average is computed by weighting the mean August temperature of each stream
-                segment by its length (i.e. this is a length-weighted average across all streams).
-              </td>
-              <td class="col-md-1 text-center">X</td>
-              <td class="col-md-1 text-center"></td>
-            </tr>
-            <tr>
-              <td class="col-md-4">Max Aug. Stream Temp, degC</td>
-              <td class="col-md-6">
-                Maximum of the mean August stream temperature (degC) among all streams within each
-                patch.
-              </td>
-              <td class="col-md-1 text-center">X</td>
-              <td class="col-md-1 text-center"></td>
-            </tr>
-            <tr>
-              <td class="col-md-4">Frac. Stream Length with Mean Aug Temp > 15 degC</td>
-              <td class="col-md-6">
-                Fraction (0 to 1) of the total stream length with mean August temperatures exceeding
-                15 degC within each patch.
-              </td>
-              <td class="col-md-1 text-center">X</td>
-              <td class="col-md-1 text-center"></td>
-            </tr>
-            <tr>
-              <td class="col-md-4">Frac. S/R Habitat Length with Mean Aug Temp > 15 degC</td>
-              <td class="col-md-6">
-                Fraction (0 to 1) of the total spawning &amp; rearing habitat length with mean
-                August temperatures exceeding 15 degC within each patch.
-              </td>
-              <td class="col-md-1 text-center"></td>
-              <td class="col-md-1 text-center">X</td>
-            </tr>
-            <tr>
-              <td class="col-md-4">May Precipitation, mm</td>
-              <td class="col-md-6">
-                Average total precipitation (mm) in the month of May. Computed from continuous grids
-                (i.e. rasters) using spatial averaging across each patch.
-              </td>
-              <td class="col-md-1 text-center">X</td>
-              <td class="col-md-1 text-center"></td>
-            </tr>
-          </tbody>
-        </table>
-        <hr>
-        <h3>Related Citations</h3>
-        <ul>
-          <li>
-            Muhlfeld, C.C., R.P. Kovach, R. Al-Chokhachy and 12 co-authors. 2017 Legacy
-            introductions and climatic variation explain spatiotemporal patterns of invasive
-            hybridization in a native trout. Global Change Biology 2017;00:1–11.
-            https://doi.org/10.1111/gcb.13681
-          </li>
-          <li>
-            Kovach, R.P., Al-Chokhachy, R., Whited, D., Dux, A., and Schmetterling, Dux, A.M.,
-            &amp; Muhlfeld, C.C. 2016 Climate, invasive species, and land-use drive population
-            dynamics of a coldwater specialist. Journal of Applied Ecology.
-            doi: 10.1111/1365-2664.12766
-          </li>
-          <li>
-            Wade, A.A., Hand, B.K., Kovach, R.P., Luikart, G., Whited, D.C. &amp; Muhlfeld, C.C.
-            2017 Accounting for adaptive capacity and uncertainty in assessments of species’
-            climate-change vulnerability. Conservation Biology 31: 136-149.
-          </li>
-          <li>
-            Giersch, J.J., Jordan, S., Luikart, G., Jones, L.A., Hauer, F.R. &amp; Muhlfeld, C.C.
-            2015 Climate-induced range contraction of a rare alpine aquatic invertebrate. Freshwater
-            Science 34: 53-65.
-          </li>
-          <li>
-            Muhlfeld, C.C., Kovach, R.P., Jones, L.A., Al-Chokhachy, R., Boyer, M.C., Leary, R.F.,
-            Lowe, W.H., Luikart, G. &amp; Allendorf, F.W. 2014 Invasive hybridization in a
-            threatened species is accelerated by climate change. Nature Climate Change 4: 620-624.
-          </li>
-          <li>
-            Hauer, F.R., Locke, H., Dreitz, V.J., Hebblewhite, M., Lowe, W.H., Muhlfeld, C.C.,
-            Nelson, C.R., Proctor, M.F. &amp; Rood, S.B. 2016 Gravel-bed river floodplains are the
-            ecological nexus of glaciated mountain landscapes. Science Advances 2: e1600026.
-          </li>
-          <li>
-            Muhlfeld, C.C., D'Angelo, V.S., Downs, C., Powell, J., Amish, S., Luikart, G., Kovach,
-            R., Boyer, M. &amp; Kalinowski, S. 2016 Genetic status and conservation of westslope
-            cutthroat trout in Glacier National Park. Transactions of the American Fisheries Society
-            145: 1093-1109.
-          </li>
-          <li>
-            Kovach, R.P., Hand, B.K., Hohenlohe, P.A., Cosart, T.F., Boyer, M.C., Neville, H.H.,
-            Muhlfeld, C.C., Amish, S.J., Carim, K., Narum, S.R., Lowe, W.H., Allendorf, F.W. &amp;
-            Luikart, G. 2016 Vive la résistance: genome-wide selection against introduced alleles in
-            invasive hybrid zones. Proceedings of the Royal Society B-Biological Sciences 283:
-            20161380.
-          </li>
-          <li>
-            Kovach, R.P., Muhlfeld, C.C., Wade, A.A., Hand, B.K., Whited, D.C., DeHaan, P.W.,
-            Al-Chokhachy, R. &amp; Luikart, G. 2015 Genetic diversity is related to climatic
-            variation and vulnerability in threatened bull trout. Global Change Biology 21:
-            2510-2524.</li>
-          <li>
-            Kovach, R.P., Muhlfeld, C.C., Boyer, M.C., Lowe, W.H., Allendorf, F.W. &amp; Luikart, G.
-            2015 Dispersal and selection mediate hybridization between a native and invasive
-            species. Proceedings of the Royal Society B-Biological Sciences 282: 9.
-          </li>
-          <li>
-            Bean, J.R., Wilcox, A.C., Woessner, W.W. &amp; Muhlfeld, C.C. 2015 Multiscale
-            hydrogeomorphic influences on bull trout (Salvelinus confluentus) spawning habitat.
-            Canadian Journal of Fisheries and Aquatic Sciences 72: 514-526.
-          </li>
-          <li>
-            Muhlfeld, C.C., Kovach, R.P., Jones, L.A., Al-Chokhachy, R., Boyer, M.C., Leary, R.F.,
-            Lowe, W.H., Luikart, G. &amp; Allendorf, F.W. 2014 Invasive hybridization in a
-            threatened species is accelerated by climate change. Nature Climate Change 4: 620-624.
-          </li>
-          <li>
-            Jones, L.A., Muhlfeld, C.C., Marshall, L.A., McGlynn, B.L. &amp; Kershner, J.L. 2014
-            Estimating thermal regimes of bull trout and assessing the potential effects of climate
-            warming on critical habitats. River Research and Applications 30: 204-216.
-          </li>
-          <li>
-            Al-Chokhachy, R., Muhlfeld, C.C., Boyer, M.C., Jones, L.A., Steed, A. &amp; Kershner,
-            J.L. 2014 Quantifying the effectiveness of conservation measures to control the spread
-            of anthropogenic hybridization in stream salmonids: a climate adaptation case study.
-            North American Journal of Fisheries Management 34: 642-652.
-          </li>
-          <li>
-            Hohenlohe, P.A., Day, M.D., Amish, S.J., Miller, M.R., Kamps-Hughes, N., Boyer, M.C.,
-            Muhlfeld, C.C., Allendorf, F.W., Johnson, E.A. &amp; Luikart, G. 2013 Genomic patterns
-            of introgression in rainbow and westslope cutthroat trout illuminated by overlapping
-            paired-end RAD sequencing. Molecular ecology 22: 3002-3013.
-          </li>
-          <li>
-            D'Angelo, V.S. &amp; Muhlfeld, C.C. 2013 Factors Influencing the distribution of native
-            bull trout and westslope cutthroat trout in streams of western Glacier National Park,
-            Montana. Northwest Science 87: 1-11.
-          </li>
-          <li>
-            Muhlfeld, C.C., McMahon, T.E., Boyer, M.C. &amp; Gresswell, R.E. 2009 Local habitat,
-            watershed, and biotic factors influencing the spread of hybridization between native
-            westslope cutthroat trout and introduced rainbow trout. Transactions of the American
-            Fisheries Society 138: 1036-1051.
-          </li>
-          <li>
-            Muhlfeld, C.C., McMahon, T.E., Belcer, D. &amp; Kershner, J.L. 2009 Spatial and temporal
-            spawning dynamics of native westslope cutthroat trout, Oncorhynchus clarkii lewisi,
-            introduced rainbow trout, Oncorhynchus mykiss, and their hybrids. Canadian Journal of
-            Fisheries and Aquatic Sciences 66: 1153-1168.
-          </li>
-          <li>
-            Muhlfeld, C.C., Kalinowski, S.T., McMahon, T.E., Taper, M.L., Painter, S., Leary, R.F.
-            &amp; Allendorf, F.W. 2009 Hybridization rapidly reduces fitness of a native trout in
-            the wild. Biology Letters 5: 328-331.
-          </li>
-          <li>
-            Boyer, M.C., Muhlfeld, C.C. &amp; Allendorf, F.W. 2008 Rainbow trout (Oncorhynchus
-            mykiss) invasion and the spread of hybridization with native westslope cutthroat trout
-            (Oncorhynchus clarkii lewisi). Canadian Journal of Fisheries and Aquatic Sciences 65:
-            658-669.
-          </li>
-          <li>
-            Hitt, N.P., Frissell, C.A., Muhlfeld, C.C. &amp; Allendorf, F.W. 2003 Spread of
-            hybridization between native westslope cutthroat trout, Oncorhynchus clarki lewisi, and
-            nonnative rainbow trout, Oncorhynchus mykiss. Canadian Journal of Fisheries and Aquatic
-            Sciences 60: 1440-1451.
-          </li>
-        </ul>
+        <data-modal></data-modal>
       </div>
     </modal>
     <modal
@@ -936,50 +193,9 @@
       size="md">
       <span slot="title">Contact Us</span>
       <div slot="body">
-        <p>
-          If you have questions about this application, discovered any bugs, or are interested in
-          using ICE with your own dataset, please feel free to contact us using this form.
-        </p>
-        <hr>
-        <form class="form-horizontal contact" action="https://formspree.io/jeff@walkerenvres.com" method="POST">
-          <div class="form-group">
-            <label for="inputName" class="col-sm-2 control-label">Name</label>
-            <div class="col-sm-10">
-              <input type="text" name="name" class="form-control" id="inputName" placeholder="Name">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="inputEmail" class="col-sm-2 control-label">E-mail</label>
-            <div class="col-sm-10">
-              <input
-                type="email"
-                name="email"
-                class="form-control"
-                id="inputEmail"
-                placeholder="E-mail">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="inputMessage" class="col-sm-2 control-label">Message</label>
-            <div class="col-sm-10">
-              <textarea
-                name="message"
-                class="form-control"
-                id="inputMessage"
-                rows="8"
-                placeholder="Your message"></textarea>
-            </div>
-          </div>
-          <input type="text" name="_gotcha" style="display:none">
-          <input type="hidden" name="_subject" value="ICE CCE Contact Submission">
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-6">
-              <input type="submit" class="btn btn-default" value="Send">
-            </div>
-          </div>
-        </form>
+        <contact-modal></contact-modal>
       </div>
-    </modal>
+  </modal>
   </div>
 </template>
 
@@ -989,16 +205,19 @@ import axios from 'axios';
 
 import EventBus from './event-bus';
 
-import IceHeader from './components/IceHeader';
-import IceMap from './components/IceMap';
-import IceLegend from './components/IceLegend';
-import IceFilter from './components/IceFilter';
-import IceSelectInfo from './components/IceSelectInfo';
-import Modal from './components/Modal';
-import SelectPicker from './components/SelectPicker';
+import IceHeader from './components/IceHeader.vue';
+import IceMap from './components/IceMap.vue';
+import IceLegend from './components/IceLegend.vue';
+import IceFilter from './components/IceFilter.vue';
+import IceSelectInfo from './components/IceSelectInfo.vue';
+import Modal from './components/Modal.vue';
+import SelectPicker from './components/SelectPicker.vue';
+import ContactModal from './modals/Contact.vue';
+import DataModal from './modals/Data.vue';
+import AboutModal from './modals/About.vue';
 
 export default {
-  name: 'App',
+  name: 'app',
   components: {
     IceHeader,
     IceMap,
@@ -1007,6 +226,9 @@ export default {
     IceSelectInfo,
     Modal,
     SelectPicker,
+    ContactModal,
+    DataModal,
+    AboutModal
   },
   data() {
     const colorScales = [
@@ -1079,6 +301,7 @@ export default {
       this.selected.themeId = theme.id;
     },
     variable(variable) {
+      if (!variable) return;
       this.selected.variableId = variable.id;
       this.selectLegendType(this.variable.scale.type);
     },
@@ -1090,7 +313,7 @@ export default {
       .then(() => this.selectThemeById(this.config.defaults.theme))
       .then(() => {
       //   this.selectScale(this.colorScales[0]);
-        this.loading = false;
+        // this.loading = false;
       })
       .catch((error) => {
         alert('Uh oh! An error occurred. Please refresh and try again. If the problem persists please contact Jeff Walker at jeff@walkerenvres.com');
@@ -1123,9 +346,14 @@ export default {
       return this.selectVariableById(id);
     },
     selectThemeById(id) {
-      this.loading = true;
+      // console.log('app:selectThemeById', id);
+
       this.selectFeature();
       this.updateFilters([]);
+
+      if (!id) return;
+
+      this.loading = true;
       this.$store.dispatch('selectThemeById', id)
         .then(() => {
           this.loading = false;
@@ -1138,6 +366,7 @@ export default {
         });
     },
     updateFilters(ids) {
+      // console.log('app:updateFilters()', ids);
       this.$store.dispatch('updateFilters', ids);
       this.selected.filters = ids;
     },
@@ -1148,8 +377,8 @@ export default {
       const index = this.selected.filters.indexOf(id);
       this.selected.filters.splice(index, 1);
       this.$store.dispatch('updateFilters', this.selected.filters);
-    },
-  },
+    }
+  }
 };
 </script>
 

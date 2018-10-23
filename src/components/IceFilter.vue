@@ -36,7 +36,9 @@ import EventBus from '../event-bus';
 function barChart(id) {
   const axis = d3.svg.axis().orient('bottom');
   const brush = d3.svg.brush();
-  let margin = { top: 10, right: 10, bottom: 20, left: 10 };
+  let margin = {
+    top: 10, right: 10, bottom: 20, left: 10,
+  };
   let y = d3.scale.linear().range([100, 0]);
   let x;
   let brushDirty;

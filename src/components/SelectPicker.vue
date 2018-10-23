@@ -33,9 +33,9 @@ require('bootstrap-select');
 export default {
   props: ['config', 'options', 'value', 'textField', 'valueField', 'title', 'multiple', 'groups'],
   watch: {
-    value(value) {
-      $(this.$el).selectpicker('val', value).selectpicker('refresh');
-    },
+    value() {
+      this.setValue();
+    }
   },
   computed: {
     ...mapGetters(['variableById']),
@@ -51,24 +51,41 @@ export default {
     },
   },
   mounted() {
-    const vm = this;
     $(this.$el)
       .attr('multiple', this.multiple)
       .selectpicker(this.config)
-      .on('loaded.bs.select', function onLoad() {
-        $(this).selectpicker('val', this.value);
+      .on('loaded.bs.select', () => {
+        $(this.$el).selectpicker('val', this.value);
       })
-      .on('changed.bs.select', function onChange() {
-        vm.$emit('input', $(this).selectpicker('val'));
+      .on('changed.bs.select', () => {
+        this.$emit('input', $(this.$el).selectpicker('val'));
       });
     if (this.value) {
-      $(this.$el).selectpicker('val', this.value).selectpicker('refresh');
+      this.setValue();
     }
   },
   updated() {
-    $(this.$el).selectpicker('val', this.value).selectpicker('refresh');
+    this.setValue();
   },
-  destroyed: () => $(this.$el).off().selectpicker('destroy'),
+  destroyed() {
+    $(this.$el).off().selectpicker('destroy');
+  },
+  methods: {
+    setValue() {
+      if (this.multiple) {
+        if (this.value.length !== $(this.$el).selectpicker('val').length) {
+          $(this.$el).selectpicker('val', this.value).selectpicker('refresh');
+        } else {
+          $(this.$el).selectpicker('refresh');
+        }
+      } else {
+        // eslint-disable-next-line
+        if (this.value !== $(this.$el).selectpicker('val')) {
+          $(this.$el).selectpicker('val', this.value).selectpicker('refresh');
+        }
+      }
+    }
+  }
 };
 
 </script>

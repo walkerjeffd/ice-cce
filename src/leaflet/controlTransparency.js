@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
-import '../lib/jquery-ui-slider/jquery-ui.min.css';
+import '../../lib/jquery-ui-slider/jquery-ui.min.css';
 
-require('../lib/jquery-ui-slider/jquery-ui.min.js');
+require('../../lib/jquery-ui-slider/jquery-ui.min.js');
 
 const L = require('leaflet');
 

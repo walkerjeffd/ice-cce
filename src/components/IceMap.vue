@@ -229,8 +229,8 @@ export default {
     ...mapGetters(['layer', 'variable', 'data', 'isFeatureFiltered']),
   },
   watch: {
-    layer(layer) {
-      if (!layer) return;
+    layer() {
+      if (!this.layer) return;
 
       this.resizeSvg();
 
@@ -243,6 +243,7 @@ export default {
       this.render();
     },
     variable() {
+      if (!this.variable) return;
       this.renderFill();
     },
     legendType() {
@@ -354,6 +355,7 @@ export default {
         .style('display', d => (this.isFeatureFiltered(d.properties.id) ? 'inline' : 'none'));
     },
     renderFill() {
+      if (!this.variable) return;
       this.svg
         .select('g.fill')
         .selectAll('path.fill')

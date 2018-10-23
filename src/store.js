@@ -6,6 +6,10 @@ import * as crossfilter from 'crossfilter2';
 
 Vue.use(Vuex);
 
+const xf = crossfilter();
+const map = new Map();
+const featureSet = new Set();
+
 const store = new Vuex.Store({
   state: {
     config: null,
@@ -14,9 +18,6 @@ const store = new Vuex.Store({
     variable: null,
     filterVariable: null,
     data: [],
-    map: new Map(),
-    xf: null,
-    featureSet: new Set(),
     filters: [],
     totalCount: 0,
     activeCount: 0,
@@ -35,15 +36,15 @@ const store = new Vuex.Store({
     variableGroups: state => (state.theme ? state.theme.variableGroups : []),
     filters: state => state.filters,
     data: state => state.data,
-    xf: state => state.xf,
-    featureSet: state => state.featureSet,
-    isFeatureFiltered: state => id => state.featureSet.has(id),
+    xf: () => xf,
+    featureSet: () => featureSet,
+    isFeatureFiltered: () => id => featureSet.has(id),
     selectedFeature: state => state.selectedFeature,
-    valuesById: state => id => state.map.get(id),
+    valuesById: () => id => map.get(id),
     totalCount: state => state.totalCount,
     activeCount: state => state.activeCount,
-    getFilteredVariableMeanValue: state =>
-      variableId => d3.mean(state.xf.allFiltered(), d => d[variableId]),
+    getFilteredVariableMeanValue: () =>
+      variableId => d3.mean(xf.allFiltered(), d => d[variableId]),
   },
   mutations: {
     SET_CONFIG(state, config) {
@@ -63,15 +64,6 @@ const store = new Vuex.Store({
     },
     SET_DATA(state, data) {
       state.data = data;
-    },
-    SET_DATAMAP(state, map) {
-      state.map = map;
-    },
-    SET_CROSSFILTER(state, xf) {
-      state.xf = xf;
-    },
-    SET_FEATURE_SET(state, featureSet) {
-      state.featureSet = featureSet;
     },
     ADD_FILTER(state, filter) {
       state.filters.push(filter);
@@ -98,14 +90,16 @@ const store = new Vuex.Store({
       commit('SET_CONFIG', config);
     },
     selectThemeById({ commit, getters }, themeId) {
-      if (!getters.themes || getters.themes.length === 0) return;
+      if (!getters.themes || getters.themes.length === 0 || !themeId) return;
 
       const theme = getters.themes.find(d => d.id === themeId);
 
+      if (!theme) return;
+
       return axios.get(`${theme.layer}`) // eslint-disable-line consistent-return
         .then(response => response.data)
-        .then((layer) => {
-          axios.get(`${theme.dataset.url}`)
+        .then((layer) => { // eslint-disable-line
+          return axios.get(`${theme.dataset.url}`)
             .then(response => response.data)
             .then((string) => {
               // parse CSV
@@ -123,11 +117,13 @@ const store = new Vuex.Store({
                 return o;
               });
 
-              const dataMap = new Map(data.map(d => [d.id, d]));
+              map.clear();
+              data.forEach(d => map.set(d.id, d));
 
-              const xf = crossfilter(data);
+              xf.remove();
+              xf.add(data);
 
-              const featureSet = new Set();
+              featureSet.clear();
               xf.groupAll().reduce(
                 (p, v) => {
                   featureSet.add(v.id);
@@ -145,9 +141,6 @@ const store = new Vuex.Store({
               commit('SET_VARIABLE', theme.variables[0]);
               commit('SET_LAYER', layer);
               commit('SET_DATA', data);
-              commit('SET_DATAMAP', dataMap);
-              commit('SET_CROSSFILTER', xf);
-              commit('SET_FEATURE_SET', featureSet);
               commit('SET_TOTAL_COUNT', data.length);
               commit('SET_ACTIVE_COUNT', data.length);
             });
@@ -191,12 +184,8 @@ const store = new Vuex.Store({
     setActiveCount({ commit }, count) {
       commit('SET_ACTIVE_COUNT', count);
     },
-    updateActiveCount({ commit, state }) {
-      if (state.xf) {
-        commit('SET_ACTIVE_COUNT', state.xf.groupAll().value());
-      } else {
-        commit('SET_ACTIVE_COUNT', 0);
-      }
+    updateActiveCount({ commit }) {
+      commit('SET_ACTIVE_COUNT', xf.groupAll().value());
     },
     selectFeature({ commit }, feature) {
       if (feature) {

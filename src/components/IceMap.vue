@@ -387,11 +387,12 @@ export default {
 path.fill {
   fill: rgb(200,200,200);
   stroke: rgb(0, 0, 0);
-  stroke-width: 0.5;
+  stroke-width: 0.5px;
 }
 
 path.fill.selected {
   stroke: red;
+  stroke-width: 2px;
 }
 
 div.leaflet-top.leaflet-left {

@@ -145,7 +145,6 @@
               v-for="filter in filters"
               :key="filter.variable.id"
               :filter="filter"
-              :xf="xf"
               width="360"
               @brush="brushed"
               @destroy="destroyFilter"
@@ -308,7 +307,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['config', 'themes', 'theme', 'layer', 'variables', 'variable', 'variableGroups', 'filters', 'xf', 'activeCount', 'totalCount', 'selectedFeature']),
+    ...mapGetters(['config', 'themes', 'theme', 'layer', 'variables', 'variable', 'variableGroups', 'filters', 'activeCount', 'totalCount', 'selectedFeature']),
   },
   filters: {
     filterVariable: variables => variables.filter(v => v.filter),

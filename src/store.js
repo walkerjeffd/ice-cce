@@ -2,13 +2,10 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 import * as d3 from 'd3';
-import * as crossfilter from 'crossfilter2';
+
+import { xf, map, featureSet } from '@/lib/crossfilter';
 
 Vue.use(Vuex);
-
-const xf = crossfilter();
-const map = new Map();
-const featureSet = new Set();
 
 const store = new Vuex.Store({
   state: {
@@ -36,15 +33,9 @@ const store = new Vuex.Store({
     variableGroups: state => (state.theme ? state.theme.variableGroups : []),
     filters: state => state.filters,
     data: state => state.data,
-    xf: () => xf,
-    featureSet: () => featureSet,
-    isFeatureFiltered: () => id => featureSet.has(id),
     selectedFeature: state => state.selectedFeature,
-    valuesById: () => id => map.get(id),
     totalCount: state => state.totalCount,
     activeCount: state => state.activeCount,
-    getFilteredVariableMeanValue: () =>
-      variableId => d3.mean(xf.allFiltered(), d => d[variableId]),
   },
   mutations: {
     SET_CONFIG(state, config) {

@@ -31,7 +31,8 @@
 <script>
 import * as d3 from 'd3';
 
-import EventBus from '../event-bus';
+import EventBus from '@/event-bus';
+import { xf, getFilteredVariableMeanValue } from '@/lib/crossfilter';
 
 function barChart(id) {
   const axis = d3.svg.axis().orient('bottom');
@@ -258,7 +259,7 @@ function barChart(id) {
 }
 
 export default {
-  props: ['filter', 'xf', 'width'],
+  props: ['filter', 'width'],
   data() {
     return {
       chart: null,
@@ -282,7 +283,7 @@ export default {
   mounted() {
     const interval = (this.variable.scale.max - this.variable.scale.min) / 40;
 
-    this.dim = this.xf.dimension(d => d[this.filter.variable.id]);
+    this.dim = xf.dimension(d => d[this.filter.variable.id]);
     this.group = this.dim
       .group((d) => {
         if (d >= this.variable.scale.max) {
@@ -312,7 +313,7 @@ export default {
   },
   methods: {
     render() {
-      this.meanValue = this.$store.getters.getFilteredVariableMeanValue(this.variable.id);
+      this.meanValue = getFilteredVariableMeanValue(this.variable.id);
       d3.select(this.$el).select('.chart').call(this.chart.meanValue(this.meanValue));
     },
     resetFilter() {

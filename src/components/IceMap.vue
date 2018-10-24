@@ -8,7 +8,8 @@ import { mapGetters } from 'vuex';
 import * as d3 from 'd3';
 import 'leaflet/dist/leaflet.css';
 
-import EventBus from '../event-bus';
+import EventBus from '@/event-bus';
+import { isFeatureFiltered, valuesById } from '@/lib/crossfilter';
 
 require('../leaflet/controlTransparency');
 require('leaflet-bing-layer');
@@ -226,7 +227,7 @@ export default {
         .range(this.colors)
         .interpolate(this.hcl ? d3.interpolateHcl : d3.interpolate);
     },
-    ...mapGetters(['layer', 'variable', 'data', 'isFeatureFiltered']),
+    ...mapGetters(['layer', 'variable', 'data']),
   },
   watch: {
     layer() {
@@ -267,7 +268,7 @@ export default {
       this.map.fitBounds(geoJson.getBounds());
     },
     tooltipHtml(d) {
-      const values = this.$store.getters.valuesById(d.properties.id);
+      const values = valuesById(d.properties.id);
       if (!values) {
         return 'N/A';
       }
@@ -352,7 +353,7 @@ export default {
       this.svg
         .select('g.fill')
         .selectAll('path.fill')
-        .style('display', d => (this.isFeatureFiltered(d.properties.id) ? 'inline' : 'none'));
+        .style('display', d => (isFeatureFiltered(d.properties.id) ? 'inline' : 'none'));
     },
     renderFill() {
       if (!this.variable) return;
@@ -360,7 +361,7 @@ export default {
         .select('g.fill')
         .selectAll('path.fill')
         .style('fill', (d) => {
-          const values = this.$store.getters.valuesById(d.properties.id);
+          const values = valuesById(d.properties.id);
           if (!values) return;
 
           const value = values[this.variable.id];

@@ -46,7 +46,8 @@
 import { mapGetters } from 'vuex';
 import * as d3 from 'd3';
 
-import Modal from './Modal.vue';
+import Modal from '@/components/Modal.vue';
+import { valuesById } from '@/lib/crossfilter';
 
 export default {
   components: { Modal },
@@ -57,9 +58,9 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['variables', 'variableGroups', 'valuesById', 'variableById', 'theme']),
+    ...mapGetters(['variables', 'variableGroups', 'variableById', 'theme']),
     values() {
-      return this.valuesById(this.selected.properties.id);
+      return valuesById(this.selected.properties.id);
     },
     label() {
       return this.values.label;

@@ -20,7 +20,8 @@ module.exports = {
     'no-param-reassign': 'off',
     'no-alert': 'off',
     'prefer-destructuring': 'off',
-    'comma-dangle': 'off'
+    'comma-dangle': 'off',
+    'max-len': 'off'
   },
   parserOptions: {
     parser: 'babel-eslint',

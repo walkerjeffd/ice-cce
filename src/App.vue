@@ -10,17 +10,22 @@
           <button
             class="btn btn-default"
             @click="modals.about = true">
-            <i class="fa fa-question-circle"/> About ICE
+            <i class="fa fa-question-circle"/> Help
           </button>
           <button
             class="btn btn-default"
             @click="modals.dataset = true">
-            <i class="fa fa-table"/> About the Data
+            <i class="fa fa-table"/> Dataset Info
+          </button>
+          <button
+            class="btn btn-default"
+            @click="modals.download = true">
+            <i class="fa fa-download"/> Download
           </button>
           <button
             class="btn btn-default"
             @click="modals.contact = true">
-            <i class="fa fa-envelope"/> Contact Us
+            <i class="fa fa-envelope"/> Contact
           </button>
         </div>
         <div class="ice-box">
@@ -188,6 +193,15 @@
       </div>
     </modal>
     <modal
+      :show="modals.download"
+      @close="modals.download = false"
+      size="lg">
+      <span slot="title">Download Data</span>
+      <div slot="body">
+        <download-modal></download-modal>
+      </div>
+    </modal>
+    <modal
       :show="modals.contact"
       @close="modals.contact = false"
       size="md">
@@ -214,6 +228,7 @@ import Modal from './components/Modal.vue';
 import SelectPicker from './components/SelectPicker.vue';
 import ContactModal from './modals/Contact.vue';
 import DataModal from './modals/Data.vue';
+import DownloadModal from './modals/Download.vue';
 import AboutModal from './modals/About.vue';
 
 export default {
@@ -228,6 +243,7 @@ export default {
     SelectPicker,
     ContactModal,
     DataModal,
+    DownloadModal,
     AboutModal
   },
   data() {
@@ -283,6 +299,7 @@ export default {
       modals: {
         about: false,
         dataset: false,
+        download: false,
         contact: false,
       },
       colorScales,

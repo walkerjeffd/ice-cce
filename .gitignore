@@ -23,6 +23,7 @@ yarn-error.log*
 # data files
 data/*.csv
 data/*.json
+data/download
 
 # config
 src/config.js

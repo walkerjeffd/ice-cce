@@ -21,9 +21,7 @@ yarn-error.log*
 *.sw*
 
 # data files
-data/*.csv
-data/*.json
-data/download
+data/
 
 # config
 src/config.js

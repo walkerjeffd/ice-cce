@@ -40,6 +40,7 @@ export default {
   computed: {
     ...mapGetters(['variableById']),
     optGroups() {
+      console.log('computed:optGroups');
       let result = null;
       if (this.groups) {
         result = this.groups.map(group => ({
@@ -82,6 +83,8 @@ export default {
         // eslint-disable-next-line
         if (this.value !== $(this.$el).selectpicker('val')) {
           $(this.$el).selectpicker('val', this.value).selectpicker('refresh');
+        } else {
+          $(this.$el).selectpicker('refresh');
         }
       }
     }

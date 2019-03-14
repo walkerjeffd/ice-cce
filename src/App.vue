@@ -10,22 +10,22 @@
           <button
             class="btn btn-default"
             @click="modals.about = true">
-            <i class="fa fa-question-circle"/> Help
+            <i class="fa fa-question-circle"/> About ICE
           </button>
           <button
             class="btn btn-default"
             @click="modals.dataset = true">
-            <i class="fa fa-table"/> Dataset Info
+            <i class="fa fa-table"/> About the Data
           </button>
-          <button
+          <!-- <button
             class="btn btn-default"
             @click="modals.download = true">
             <i class="fa fa-download"/> Download
-          </button>
+          </button> -->
           <button
             class="btn btn-default"
             @click="modals.contact = true">
-            <i class="fa fa-envelope"/> Contact
+            <i class="fa fa-envelope"/> Contact Us
           </button>
         </div>
         <div class="ice-box">

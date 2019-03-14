@@ -7,8 +7,8 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "data": "http-server -p 8081 --cors ./",
-    "deploy": "npm run build && scp -r -C dist/* jeff@ecosheds.org:/conte/www/static/ice/cce-dev/",
-    "deploy-data": "scp -r -C data/* jeff@ecosheds.org:/conte/www/static/ice/cce-dev/data/"
+    "deploy": "npm run build && scp -r -C dist/* jeff@ecosheds.org:/conte/www/static/ice/cce/",
+    "deploy-data": "scp -r -C data/* jeff@ecosheds.org:/conte/www/static/ice/cce/data/"
   },
   "dependencies": {
     "axios": "^0.18.0",

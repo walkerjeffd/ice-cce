@@ -1,9 +1,7 @@
 const webpack = require('webpack'); // eslint-disable-line import/no-extraneous-dependencies
 
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/cce/'
-    : '/',
+  publicPath: process.env.BASE_URL,
   configureWebpack: {
     plugins: [
       new webpack.ProvidePlugin({

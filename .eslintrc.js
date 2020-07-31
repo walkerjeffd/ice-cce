@@ -21,7 +21,8 @@ module.exports = {
     'no-alert': 'off',
     'prefer-destructuring': 'off',
     'comma-dangle': 'off',
-    'max-len': 'off'
+    'max-len': 'off',
+    'linebreak-style': 'off'
   },
   parserOptions: {
     parser: 'babel-eslint',

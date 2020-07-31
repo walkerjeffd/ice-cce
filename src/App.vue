@@ -126,7 +126,7 @@
         <div class="ice-box">
           <div class="ice-box-title">Histograms and Filters</div>
           <select-picker
-            :config="{}"
+            :config="{ }"
             :options="variables | filterVariable"
             :value="selected.filters"
             :multiple="true"
@@ -358,7 +358,7 @@ export default {
       this.legend.scale = scale;
     },
     handleResize() {
-      this.maxHeight = window.innerHeight - 220;
+      this.maxHeight = window.innerHeight - 320;
     },
     zoomToFeature(feature) {
       EventBus.$emit('zoomToFeature', feature);
@@ -432,7 +432,7 @@ a {
   display: inline;
   position: absolute;
   top: 60px;
-  right: 0px;
+  right: 10px;
   width: 475px;
   z-index: 3000;
 }

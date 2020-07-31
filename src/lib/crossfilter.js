@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import * as crossfilter from 'crossfilter2';
+import crossfilter from 'crossfilter2';
 
 export const xf = crossfilter();
 

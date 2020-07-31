@@ -1,9 +1,8 @@
 <template>
   <div class="ice-header">
-    <span class="ice-header-brand">ICE - Crown of the Continent Ecosystem</span>
+    <span class="ice-header-brand">ICE | Native Trout Vulnerability in the Crown of the Continent Ecosystem</span>
     <div class="ice-header-links">
-      <a href="http://ice.ecosheds.org">ICE Home</a> |
-      <a href="http://ecosheds.org">SHEDS Home</a>
+      <a href="https://ecosheds.org">SHEDS Home</a>
     </div>
   </div>
 </template>
@@ -13,7 +12,7 @@
   position: fixed;
   width: 100%;
   height: 60px;
-  top: 0;
+  top: 68;
   left: 0;
   background: rgba(40, 40, 40, 0.5);
   color: white;

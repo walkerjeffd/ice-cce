@@ -331,7 +331,7 @@ export default {
     },
   },
   created() {
-    axios.get('config.json')
+    axios.get('themes.json')
       .then(response => response.data)
       .then(config => this.$store.dispatch('setConfig', config))
       .then(() => this.selectThemeById(this.config.defaults.theme))

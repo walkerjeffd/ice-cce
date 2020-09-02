@@ -1,15 +1,14 @@
 {
   "name": "ice-cce",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "npm-run-all --parallel data serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build:staging": "vue-cli-service build --mode staging",
     "lint": "vue-cli-service lint",
-    "data": "http-server -p 8000 --cors ./",
-    "deploy": "yarn build && rsync -av dist/* jeff@ecosheds.org:/conte/www/static/ice/cce/ --delete",
-    "deploy:data": "rsync -av data/* jeff@ecosheds.org:/conte/www/static/data/ice-cce --delete"
+    "data": "http-server -p 8000 --cors ./"
   },
   "dependencies": {
     "axios": "^0.18.0",

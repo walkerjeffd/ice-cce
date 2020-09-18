@@ -3,10 +3,7 @@
     <h3>Overview</h3>
     <p>
       This application presents a Vulnerability Assessment for Westslope Cutthroat Trout and
-      Bull Trout in the Crown of the Continent Ecosystem (CCE). This assessment
-      was performed by the <a href="https://www.usgs.gov/centers/norock" target="_blank">USGS
-      Northern Rocky Mountain Science Center</a> with support from
-      <a href="https://walkerenvres.com">Walker Environmental Research LLC</a>.
+      Bull Trout in the Crown of the Continent Ecosystem (CCE).
     </p>
     <p>
       The dataset shown in this application includes two sets of variables
@@ -24,13 +21,6 @@
     <p>
       The following sections provide more details about each set of variables.
     </p>
-    <p>
-      The data may be referenced using the following citation:
-    </p>
-    <blockquote>
-      Muhlfeld, C. C., V. S. D'Angelo, and R. P. Kovach. USGS unpublished data, Glacier National
-      Park, West Glacier, Montana 59936; cmuhlfeld@usgs.gov.
-    </blockquote>
     <hr>
     <h3>Vulnerability Risk Scores</h3>
     <p>

@@ -2,7 +2,6 @@
   <div
     id="app"
     class="full">
-    <UsgsHeader></UsgsHeader>
 
     <div class="ice-container">
       <ice-header/>
@@ -210,8 +209,6 @@
         <contact-modal></contact-modal>
       </div>
     </modal>
-
-    <UsgsFooter></UsgsFooter>
   </div>
 </template>
 
@@ -220,9 +217,6 @@ import { mapActions, mapGetters } from 'vuex';
 import axios from 'axios';
 
 import EventBus from '@/event-bus';
-
-import UsgsHeader from '@/components/usgs/UsgsHeader.vue';
-import UsgsFooter from '@/components/usgs/UsgsFooter.vue';
 
 import IceHeader from './components/IceHeader.vue';
 import IceMap from './components/IceMap.vue';
@@ -239,8 +233,6 @@ import AboutModal from './modals/About.vue';
 export default {
   name: 'app',
   components: {
-    UsgsHeader,
-    UsgsFooter,
     IceHeader,
     IceMap,
     IceLegend,
@@ -415,7 +407,7 @@ a {
   padding: 0px;
   margin: 0px;
   font-family: "proxima-nova-alt", Helvetica, Arial, sans-serif;
-  height: calc(100vh - 56px - 68px);
+  height: calc(100vh);
   position: relative;
 }
 

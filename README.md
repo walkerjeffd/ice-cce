@@ -3,6 +3,24 @@
 Jeffrey D Walker, PhD <jeff@walkerenvres.com>  
 [Walker Environmental Research, LLC](https://walkerenvres.com)
 
+## About
+
+This repository contains the source code for the Interactive Catchment Explorer (ICE) application of Vulnerability Assessment of Native Trout Species in the Crown of the Continent Ecosystem
+
+**LIVE URL:** [http://ice.ecosheds.org/cce/]()
+
+If you are interested in adapting ICE to other datasets, please see the ICE starter template [walkerjeffd/ice-template](https://github.com/walkerjeffd/ice-template), which contains the latest design and implementation of ICE and includes more detailed developer instructions.
+
+## Datasets
+
+The scripts for generating the datasets used in this application are located in a separate repository: [walkerjeffd/sheds-norock](https://github.com/walkerjeffd/sheds-norock). The output from these scripts must be saved to the `data/` folder.
+
+The generated datasets are **not** stored in this repo. To get the latest version of the datasets, download the following tarball and extract it to the `data/` folder.
+
+```
+wget https://ecosheds.org/data/ice-cce/ice-cce-data.tar.gz
+tar -xzvf ice-cce-data.tar.gz -C ./data
+```
 
 ## Project setup
 
@@ -22,12 +40,6 @@ VUE_APP_API_URL=http://localhost:8000/  # location for fetching data, set to bas
 ```
 
 The default `.env` files can be overriden with `.local` variants (e.g. `.env.development.local`).
-
-## Generate Datasets
-
-The datasets and configuration files for this application are stored in the `data/` folder.
-
-The scripts for generating these datasets are located in a separate repository: [walkerjeffd/sheds-norock](https://github.com/walkerjeffd/sheds-norock).
 
 ## Development Server
 

@@ -5,7 +5,7 @@ Jeffrey D Walker, PhD <jeff@walkerenvres.com>
 
 ## About
 
-This repository contains the source code for the Interactive Catchment Explorer (ICE) application of Vulnerability Assessment of Native Trout Species in the Crown of the Continent Ecosystem
+This repository contains the source code for the Interactive Catchment Explorer (ICE) application of Vulnerability Assessment of Native Trout Species in the Crown of the Continent Ecosystem.
 
 **LIVE URL:** http://ice.ecosheds.org/cce/
 
